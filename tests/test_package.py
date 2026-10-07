@@ -92,11 +92,21 @@ class SkillStructure(unittest.TestCase):
                     "templates/records/README.md", "templates/tools/README.md",
                     "templates/tools/doc-check.py", "templates/tools/machine-check.py",
                     "templates/memory/MEMORY.md", "templates/memory/project-instruction-file.md",
+                    "templates/memory/user-writing-style.md",
                     "machine/settings-guardrails.json", "machine/hooks/bash-guard.sh",
                     "machine/hooks/git-guard.sh", "machine/hooks/guard-lib.sh"]
         missing = [name for name in expected if not (SKILL / name).is_file()]
         self.assertEqual(missing, [])
         self.assertTrue((ROOT / "README.md").is_file())
+
+    def test_the_style_note_is_in_the_index_and_pointed_to_by_the_rules(self):
+        index = (SKILL / "templates" / "memory" / "MEMORY.md").read_text(encoding="utf-8")
+        self.assertIn("(user-writing-style.md)", index)
+        rules = (SKILL / "templates" / "rules.md").read_text(encoding="utf-8")
+        self.assertIn("memory/user-writing-style.md", rules)
+        note = (SKILL / "templates" / "memory" / "user-writing-style.md").read_text(encoding="utf-8")
+        self.assertTrue(note.startswith("---\nname: user-writing-style\n"))
+        self.assertEqual(len(re.findall(r"^\d+\. ", note, re.MULTILINE)), 18)
 
 
 class MachineFolder(unittest.TestCase):
