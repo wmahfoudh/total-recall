@@ -66,8 +66,20 @@ When `internal-<folder>/` exists, check it and stop:
 3. Run `python3 "internal-<folder>/tools/machine-check.py"`, or the
    copy in `${CLAUDE_SKILL_DIR}/templates/tools/` when the folder has
    none, and show its table.
-4. Offer the render of step 6, which adds what is missing and keeps
-   every existing file. Run it on the user's word only.
+4. Offer the repair, and run it on the user's word only:
+
+   ```
+   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --repair --target "internal-<folder>"
+   ```
+
+   It adds the files that need no answer (the rules, the routines, the
+   tools, the code map, the records README) where they are missing,
+   keeps every existing file, and prints `needs answers:` for each
+   missing file that the install writes from the user's answers (the
+   project file, the snapshot, the plan, a phase file, the history, the
+   story, the decisions, the memory note, the tools README). Those are
+   written by hand from what the folder already holds, never a second
+   phase file: the existing phase files keep their numbers.
 
 Then stop. The steps that follow are for a fresh install.
 

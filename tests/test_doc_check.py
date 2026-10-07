@@ -142,6 +142,11 @@ class FolderRules(unittest.TestCase):
         code, out = self.check({"phases/phase-01-start.md": text})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
+    def test_a_done_mark_wrapped_at_the_line_break_counts(self):
+        text = "# Phase 01: start\n\n### Task 1: a\n\n- [x] **Step 1: a** b. Done\n  07/10/2026: it worked.\n"
+        code, out = self.check({"phases/phase-01-start.md": text})
+        self.assertEqual((code, out.strip()), (0, "clean"))
+
     def test_a_long_state_file_is_reported(self):
         code, out = self.check({"state.md": "# State\n" + "line\n" * 150})
         self.assertIn("state.md:151: state.md has 151 lines, over 150", out)
@@ -162,6 +167,20 @@ class FolderRules(unittest.TestCase):
     def test_an_index_line_without_its_note_is_reported(self):
         code, out = self.check(drop=("memory/note.md",))
         self.assertIn("memory/MEMORY.md:0: the index names note.md, which does not exist", out)
+
+    def test_a_file_that_is_not_utf8_is_reported_by_name(self):
+        with tempfile.TemporaryDirectory() as root:
+            make_folder(root, MINIMAL)
+            (Path(root) / "story.md").write_bytes("caf\xe9\n".encode("latin-1"))
+            result = run_tool(root)
+        self.assertEqual(result.returncode, 1, result.stderr)
+        self.assertIn("story.md:0: not UTF-8", result.stdout)
+        self.assertEqual(result.stderr, "")
+
+    def test_only_the_table_of_documents_is_checked_for_files(self):
+        routines = "\n## The project's own routines\n\n| Routine | File | When |\n|---|---|---|\n| `release` | `records/release.md` | before a tag |\n"
+        code, out = self.check({"CLAUDE.md": MINIMAL["CLAUDE.md"] + routines})
+        self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_the_records_folder_is_skipped(self):
         code, out = self.check({"records/log.md": f"pasted {EM} as is\nText\n- list\n"})

@@ -2,11 +2,16 @@
 """Writes the internal folder of a project from the templates.
 
 Usage: python3 render.py --answers FILE --target DIR [--templates DIR]
+       python3 render.py --repair --target DIR [--templates DIR]
 
 The answers file is JSON with one value per placeholder. Placeholders
 are written {{name}} in the templates, in file names and in text. A
 file that already exists in the target is kept and reported; nothing
 is overwritten. Scripts are copied as they are and made executable.
+
+With --repair no answers are read: only the templates that carry no
+placeholder are added where they are missing, and each missing file
+that needs answers is named for the session to write by hand.
 
 Exits 0 when done, 2 when a template names an unknown placeholder or
 the answers lack one. Nothing is written in that case.
@@ -46,21 +51,30 @@ def template_files(templates):
     return files
 
 
-def plan(templates, target, answers):
-    """The (source, destination) pairs, once the templates and the answers are checked."""
-    templates = Path(templates)
+def needs_of(source, templates):
+    """The placeholders a template uses, in its path and in its text."""
+    names = placeholders_in(str(source.relative_to(templates)))
+    if source.suffix in RENDERED_SUFFIXES:
+        names |= placeholders_in(source.read_text(encoding="utf-8"))
+    return names
+
+
+def check_templates(templates):
+    """Raises ValueError when a template names a placeholder that is not known."""
     unknown = {}
     for source in template_files(templates):
-        relative = str(source.relative_to(templates))
-        names = placeholders_in(relative)
-        if source.suffix in RENDERED_SUFFIXES:
-            names |= placeholders_in(source.read_text(encoding="utf-8"))
-        bad = sorted(names - set(PLACEHOLDERS))
+        bad = sorted(needs_of(source, templates) - set(PLACEHOLDERS))
         if bad:
-            unknown[relative] = bad
+            unknown[str(source.relative_to(templates))] = bad
     if unknown:
         detail = "; ".join(f"{name}: {', '.join(bad)}" for name, bad in unknown.items())
         raise ValueError(f"unknown placeholders in the templates: {detail}")
+
+
+def plan(templates, target, answers):
+    """The (source, destination) pairs, once the templates and the answers are checked."""
+    templates = Path(templates)
+    check_templates(templates)
     missing = [name for name in PLACEHOLDERS if name not in answers]
     if missing:
         raise ValueError("missing answers: " + ", ".join(missing))
@@ -69,6 +83,20 @@ def plan(templates, target, answers):
         relative = render_text(str(source.relative_to(templates)), answers)
         pairs.append((source, Path(target) / relative))
     return pairs
+
+
+def plan_repair(templates, target):
+    """The pairs that need no answer, and the names of the templates that do."""
+    templates = Path(templates)
+    check_templates(templates)
+    pairs, by_hand = [], []
+    for source in template_files(templates):
+        relative = str(source.relative_to(templates))
+        if needs_of(source, templates):
+            by_hand.append(relative)
+        else:
+            pairs.append((source, Path(target) / relative))
+    return pairs, by_hand
 
 
 def write(pairs, answers):
@@ -92,13 +120,22 @@ def write(pairs, answers):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Writes the internal folder of a project from the templates.")
-    parser.add_argument("--answers", required=True, help="the JSON file with one value per placeholder")
+    parser.add_argument("--answers", help="the JSON file with one value per placeholder")
+    parser.add_argument("--repair", action="store_true",
+                        help="add only the files that need no answer, and name the others")
     parser.add_argument("--target", required=True, help="the internal folder to write")
     parser.add_argument("--templates", default=str(DEFAULT_TEMPLATES), help="the templates folder")
     args = parser.parse_args(argv)
+    if not args.repair and not args.answers:
+        parser.error("--answers is needed, or --repair")
+    by_hand = []
+    answers = {}
     try:
-        answers = json.loads(Path(args.answers).read_text(encoding="utf-8"))
-        pairs = plan(args.templates, args.target, answers)
+        if args.repair:
+            pairs, by_hand = plan_repair(args.templates, args.target)
+        else:
+            answers = json.loads(Path(args.answers).read_text(encoding="utf-8"))
+            pairs = plan(args.templates, args.target, answers)
     except (OSError, ValueError) as error:
         print(error, file=sys.stderr)
         return 2
@@ -107,6 +144,9 @@ def main(argv=None):
         print(f"wrote {path}")
     for path in kept:
         print(f"kept {path}")
+    for name in by_hand:
+        if not (Path(args.target) / name).exists():
+            print(f"needs answers: {name}")
     return 0
 
 

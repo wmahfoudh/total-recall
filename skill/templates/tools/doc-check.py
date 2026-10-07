@@ -80,15 +80,25 @@ STATE_MAX_LINES = 150
 def check_documents_table(folder, text):
     """Each file named in the table of documents of CLAUDE.md exists.
 
-    A name is looked for in the folder, then at the root of the
-    repository, for a public file that a project's own routine names.
+    The table of documents is the one whose first header cell is
+    "File". The other tables of the file, such as the project's own
+    routines, are left alone. A name is looked for in the folder, then
+    at the root of the repository, for a public file that a project's
+    own routine names.
     """
     found = []
-    for number, line in enumerate(text.split("\n"), 1):
+    lines = text.split("\n")
+    checking = False
+    for number, line in enumerate(lines, 1):
         if not line.startswith("|"):
+            checking = False
             continue
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if not cells or not cells[0].startswith("`"):
+        previous = lines[number - 2] if number > 1 else ""
+        if not previous.startswith("|"):
+            checking = bool(cells) and cells[0] == "File"
+            continue
+        if not checking or not cells or not cells[0].startswith("`"):
             continue
         name = cells[0].strip("`")
         if not (folder / name).exists() and not (folder.parent / name).exists():
@@ -102,7 +112,11 @@ def check_tasks(phase_files):
     seen = {}
     for path in phase_files:
         last = 0
-        for number, line in enumerate(path.read_text(encoding="utf-8").split("\n"), 1):
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        for number, line in enumerate(text.split("\n"), 1):
             match = TASK_RE.match(line)
             if not match:
                 continue
@@ -124,10 +138,10 @@ def check_done_steps(text):
     for number, line in enumerate(lines, 1):
         if not DONE_STEP_RE.match(line):
             continue
-        block = [line]
+        block = [line.strip()]
         for following in lines[number:]:
             if following.startswith("  ") and not is_list(following):
-                block.append(following)
+                block.append(following.strip())
             else:
                 break
         if not DONE_MARK_RE.search(" ".join(block)):
@@ -156,7 +170,11 @@ def check_memory(folder):
     index = memory / "MEMORY.md"
     if not index.exists():
         return [(index, 0, "memory/MEMORY.md is missing")]
-    listed = set(re.findall(r"\]\(([^)]+\.md)\)", index.read_text(encoding="utf-8")))
+    try:
+        index_text = index.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return [(index, 0, "not UTF-8, the index cannot be read")]
+    listed = set(re.findall(r"\]\(([^)]+\.md)\)", index_text))
     notes = {path.name for path in memory.glob("*.md")} - {"MEMORY.md"}
     found = []
     for name in sorted(notes - listed):
@@ -177,29 +195,39 @@ def check_folder(folder):
     for path in sorted(folder.rglob("*.md")):
         if "records" in path.relative_to(folder).parts:
             continue
-        text = path.read_text(encoding="utf-8")
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            add(path, 0, "not UTF-8, the document cannot be read")
+            continue
         for number, message in find_dashes(text) + find_list_breaks(text):
             add(path, number, message)
+    def text_of(path):
+        try:
+            return path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            return ""
+
     claude = folder / "CLAUDE.md"
     if claude.exists():
-        for number, message in check_documents_table(folder, claude.read_text(encoding="utf-8")):
+        for number, message in check_documents_table(folder, text_of(claude)):
             add(claude, number, message)
     else:
         findings.append("CLAUDE.md:0: CLAUDE.md is missing")
     phases_dir = folder / "phases"
     phases = sorted(phases_dir.glob("phase-*.md")) if phases_dir.is_dir() else []
     for path in phases:
-        for number, message in check_done_steps(path.read_text(encoding="utf-8")):
+        for number, message in check_done_steps(text_of(path)):
             add(path, number, message)
     for path, number, message in check_tasks(phases):
         add(path, number, message)
     state = folder / "state.md"
     if state.exists():
-        for number, message in check_state(state.read_text(encoding="utf-8")):
+        for number, message in check_state(text_of(state)):
             add(state, number, message)
     history = folder / "history.md"
     if history.exists():
-        for number, message in check_history(history.read_text(encoding="utf-8")):
+        for number, message in check_history(text_of(history)):
             add(history, number, message)
     for path, number, message in check_memory(folder):
         add(path, number, message)
