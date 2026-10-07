@@ -98,6 +98,22 @@ class Render(unittest.TestCase):
         self.assertIn("task1_name", result.stderr)
         self.assertFalse(self.target.exists())
 
+    def test_a_repair_adds_only_the_files_that_need_no_answer(self):
+        make(self.templates, {"close.md": "# The close\n", "tools/README.md": "{{internal}}\n"})
+        self.target.mkdir()
+        (self.target / "CLAUDE.md").write_text("mine\n", encoding="utf-8")
+        result = subprocess.run([sys.executable, "-I", str(RENDER), "--repair", "--target", str(self.target),
+                                 "--templates", str(self.templates)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.target / "close.md").exists())
+        self.assertTrue((self.target / "tools" / "x.py").exists())
+        self.assertFalse((self.target / "tools" / "README.md").exists())
+        self.assertFalse((self.target / "phases").exists())
+        self.assertEqual((self.target / "CLAUDE.md").read_text(encoding="utf-8"), "mine\n")
+        self.assertIn("needs answers: tools/README.md", result.stdout)
+        self.assertIn("needs answers: phases/phase-01-{{phase1_slug}}.md", result.stdout)
+        self.assertNotIn("CLAUDE.md", result.stdout)
+
     def test_the_real_templates_are_the_default(self):
         result = subprocess.run([sys.executable, "-I", str(RENDER), "--help"], capture_output=True, text=True)
         self.assertIn("templates", result.stdout)
