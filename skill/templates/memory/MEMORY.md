@@ -1,0 +1,1 @@
+- [Project instruction file](project-instruction-file.md): the rules of the project are in `CLAUDE.md` and `rules.md` of this folder, read whole at "let's start"; the memory notes of the project live here

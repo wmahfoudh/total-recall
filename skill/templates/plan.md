@@ -1,0 +1,31 @@
+# {{project}}: the plan
+
+## Goal
+
+{{description}}
+
+## Constraints
+
+{{constraints}}
+
+## Phases
+
+One file per phase in `phases/`, named `phase-NN-<name>.md`. The open
+phase is named in `state.md`. The rules of the numbers are in
+`lifecycle.md`.
+
+## Roadmap
+
+Ordered. Each item is a few lines: what it is, why, its size in
+sessions. An item becomes a phase or a task when it opens, and leaves
+the Roadmap when it is delivered in full. Nothing yet.
+
+## Parked
+
+Asks set aside, each with the condition for its return. Nothing yet.
+
+## Blocked
+
+What waits on something outside, with what it waits for. Nothing yet.
+
+The decisions on the Roadmap and on the plan are in `decisions.md`.

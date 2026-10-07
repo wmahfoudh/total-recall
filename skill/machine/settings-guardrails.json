@@ -1,0 +1,61 @@
+{
+  "permissions": {
+    "disableBypassPermissionsMode": "disable",
+    "deny": [
+      "Read(~/.ssh/id_*)",
+      "Read(~/.claude/.credentials.json)",
+      "Edit(~/.ssh/**)",
+      "Edit(~/.gnupg/**)",
+      "Edit(//etc/**)",
+      "Edit(~/.zshrc)",
+      "Edit(~/.zshenv)",
+      "Edit(~/.zprofile)",
+      "Edit(~/.bashrc)",
+      "Edit(~/.bash_profile)",
+      "Edit(~/.profile)",
+      "Edit(**/.git/**)",
+      "Bash(sudo)",
+      "Bash(sudo *)",
+      "Bash(su)",
+      "Bash(su *)",
+      "Bash(doas *)",
+      "Bash(pkexec *)",
+      "Bash(dd *)",
+      "Bash(mkfs*)",
+      "Bash(wipefs *)",
+      "Bash(shred *)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git pull*)",
+      "Bash(git fetch*)",
+      "Bash(git reset*)",
+      "Bash(git rebase*)",
+      "Bash(git merge*)",
+      "Bash(git checkout*)",
+      "Bash(git switch*)",
+      "Bash(git clean*)",
+      "Bash(git stash push*)",
+      "Bash(git stash pop*)",
+      "Bash(git stash drop*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/bash-guard.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/git-guard.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
