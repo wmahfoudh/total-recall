@@ -1,0 +1,79 @@
+# 07/10/2026, later - The first feedback: the reference project named in the folder
+
+Right after the close, the user read this folder and found two things.
+The first was a mistake, fixed at once. The second is a proposal.
+
+- The name of the reference project and the path of its folder were in
+  seven files of this folder (the history, the phase file, a memory
+  note and its index line, the four records), under a rule of Phase 01
+  that allowed it inside the folder. The user wants it nowhere. Task 16:
+  the prose files rewritten, the records scrubbed with placeholders,
+  this machine's path and the session scratchpad with them. Zero
+  mentions left, the check tool clean.
+- The user looked for their writing style under `memory/` and found two
+  notes. The style was in `rules.md`, "The user's style", eighteen
+  rules loaded at every start, by the consolidation of the spec. The
+  user's word: in memory it is stronger and less prone to be
+  forgotten. Task 17: the style shipped as a memory note in every
+  project, `memory/user-writing-style.md`, with `rules.md` pointing to
+  it; test first, 58 tests green, installed here. Committed by the
+  user as `f1bf102`.
+- The folder aligned with the skill as it stands: a fresh render
+  compared file by file, the fixed files identical, the filled ones
+  different as expected. The project file gained its own writing rule:
+  the name of the reference project and this machine are never written,
+  and a close searches the folder for the name.
+- The second close of the day: the check tool clean, the working tree
+  clean.
+
+# 07/10/2026 - The skill built, verified and installed on this project
+
+One long session, the whole of Phase 01: the reference memory system
+read and judged, the design agreed section by section, the spec and the
+plan written and approved, the package built test first, a fresh
+reviewer launched, the skill applied to this project.
+
+- At the start: the user's brief, the questions, the reference folder
+  named by the user (their production folder, read only; its path is
+  not written in this folder).
+- Task 1: the reference read whole; the memory wired through
+  `.claude/settings.local.json` and a machine-wide git ignore, which the
+  user did not want; the Claude Code documentation checked by a
+  research agent.
+- Task 2: four design sections agreed, with the user's corrections: no
+  `CLAUDE.local.md`, nothing under `.claude/`, no dependency on the
+  skill for the loading, a `tools/` folder, three to five questions at
+  the install, the record as its own file, always an open phase. Twelve
+  changes from the reference challenged and approved. The spec written
+  and approved.
+- Task 3: the plan, thirteen tasks, approved; native execution, the
+  user's voice on every text.
+- Tasks 4 to 11: the two tools and the render script test first (53
+  tests green), the rules file, the templates, the machine folder, the
+  skill file, the README, the verification. Three stumbles: the Write
+  tool decoded the escape codes of the two dashes into the characters
+  themselves, in the plan and again in this file (spelled with `chr()`
+  in code, in words in prose); a test expected a table row on the wrong
+  line; a stray bytecode cache was copied into a sample render.
+- Task 12: the reviewer launched, read only, with the spec, the plan
+  and the rulings. Its findings are open.
+- Task 13: the install here, by the skill's own steps: the description
+  approved, seventeen files rendered, the check clean, the machine
+  table present on every row. The exclusion line is handed to the user.
+  The import line `@rules.md` verified on the way: Claude Code loaded
+  the project file and the rules together when the folder was first
+  read. The check tool caught nine `Done` marks with a comma for a
+  colon and seven without an outcome in the phase file, and learned
+  that a mark may wrap at the line break.
+- Task 12, the findings: no Critical; four Important fixed in one pass,
+  test first (the repair mode of the render, the quoting in the tools
+  README, a file that is not UTF-8 named by the check, the table of
+  documents read by its header); thirteen Minor to the Roadmap; the
+  report saved as `records/2026-10-07-review.md`. 57 tests green. The
+  reviewer also found the first commit (`aca0d06`) and the link of the
+  skill, made by the user during the build.
+- Task 14, the close: this folder brought to the end of the session,
+  Phase 01 closed, Phase 02 opened with Task 15.
+- After the close: the user added the exclusion line and committed the
+  fixes (`3d49152`, `45ed75f`). Git ignores the folder, read with
+  `git check-ignore`. Left open: the trial on a scratch repository.
