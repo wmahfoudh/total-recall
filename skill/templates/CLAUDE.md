@@ -12,9 +12,9 @@ with no need for the phrase.
 `{{internal}}/` is the memory of the project. Claude Code loads this
 file when a session reads a file in the folder.
 
-The size read at each start (this file, `rules.md`, `state.md`,
-`plan.md` and the memory notes): 8,000 words at most.
-`tools/doc-check.py` reports it.
+The size read at each start (this file, `rules.md` and the output of
+`tools/start.py`): 8,000 words at most. `tools/doc-check.py` reports
+it.
 
 | File | What it holds |
 |---|---|
@@ -39,11 +39,15 @@ The size read at each start (this file, `rules.md`, `state.md`,
 
 "let's start", "let's continue" or "let's resume" runs the start routine:
 
-1. Read this file whole, with `rules.md`, then `state.md`, then
-   `memory/MEMORY.md` and each note whole.
-2. In `plan.md`, read the goal and the head of the Roadmap. In the open
-   phase file, named in `state.md`, read the preamble and the current
-   task, not the whole phase.
+1. Run `python3 "{{internal}}/tools/start.py" "{{internal}}"` and read
+   its output: `state.md` and the memory notes whole, the goal and the
+   head of the Roadmap, the preamble and the current task of the open
+   phase. Claude Code loads this file and `rules.md` when the session
+   reads a file in the folder: do not read them again.
+2. When the script fails, read `state.md`, then `memory/MEMORY.md` and
+   each note whole, the goal and the head of the Roadmap in `plan.md`,
+   and the preamble and the current task of the open phase file named
+   in `state.md`.
 3. Give the briefing in a few sentences: the position, what the last
    session did, what comes next, what waits on the user. Then wait for
    the go, and do not start the work.

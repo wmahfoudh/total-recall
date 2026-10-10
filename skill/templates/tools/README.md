@@ -6,4 +6,5 @@ line here in the same session.
 | Script | Use |
 |---|---|
 | `doc-check.py` | `python3 "{{internal}}/tools/doc-check.py" "{{internal}}"` checks the documents of the folder: the files named in the table of `CLAUDE.md` exist, no dash character, a blank line before each list and table, the task numbers grow and repeat nowhere, a ticked step has its date, `state.md` under 150 lines, the history titles, the memory index, the decisions numbered and newest first, each obsolete decision with its "Replaced by" line and the most recently replaced first, the size read at each start under the limit of `CLAUDE.md` (`--size` prints it). Run at each close |
+| `start.py` | `python3 "{{internal}}/tools/start.py" "{{internal}}"` prints what a session reads at its start: `state.md` and the memory notes whole, the goal and the head of the Roadmap, the preamble and the current task of the open phase. Run by the start routine |
 | `machine-check.py` | `python3 "{{internal}}/tools/machine-check.py"` reports the guardrails of the machine: the global rules file, the permission deny list, the guard hooks, `jq`, the sandbox. Run on a new machine |

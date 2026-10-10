@@ -1,2 +1,2 @@
-- [Project instruction file](project-instruction-file.md): the rules of the project are in `CLAUDE.md` and `rules.md` of this folder, read whole at "let's start"; the memory notes of the project live here
+- [Project instruction file](project-instruction-file.md): the rules of the project are in `CLAUDE.md` and `rules.md` of this folder, loaded by Claude Code at "let's start"; the memory notes of the project live here
 - [The user's writing style](user-writing-style.md): all the text I write follows the user's own plain style, eighteen rules from their corrections and their own rewrites, and the rule of a reply. Read whole before writing any text

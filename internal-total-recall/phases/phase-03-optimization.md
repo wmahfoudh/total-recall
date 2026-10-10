@@ -92,9 +92,18 @@ filter the output of commands before it reaches the context.
   new measure reads 6,706 words where the old one read 6,046: the old
   one left the phase file out. The start as read before was 6,046 and
   the whole phase file, 7,743 words, and the rules read twice on top.
-- [ ] **Step 4: The routine** The start routine and the size line of
+- [x] **Step 4: The routine** The start routine and the size line of
   the template `CLAUDE.md`, the file lists of `SKILL.md` and the
-  README; checked by the sample render.
+  README; checked by the sample render. Done 11/10/2026: 134 tests
+  green. The routine runs the script, does not read `CLAUDE.md` and
+  `rules.md` again, and reads the files when the script fails. The
+  line of `start.py` in `templates/tools/README.md`, the `tools/` rows
+  of `SKILL.md` and the README, the paragraph of the README on a
+  session. Found by the sample render: the template note
+  `project-instruction-file` and its index line said to read both
+  files whole at the start, the double read again; both now say that
+  Claude Code loads them. A sample render: the script exits 0, the
+  check reads `clean`, 4,990 words read at each start.
 - [ ] **Step 5: The install here** The script, the tool and the routine
   brought into this folder, and the measure run on it.
 - [ ] **Step 6: The trial** The user opens a fresh session with

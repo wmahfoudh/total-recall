@@ -22,7 +22,7 @@ The folder is named `internal-<project-name>`, after the project's folder. At th
 | `lifecycle.md` | Phases, tasks and steps, their numbers, the opening and the close of a phase |
 | `code-map.md` | Where the work of each phase is in the tree |
 | `records/` | One-off records: a pasted log, a study, a spec written by a skill |
-| `tools/` | A check of the documents and a check of the machine |
+| `tools/` | The script of the start, a check of the documents and a check of the machine |
 | `memory/` | The memory notes of the project and their index |
 | `backup/` | The archives of the folder, made by `/total-recall backup` and before each update, listed in its README |
 
@@ -40,7 +40,7 @@ A change in `skill/templates/` applies to the projects installed after it. A cha
 
 ## How a session works
 
-The session opens with "let's start". It reads the project file, the rules, the snapshot and the memory notes, then the open phase, and gives a briefing: where the project is, what the last session did, what comes next, what waits on the user. Then it waits for the go.
+The session opens with "let's start". Claude runs a script that prints the snapshot, the memory notes, the head of the plan and the current task of the open phase, so that it does not read whole files. Claude Code loads the project file and the rules by itself. Then Claude gives a briefing: where the project is, what the last session did, what comes next, what waits on the user. Then it waits for the go.
 
 During the session the work follows the open phase, a task at a time. Small facts with an obvious place are written as the work goes: a ticked step, a decision, a Roadmap item. A text that would go into a file read at each start, or that changes something already written, is proposed first, at a pause in the work.
 

@@ -37,7 +37,7 @@ project's folder:
 | `lifecycle.md` | Phases, tasks and steps, their numbers, the opening and the close of a phase |
 | `code-map.md` | Where the work of each phase is in the tree |
 | `records/` | One-off records, listed in its README |
-| `tools/` | `doc-check.py`, which checks the documents, and `machine-check.py`, which reports the guardrails of the machine, with a README |
+| `tools/` | `start.py`, which prints what a session reads at its start, `doc-check.py`, which checks the documents, and `machine-check.py`, which reports the guardrails of the machine, with a README |
 | `memory/` | The memory notes of the project and their index |
 | `backup/` | The archives of the folder, made by `/total-recall backup` and before each update, listed in its README |
 
