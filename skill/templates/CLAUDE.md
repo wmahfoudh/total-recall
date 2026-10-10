@@ -9,10 +9,8 @@ with no need for the phrase.
 
 ## Working documents
 
-`{{internal}}/` is the memory of the project. Git does not track it: one
-line in `.git/info/exclude` keeps it out. A file replaced here does not
-come back from a commit. Claude Code loads this file when a session
-reads a file in the folder.
+`{{internal}}/` is the memory of the project. Claude Code loads this
+file when a session reads a file in the folder.
 
 | File | What it holds |
 |---|---|

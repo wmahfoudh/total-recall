@@ -29,6 +29,13 @@ def text_files():
     return [p for p in files if p.exists()]
 
 
+
+def skill_steps():
+    """The numbered steps of SKILL.md, by number: the title line, then the body."""
+    text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+    parts = re.split(r"^## (\d+)\. ", text, flags=re.MULTILINE)
+    return dict(zip(parts[1::2], parts[2::2]))
+
 class WritingRules(unittest.TestCase):
     def setUp(self):
         self.doc = load(SKILL / "templates" / "tools" / "doc-check.py", "doc_check")
@@ -150,6 +157,19 @@ class MachineFolder(unittest.TestCase):
             self.assertTrue(script.read_text(encoding="utf-8").startswith("#!/usr/bin/env bash"))
             self.assertTrue(os.access(script, os.X_OK), name)
 
+
+
+class GitQuestion(unittest.TestCase):
+    def test_the_skill_asks_before_the_exclusion(self):
+        steps = skill_steps()
+        self.assertIn("Keep the folder out of git, yes or no?", steps["5"])
+        self.assertTrue(steps["7"].split("\n", 1)[1].strip().startswith("Only when the user answered yes"))
+
+    def test_no_template_states_how_git_treats_the_folder(self):
+        for path in (SKILL / "templates").rglob("*.md"):
+            text = path.read_text(encoding="utf-8").lower()
+            for phrase in ("out of git", "does not track", "info/exclude", "not in git", "goes through git"):
+                self.assertFalse(phrase in text, f"{path.relative_to(SKILL)} says {phrase!r}")
 
 if __name__ == "__main__":
     unittest.main()

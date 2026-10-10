@@ -5,4 +5,3 @@ The internal folder created by `/total-recall`, with Phase 01,
 
 - The documents, the tools and the memory folder written from the
   templates of the skill.
-- The exclusion line in `.git/info/exclude`, added by the user.

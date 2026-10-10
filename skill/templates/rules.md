@@ -256,8 +256,7 @@ verdict or an opinion to confirm.
 ## The internal folder
 
 The memory of the project is the internal folder named in the project
-file. Git does not track it, and nothing in it can be brought back from
-a commit.
+file.
 
 - Before a new file is written there, list its name. The write tool
   replaces an existing file without a word, and says "updated" in place
@@ -276,5 +275,4 @@ a commit.
   They are read whole at the start of a session, not their index only.
   Claude Code's own memory folder is left alone.
 - A spec or a plan written by a skill is saved under `records/` of the
-  folder, not under a folder git tracks, and its tasks become tasks of
-  the open phase.
+  folder, and its tasks become tasks of the open phase.

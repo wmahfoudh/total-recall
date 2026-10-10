@@ -181,9 +181,15 @@ Task 21.
 
 **The steps:**
 
-- [ ] **Step 1: The tests** `GitQuestion`, seen red.
-- [ ] **Step 2: The text** `SKILL.md` and the templates; the suite
-  green.
+- [x] **Step 1: The tests** `GitQuestion`, seen red. Done 10/10/2026:
+  both red, `templates/rules.md` said "does not track" and step 5 had
+  no question.
+- [x] **Step 2: The text** `SKILL.md` and the templates; the suite
+  green. Done 10/10/2026: 80 tests green. A sample render reads
+  `clean`, and none of its sentences says how git treats the folder.
+  `SKILL.md` keeps the exclusion in step 2 (reported as information),
+  step 5 (the question) and step 7 (on a yes only). The README is Task
+  24.
 
 The git line: `feat: ask whether git should ignore the internal folder`.
 

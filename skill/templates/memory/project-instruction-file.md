@@ -7,11 +7,11 @@ metadata:
 
 The instruction file of the project is `{{internal}}/CLAUDE.md`, and
 the rules it imports are `{{internal}}/rules.md`. The repository has no
-instruction file at its root, and git does not track `{{internal}}/`.
+instruction file at its root.
 
 **Why:** the user keeps the instruction file, the documents and the
-notes out of the repository, and wants them to work on any machine
-without a setting.
+notes in one folder of the project, and wants them to work on any
+machine without a setting.
 
 **How to apply:** at the start of a session, read both files whole,
 then `state.md`, then the notes of this folder. A new note is written

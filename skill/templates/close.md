@@ -53,4 +53,4 @@ the head of the Roadmap, with its number, its name and its file, by
 
 The close changes several documents. The reply lists each file changed
 and what changed in it, a line each, then the output of the check tool.
-Nothing of the folder goes through git.
+The close runs no git command.

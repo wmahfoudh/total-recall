@@ -1,6 +1,6 @@
 ---
 name: total-recall
-description: Sets up a persistent memory for a project in an internal folder kept out of git, and checks an existing one. Each Claude Code session then knows what was done and what comes next. Use when the user types /total-recall, or asks to set up, install, check or repair the project memory, the internal folder or total recall on a repository.
+description: Sets up a persistent memory for a project in an internal folder, checks an existing one and brings it to the current form. Each Claude Code session then knows what was done and what comes next. Use when the user types /total-recall, or asks to set up, install, check, repair or update the project memory, the internal folder or total recall on a repository.
 disable-model-invocation: true
 ---
 
@@ -10,9 +10,7 @@ The user works on a project with Claude Code over many sessions, and
 each session needs to know what was done before and what comes next.
 This skill installs a memory for that inside the project: a folder of
 plain documents that a session reads at its start and updates at its
-close. One line in `.git/info/exclude` keeps the folder out of git.
-Nothing of it reaches a shared repository, and the folder name is the
-only trace.
+close.
 
 Run the steps below in order. Each one says what to do, what to show the
 user, and where to stop. The user runs every command that writes to git
@@ -62,7 +60,7 @@ When `internal-<folder>/` exists, check it and stop:
 1. List the files of `${CLAUDE_SKILL_DIR}/templates/` against the
    internal folder, and name each one that is missing.
 2. Read `.git/info/exclude` and say whether the line
-   `/internal-<folder>/` is there.
+   `/internal-<folder>/` is there, as information.
 3. Run `python3 "internal-<folder>/tools/machine-check.py"`, or the
    copy in `${CLAUDE_SKILL_DIR}/templates/tools/` when the folder has
    none, and show its table.
@@ -117,8 +115,10 @@ again, until the user says it is right.
 ## 5. The list and the go
 
 Show the files that will be written: the table above with the folder
-name filled in. Show the one line that will be handed over for
-`.git/info/exclude`. Wait for the go.
+name filled in. Then ask one question:
+"Keep the folder out of git, yes or no?" On a yes, show the line that
+step 7 hands over. The answer is not written in any file. Wait for the
+go.
 
 ## 6. The folder
 
@@ -149,6 +149,8 @@ python3 "internal-<folder>/tools/doc-check.py" "internal-<folder>"
 A fresh install reads `clean`.
 
 ## 7. The exclusion
+
+Only when the user answered yes in step 5. On a no, go to step 8.
 
 The line that keeps the folder out of git goes in `.git/info/exclude`,
 a file git never commits. A write into `.git` is the user's. Hand them
@@ -206,7 +208,8 @@ table.
 
 End with the scenario, numbered, for the user to try:
 
-1. `git status` shows nothing from `internal-<folder>/`.
+1. On a yes in step 5, `git status` shows nothing from
+   `internal-<folder>/`.
 2. A new session, opened with "read internal-<folder>/CLAUDE.md" (or
    with "let's start" where a global file maps it), gives the briefing:
    Phase 01 open, Task 1 next.
