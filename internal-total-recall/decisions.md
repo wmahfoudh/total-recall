@@ -7,6 +7,20 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D26, 11/10/2026: the repeats of the templates removed
+
+Task 37 removes four repeats of the templates:
+
+- the Goal of `plan.md` points to the description of `CLAUDE.md`;
+- the Constraints of `plan.md` point to "Engineering" of `CLAUDE.md`;
+- the note `project-instruction-file` is deleted, since a session reads
+  it after `CLAUDE.md` is loaded and it adds nothing to it;
+- the template `CLAUDE.md` is named `CLAUDE.template.md`, and
+  `render.py` writes it as `CLAUDE.md`, so that Claude Code does not
+  load the templates as instructions in this repository.
+
+The user's word.
+
 ## D25, 11/10/2026: no line for shorter close entries
 
 Task 36 ends with no change to `close.md`. The reasons:

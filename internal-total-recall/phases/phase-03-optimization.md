@@ -245,6 +245,42 @@ What it does and why: the templates write the description twice
 the note `project-instruction-file` repeats `CLAUDE.md` and `rules.md`,
 all read at each start. Item 6 of the Roadmap, moved here.
 
+Discussed with the user 11/10/2026, D26: four changes. The Goal and the
+Constraints of `plan.md` point to `CLAUDE.md`. The note
+`project-instruction-file` is deleted, since a session reads it only
+after `CLAUDE.md` is loaded. The template `CLAUDE.md` is renamed
+`CLAUDE.template.md`, and `render.py` writes it as `CLAUDE.md`: a
+`CLAUDE.md` in `skill/templates/` makes Claude Code load it with the
+template rules, about 3,200 words, in each session here that touches
+the templates.
+
+**The steps:**
+
+- [ ] **Step 1: The tests** The rename in the render tests and the
+  package test, the note gone from the expected files and the index,
+  no `{{description}}` or `{{constraints}}` in the template plan. Seen
+  red. Done 11/10/2026: five new tests and the template paths of
+  `test_package.py` changed; 139 tests, 6 failures and 6 errors, each
+  on the old name or the old file.
+- [x] **Step 2: The code and the templates** The rename in `render.py`,
+  the template `CLAUDE.template.md`, the pointers of the template
+  plan, the index line of the note removed. The old files removed by
+  the user. The suite green, the sample render clean. Done 11/10/2026:
+  `destination_of` and `TEMPLATE_NAMES` in `render.py`; the three old
+  files removed by the user. 139 tests green; the sample render has a
+  `CLAUDE.md`, no `CLAUDE.template.md`, no placeholder, the check
+  `clean`.
+- [x] **Step 3: The install here** The pointers of `plan.md` and the
+  index line of the note in this folder, the note removed by the user.
+  Done 11/10/2026: the old Constraints matched "Engineering" of
+  `CLAUDE.md` line for line before they were replaced. The check
+  `clean`.
+- [x] **Step 4: The measure** `doc-check.py --size` before and after,
+  here and on the sample render. Done 11/10/2026: here 6,158 words
+  before, 5,887 after; the sample render 4,812 before, 4,613 after.
+  The load of the template `CLAUDE.md` in this repository is not
+  measured: the next session that edits a template shows it.
+
 ### Task 38: The phase file that grows
 
 What it does and why: the file of Phase 02 reached 4,167 words with

@@ -36,6 +36,9 @@ PLACEHOLDER_RE = re.compile(r"\{\{(\w+)\}\}")
 RENDERED_SUFFIXES = (".md", ".json", ".txt")
 SCRIPT_SUFFIXES = (".py", ".sh")
 DEFAULT_TEMPLATES = Path(__file__).resolve().parent.parent / "templates"
+# A file named CLAUDE.md in the templates would be loaded by Claude Code as
+# instructions in the skill's own repository, so the template has another name.
+TEMPLATE_NAMES = {"CLAUDE.template.md": "CLAUDE.md"}
 NUMBERED_RE = re.compile(r"^## D\d+, ")
 TITLE_DATE_RE = re.compile(r"^\d{2}/\d{2}/\d{4}: ")
 
@@ -80,6 +83,12 @@ def check_templates(templates):
         raise ValueError(f"unknown placeholders in the templates: {detail}")
 
 
+def destination_of(relative):
+    """The path a template is written to, relative to the target."""
+    path = Path(relative)
+    return str(path.with_name(TEMPLATE_NAMES.get(path.name, path.name)))
+
+
 def plan(templates, target, answers):
     """The (source, destination) pairs, once the templates and the answers are checked."""
     templates = Path(templates)
@@ -89,7 +98,7 @@ def plan(templates, target, answers):
         raise ValueError("missing answers: " + ", ".join(missing))
     pairs = []
     for source in template_files(templates):
-        relative = render_text(str(source.relative_to(templates)), answers)
+        relative = destination_of(render_text(str(source.relative_to(templates)), answers))
         pairs.append((source, Path(target) / relative))
     return pairs
 
@@ -100,7 +109,7 @@ def plan_repair(templates, target):
     check_templates(templates)
     pairs, by_hand = [], []
     for source in template_files(templates):
-        relative = str(source.relative_to(templates))
+        relative = destination_of(source.relative_to(templates))
         if needs_of(source, templates):
             by_hand.append(relative)
         else:

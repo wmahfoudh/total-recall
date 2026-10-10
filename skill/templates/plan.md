@@ -2,11 +2,11 @@
 
 ## Goal
 
-{{description}}
+The goal is the description at the top of `CLAUDE.md`.
 
 ## Constraints
 
-{{constraints}}
+The constraints are under "Engineering" in `CLAUDE.md`.
 
 ## Phases
 

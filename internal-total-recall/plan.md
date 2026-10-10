@@ -2,16 +2,11 @@
 
 ## Goal
 
-Total recall is a Claude Code skill that gives a project a memory: a folder of plain documents inside the project, that a session reads at its start and updates at its close. I made it from the memory system of an earlier project of mine, keeping what worked and changing what did not. The repository holds the skill (`skill/`), its tests (`tests/`) and the README. It started for my own projects, on any machine where Claude Code runs, and the repository is public. The skill is installed by a link into `~/.claude/skills/`, and this project is the first one it runs on.
+The goal is the description at the top of `CLAUDE.md`.
 
 ## Constraints
 
-- Markdown templates, Python 3 with the standard library only, bash for the three guard scripts.
-- The check command is `python3 -m unittest discover -s tests -v`, from the repository root, green before a hand-over.
-- The repository may be shared: nothing in it names the reference project, this machine or another project's stack.
-- All the text follows `rules.md` and the style note: no dash character, a blank line before each list and table, the README speaking to the reader.
-- Git writes are the user's. Nothing is written under `.claude/`.
-- The tests write no bytecode into the templates.
+The constraints are under "Engineering" in `CLAUDE.md`.
 
 ## Phases
 

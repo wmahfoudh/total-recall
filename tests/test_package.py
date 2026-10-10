@@ -106,14 +106,14 @@ class SkillStructure(unittest.TestCase):
             self.assertTrue(names <= set(render.PLACEHOLDERS), f"{path}: {names}")
 
     def test_the_expected_files_exist(self):
-        expected = ["SKILL.md", "scripts/render.py", "templates/CLAUDE.md", "templates/rules.md",
+        expected = ["SKILL.md", "scripts/render.py", "templates/CLAUDE.template.md", "templates/rules.md",
                     "templates/state.md", "templates/plan.md", "templates/phases/phase-01-{{phase1_slug}}.md",
                     "templates/history.md", "templates/story.md", "templates/decisions.md",
                     "templates/close.md", "templates/lifecycle.md", "templates/code-map.md",
                     "templates/records/README.md", "templates/tools/README.md",
                     "templates/tools/doc-check.py", "templates/tools/machine-check.py",
                     "templates/tools/start.py",
-                    "templates/memory/MEMORY.md", "templates/memory/project-instruction-file.md",
+                    "templates/memory/MEMORY.md",
                     "templates/memory/user-writing-style.md", "templates/obsolete.md",
                     "templates/review.md",
                     "machine/settings-guardrails.json", "machine/hooks/bash-guard.sh",
@@ -122,8 +122,26 @@ class SkillStructure(unittest.TestCase):
         self.assertEqual(missing, [])
         self.assertTrue((ROOT / "README.md").is_file())
 
+    def test_no_template_is_named_claude_md(self):
+        found = [str(p.relative_to(SKILL)) for p in (SKILL / "templates").rglob("CLAUDE.md")]
+        self.assertEqual(found, [])
+
+    def test_the_note_on_the_project_file_is_gone(self):
+        self.assertFalse((SKILL / "templates" / "memory" / "project-instruction-file.md").exists())
+        index = (SKILL / "templates" / "memory" / "MEMORY.md").read_text(encoding="utf-8")
+        self.assertNotIn("project-instruction-file", index)
+
+    def test_the_plan_points_to_the_project_file_for_the_goal_and_the_constraints(self):
+        plan = (SKILL / "templates" / "plan.md").read_text(encoding="utf-8")
+        self.assertNotIn("{{description}}", plan)
+        self.assertNotIn("{{constraints}}", plan)
+        goal = plan.split("## Goal", 1)[1].split("\n## ", 1)[0]
+        constraints = plan.split("## Constraints", 1)[1].split("\n## ", 1)[0]
+        self.assertIn("`CLAUDE.md`", goal)
+        self.assertIn("`CLAUDE.md`", constraints)
+
     def test_the_start_routine_runs_the_start_script(self):
-        claude = (SKILL / "templates" / "CLAUDE.md").read_text(encoding="utf-8")
+        claude = (SKILL / "templates" / "CLAUDE.template.md").read_text(encoding="utf-8")
         routine = claude[claude.index("runs the start routine"):claude.index("During the session")]
         self.assertIn("tools/start.py", routine)
 
@@ -141,7 +159,7 @@ class SkillStructure(unittest.TestCase):
         decisions = (SKILL / "templates" / "decisions.md").read_text(encoding="utf-8")
         self.assertIn("\n## D1, {{date}}: ", decisions)
         self.assertNotIn("{{", decisions.split("\n## ", 1)[0])
-        claude = (SKILL / "templates" / "CLAUDE.md").read_text(encoding="utf-8")
+        claude = (SKILL / "templates" / "CLAUDE.template.md").read_text(encoding="utf-8")
         self.assertIn("| `obsolete.md` |", claude)
 
 class MachineFolder(unittest.TestCase):
@@ -204,7 +222,7 @@ class WhenToAsk(unittest.TestCase):
             self.assertIn(label, rules)
 
     def test_the_project_file_points_to_the_rule_and_sets_the_size(self):
-        claude = self.read("CLAUDE.md")
+        claude = self.read("CLAUDE.template.md")
         self.assertIn('"When to ask before a write"', claude)
         self.assertNotIn("becomes a memory note at once", claude)
         self.assertIn("The size read at each start", claude)
@@ -221,7 +239,7 @@ class Review(unittest.TestCase):
         return (SKILL / "templates" / name).read_text(encoding="utf-8")
 
     def test_the_review_is_named_in_the_project_file_and_the_skill(self):
-        claude = self.read("CLAUDE.md")
+        claude = self.read("CLAUDE.template.md")
         self.assertIn("| `review.md` |", claude)
         self.assertIn('"review the memory"', claude)
         self.assertIn("| `review.md` |", (SKILL / "SKILL.md").read_text(encoding="utf-8"))
@@ -314,7 +332,7 @@ class BackupAndUpdate(unittest.TestCase):
         self.assertNotIn("Overwrite an existing file", never)
 
     def test_the_backup_folder_is_in_the_tables(self):
-        claude = (SKILL / "templates" / "CLAUDE.md").read_text(encoding="utf-8")
+        claude = (SKILL / "templates" / "CLAUDE.template.md").read_text(encoding="utf-8")
         self.assertIn("| `backup/` |", claude)
         self.assertIn("| `backup/` |", self.skill())
         readme = (ROOT / "README.md").read_text(encoding="utf-8")

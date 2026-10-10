@@ -18,7 +18,7 @@ ANSWERS = {
 }
 
 TEMPLATES = {
-    "CLAUDE.md": "# {{project}}\n\n{{description}}\n\n{{constraints}}\n",
+    "CLAUDE.template.md": "# {{project}}\n\n{{description}}\n\n{{constraints}}\n",
     "phases/phase-01-{{phase1_slug}}.md": "# Phase 01: {{phase1_name}}\n\n{{phase1_goal}}\n",
     "tools/x.py": "print('{{not_a_placeholder}}')\n",
     "memory/MEMORY.md": "- note\n",
@@ -114,6 +114,20 @@ class Render(unittest.TestCase):
         self.assertIn("needs answers: tools/README.md", result.stdout)
         self.assertIn("needs answers: phases/phase-01-{{phase1_slug}}.md", result.stdout)
         self.assertNotIn("CLAUDE.md", result.stdout)
+
+    def test_the_template_of_the_project_file_is_written_as_claude_md(self):
+        result = self.run_render()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.target / "CLAUDE.md").is_file())
+        self.assertFalse((self.target / "CLAUDE.template.md").exists())
+
+    def test_a_repair_names_a_missing_project_file_as_claude_md(self):
+        self.target.mkdir()
+        result = subprocess.run([sys.executable, "-I", str(RENDER), "--repair", "--target", str(self.target),
+                                 "--templates", str(self.templates)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("needs answers: CLAUDE.md", result.stdout)
+        self.assertNotIn("CLAUDE.template.md", result.stdout)
 
     def test_a_repair_finds_a_first_phase_file_under_its_own_name(self):
         self.target.mkdir()
