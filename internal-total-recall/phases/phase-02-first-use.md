@@ -295,6 +295,8 @@ Task 25.
 
 The user's correction of the day on the text, "a folder that may have
 no copy elsewhere" for "an uncommitted folder", added to rule 4 of
-`memory/user-writing-style.md` on the user's word.
+`memory/user-writing-style.md` on the user's word, then to the
+template `skill/templates/memory/user-writing-style.md`: the two
+copies identical, the suite green.
 
 **Checkpoint for the phase:** Tasks 18 to 25 delivered and tried by the user, the suite green, then the review of this folder on the user's word.

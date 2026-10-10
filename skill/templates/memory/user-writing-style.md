@@ -40,7 +40,9 @@ this note.
    or wash. Features are supported, files are saved, images are replaced.
 4. The software is the actor, with its condition spelled out: "If the
    function receives an empty list, it returns zero", not "An empty list
-   yields zero".
+   yields zero". Name the plain fact ("an uncommitted folder"), not a
+   description of what follows from it ("a folder that may have no copy
+   elsewhere").
 5. A change is an action of the authors: fixed, added, moved, with us as
    the actor or in the passive. A sentence about a change does not
    present the product as doing it or as behaving well by itself.
