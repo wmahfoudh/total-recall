@@ -35,7 +35,7 @@ During the session the work follows the open phase, a task at a time. Small fact
 
 ## The review of the memory
 
-Requirements change. After a few months on a project, I found documents that contradicted each other. "review the memory" reads the whole folder and writes a report: contradictions, duplicates, text out of date, text in the wrong place, replaced decisions. Each item gives the current text, the proposed text and the reason. Nothing is applied before the user approves it by number.
+Requirements change. After a few months, the documents of a project can contradict each other. "review the memory" reads the whole folder and writes a report: contradictions, duplicates, text out of date, text in the wrong place, replaced decisions. Each item gives the current text, the proposed text and the reason. Nothing is applied before the user approves it by number.
 
 A folder made by an older version of the skill is brought to the current form by `/total-recall` in that project. The skill shows what changed in the routine files, numbers the decisions, then offers the review.
 
@@ -78,14 +78,14 @@ The guardrails keep a session from writing where it should not: a deny list of p
 
 ## Why does the skill use scripts?
 
-The skill writes the folder and checks it with small Python scripts, and Claude does the rest. The scripts give the same result at each run, and they cost few tokens. On the project where I made the skill, if Claude checked the documents itself, it would read about 14,000 words, around 18,000 tokens. The script does the same check in one command, and prints one line when the folder is clean. The scripts also refuse to overwrite a file, which matters for an uncommitted folder. They use the standard library only.
+The skill writes the folder and checks it with small Python scripts, and Claude does the rest. The scripts give the same result at each run, and they cost few tokens. On the project used to build the skill, if Claude checked the documents itself, it would read about 14,000 words, around 18,000 tokens. The script does the same check in one command, and prints one line when the folder is clean. The scripts also refuse to overwrite a file, which matters for an uncommitted folder. They use the standard library only.
 
 ## Limits
 
-- When git ignores the folder, the folder has no history and no backup. I keep a copy of it myself.
+- When git ignores the folder, the folder has no history and no backup. Keep a copy of it yourself.
 - The skill writes nothing under `.claude/` and nothing outside the project. The sandbox is a setting of the machine.
 - The check tool reads Markdown in the form the templates use. A document in another form gets findings to read, not errors.
-- I tried it on Linux with Python 3 (for the moment). The tools use the standard library only.
+- Tested on Linux with Python 3 (for the moment). The tools use the standard library only.
 
 ## Tests
 
