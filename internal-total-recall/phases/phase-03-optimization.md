@@ -217,6 +217,13 @@ current task, and a full start that adds the rules, like the modes of
 ponytail. The risk: a light session that misses the rules, the worry
 behind the first item of Parked.
 
+**The steps:**
+
+- [x] **Step 1: The discussion** Whether the task ends as a change, a
+  Roadmap item or nothing. Done 11/10/2026: nothing, on the user's
+  word, D24. The start read 6,128 words: `CLAUDE.md` and `rules.md`
+  3,403, the style note 1,139, the rest 1,586.
+
 ### Task 36: The short close entries
 
 What it does and why: the history and the story are written by Claude

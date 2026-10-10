@@ -7,6 +7,22 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D24, 11/10/2026: no start levels
+
+Task 35 ends with no change: the start keeps a single level. The
+reasons:
+
+- Claude Code loads `CLAUDE.md` and `rules.md` when the session reads
+  or writes a file in the folder, so a light start delays the rules and
+  does not save them;
+- the style note, the largest part left, is read before any text, the
+  briefing included;
+- the other notes, the plan part and the phase part are about 1,150
+  words, and the notes include the one that keeps the name of the
+  reference project out of the repository.
+
+The user's word.
+
 ## D23, 11/10/2026: no compressed copy of the rules, the repeats removed
 
 Task 34 makes no compressed copy of the rules. It removes the repeats
