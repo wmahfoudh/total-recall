@@ -28,17 +28,15 @@ The folder is named `internal-<project-name>`, after the project's folder. At th
 
 ## Adapt the templates
 
-The templates in `skill/templates/` are a starting point, written for one way of working. Read them before the first install, and change them to fit yours:
+The templates in `skill/templates/` are a starting point, written for one way of working. Read them after you intialize your project, and change them if needed:
 
-- `rules.md`: the rules for every project, on writing, working with the user, verification and agents.
-- `memory/user-writing-style.md`: a writing style made from one person's corrections. Replace it with your own style.
+- `rules.md`: the rules on writing, working with the user, verification and agents.
+- `memory/user-writing-style.md`: my version of how the generated text should be. Describe your own style here.
 - `CLAUDE.md`: the project file, with the phrases of the sessions and the size read at each start.
 - `close.md` and `review.md`: the close routine and the review of the memory.
 - `lifecycle.md`: phases, tasks and steps, and their numbers.
 
-A change in `skill/templates/` applies to the projects installed after it. A change in the internal folder of a project applies to that project only, and the next `/total-recall` there shows it as a difference from the templates.
-
-To build your own set of templates, fork this repository, change the templates in your fork, and link the skill from it, as in "Install the skill". Your fork keeps your templates, and you choose which changes of this repository to take in.
+A change in `skill/templates/` applies to the projects installed after it. A change in the internal folder of a project applies to that project only.
 
 ## How a session works
 
