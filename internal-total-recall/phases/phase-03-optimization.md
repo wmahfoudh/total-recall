@@ -104,8 +104,19 @@ filter the output of commands before it reaches the context.
   files whole at the start, the double read again; both now say that
   Claude Code loads them. A sample render: the script exits 0, the
   check reads `clean`, 4,990 words read at each start.
-- [ ] **Step 5: The install here** The script, the tool and the routine
-  brought into this folder, and the measure run on it.
+- [x] **Step 5: The install here** The script, the tool and the routine
+  brought into this folder, and the measure run on it. Done 11/10/2026:
+  `tools/start.py` added and `tools/doc-check.py` replaced, copied from
+  the templates (the plan of `update.py` named these two; its backup
+  was refused the day before, and the folder is in git). By hand, the
+  project's own files: the routine and the size line of `CLAUDE.md`,
+  the line of `tools/README.md`, the note `project-instruction-file`
+  and its index line, the same as the templates. The update plan now
+  reads `nothing to update`, the check `clean`. The measure, on the
+  files of today: 7,022 words read at each start with the script (the
+  phase part 1,256, Task 33 being long). The old routine on the same
+  files: 8,059 words, and 11,621 with the rules read twice. The
+  shell's `cp` asks before an overwrite: a copy is made by Python.
 - [ ] **Step 6: The trial** The user opens a fresh session with
   "let's start": the briefing comes from the output of the script, and
   `CLAUDE.md` and `rules.md` are loaded once.
