@@ -144,3 +144,13 @@ The note on the reference name asked for a grep that no session can
 run, since no session may know the name. A hash does the job.
 
 Phase 05 waits for me now. I have to choose the project.
+
+## 11/10/2026, fifth: the README read again
+
+I asked for a full read of the README. Fifteen items. The worst was a
+file name changed earlier the same day and a count of tokens nobody
+had measured. The README said the skill had one command, right above a
+table of three.
+
+Claude left one paragraph alone because it was not on the list. I
+split it myself.

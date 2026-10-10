@@ -83,9 +83,9 @@ describes the project well.
   install, the first person of line 34, the link command, the close
   list, a paragraph split, a typo.
 - [x] **Step 2: The changes** Done 11/10/2026: applied, no dash, no
-  list break, 153 tests green. The paragraph of "The review of the
-  memory" holds 112 words, over the rule of about 100, not in the
-  approved items.
+  list break, 153 tests green, committed as `cdf9d41`. The paragraph of
+  "The review of the memory", 112 words, split by the user in
+  `2f1e8a6`.
 
 **Suggested git line:**
 

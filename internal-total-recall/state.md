@@ -6,9 +6,10 @@ Updated 11/10/2026, at the close of the session.
 
 - Phase 05, A second real project, open since 11/10/2026:
   `phases/phase-05-a-second-real-project.md`. Task 47 is at step 1,
-  the choice of the project, which is the user's. Task 48 is done.
+  the choice of the project, which is the user's. Tasks 48 and 49 are
+  done.
 - The package: `skill/`, `tests/` (153 tests green) and `README.md`,
-  committed up to `ca32cec`, the close not yet.
+  committed up to `2f1e8a6`, the close not yet.
 
 ## Done this session
 
@@ -18,6 +19,8 @@ Updated 11/10/2026, at the close of the session.
 - The review of the memory, `records/2026-10-11-review.md`, all items
   applied: D5 and D8 to `obsolete.md`, an item leaves the Roadmap when
   it opens. Task 48: the same changes in the templates, `ca32cec`.
+- Task 49: the README reviewed in full, fifteen items applied
+  (`cdf9d41`), a paragraph split by the user (`2f1e8a6`).
 
 ## Next
 

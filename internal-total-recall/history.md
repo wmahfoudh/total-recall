@@ -1,3 +1,15 @@
+# 11/10/2026, fifth - The review of the README
+
+The README read in full against the skill, the tools and the
+decisions, for errors and incoherences.
+
+- Task 49: fifteen items, all approved. Among them the template name
+  `CLAUDE.template.md`, the three commands where the text said one,
+  the rows of the machine check, what the guardrails refuse, and a
+  token count never measured replaced by the size of the folder in
+  words. `cdf9d41`, 153 tests green.
+- A paragraph over 100 words split by the user, `2f1e8a6`.
+
 # 11/10/2026, fourth - The review of the memory and Task 48
 
 The review of the memory at the close of Phase 04, then its changes
