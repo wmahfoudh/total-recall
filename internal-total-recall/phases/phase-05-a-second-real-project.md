@@ -21,7 +21,8 @@ what those sessions show. The user can rename it.
 
 1. Task 47, the second project.
 2. Task 48, the templates after the review of 11/10/2026.
-3. The close of the phase, as its last task, numbered when it is
+3. Task 49, the review of the README.
+4. The close of the phase, as its last task, numbered when it is
    written.
 
 ### The opening of the phase
@@ -63,6 +64,34 @@ of `close.md`; the start phrases line in the `machine-check.py` line of
 ```
 git add skill/templates internal-total-recall
 git commit -m "doc: templates updated with the changes of the memory review"
+```
+
+### Task 49: The review of the README
+
+What it does and why: the user asked for a full review of `README.md`
+for errors and incoherences, in the user's voice and rules, so that it
+describes the project well.
+
+**The steps:**
+
+- [x] **Step 1: The review** The README read against `SKILL.md`, the
+  tools, the guard scripts and the decisions. Done 11/10/2026: fifteen
+  items, all approved by the user: the template name
+  `CLAUDE.template.md`, the commands, the rows of the machine check,
+  what the guardrails refuse, the size of the folder in words in place
+  of a token count never measured, the root of the repository at the
+  install, the first person of line 34, the link command, the close
+  list, a paragraph split, a typo.
+- [x] **Step 2: The changes** Done 11/10/2026: applied, no dash, no
+  list break, 153 tests green. The paragraph of "The review of the
+  memory" holds 112 words, over the rule of about 100, not in the
+  approved items.
+
+**Suggested git line:**
+
+```
+git add README.md internal-total-recall
+git commit -m "doc: readme fixed after a full review"
 ```
 
 **Checkpoint for the phase:** written when the tasks are known.
