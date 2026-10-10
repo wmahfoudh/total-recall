@@ -7,6 +7,17 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D22, 11/10/2026: the start script, and the rules loaded by Claude Code
+
+The start routine runs `tools/start.py`, which prints the whole start
+in one output: the snapshot, the memory notes, the goal and the head of
+the Roadmap, the preamble and the current task of the open phase. The
+routine relies on Claude Code to load `CLAUDE.md` and `rules.md` when
+the session reads a file in the folder, and no longer reads them, which
+stops a double read of about 3,500 words. When the script fails, the
+routine reads the files as before. The user's word, the design under
+Task 33.
+
 ## D21, 10/10/2026: Phase 02 closed, Phase 03 Optimization opened
 
 Phase 02 closes with the trial of the update on a scratch repository

@@ -19,4 +19,4 @@ word.
 | `2026-10-10-plan.md` | 10/10/2026 | The implementation plan of that spec, Tasks 18 to 25 of Phase 02, written with the writing-plans skill |
 | `2026-10-10-review.md` | 10/10/2026 | The first review of this folder, 21 items, set aside unapplied on the user's word: it missed the memory folder until asked, which became Task 27. Replaced by the second run |
 | `2026-10-10-review-2.md` | 10/10/2026 | The second review of this folder, after `/total-recall update`, 25 items, all applied on the user's word (9b, 10a) |
-| `2026-10-10-baseline.md` | 10/10/2026 | The cost of a start before Phase 03: the words read at each start, template and project, the parts of the phase file and of the plan, the global rules file, and the tokens measured by the user. The benchmark of Phase 03 compares with it |
+| `2026-10-10-baseline.md` | 10/10/2026 | The cost of a start before Phase 03: the words read at each start, template and project, the parts of the phase file and of the plan, and the global rules file, in words. The benchmark of Phase 03 compares with it |

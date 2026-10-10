@@ -27,12 +27,11 @@ Phase 03, in a session of exploration.
 
 At "let's start", in a new session:
 
-1. The briefing, then the user's `/context`: Task 32, step 2.
+1. The briefing.
 2. Task 33, the start script, from step 1, the design with the user.
 
 ## Waiting on the user
 
-- The figure of `/context` after "let's start" in a fresh session.
 - The decision on the name of the reference project in the git
   history, under Blocked in `plan.md`.
 - The push, when the user wants the README on GitHub.
