@@ -72,8 +72,15 @@ filter the output of commands before it reaches the context.
   below, the user's three answers (the whole start in one command,
   rely on Claude Code for the rules, the first Roadmap item in full),
   D22.
-- [ ] **Step 2: The tests** The tests of `start.py` and of the new
-  measure of `doc-check.py --size`, seen red.
+- [x] **Step 2: The tests** The tests of `start.py` and of the new
+  measure of `doc-check.py --size`, seen red. Done 11/10/2026: 21 new
+  tests, 18 red. `tests/test_start.py` (14, each an error on the missing
+  script); `StartSize` in `tests/test_doc_check.py` (5, one red: the
+  whole plan counted); the expected files and the start routine in
+  `tests/test_package.py`; `ROUTINE_FILES` in `tests/test_update.py`.
+  The four others of `StartSize` pass before the code: the rules, the
+  state, the old count without the script and no bytecode hold today
+  too. The suite: 134 tests, 4 failures, 14 errors.
 - [ ] **Step 3: The code** `start.py` in the templates and the measure
   of `doc-check.py`, the suite green.
 - [ ] **Step 4: The routine** The start routine and the size line of

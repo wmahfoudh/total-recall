@@ -253,5 +253,48 @@ class FolderRules(unittest.TestCase):
         self.assertEqual(result.returncode, 2)
 
 
+LONG_PLAN = ("# P: the plan\n\n## Goal\n\nThe goal.\n\n## Roadmap\n\n1. **First.** Short.\n"
+             "2. **Second.** " + "word " * 1000 + "\n")
+
+
+class StartSize(unittest.TestCase):
+    def setUp(self):
+        self.tool = load(TOOL, "doc_check")
+
+    def size_of(self, files):
+        with tempfile.TemporaryDirectory() as root:
+            make_folder(root, files)
+            return self.tool.start_size(root)
+
+    def test_the_size_counts_the_output_of_the_start_script_not_the_whole_plan(self):
+        files = dict(MINIMAL, **{"plan.md": LONG_PLAN})
+        self.assertLess(self.size_of(files), 1000)
+
+    def test_the_size_counts_the_project_file_and_the_rules(self):
+        files = dict(MINIMAL, **{"rules.md": "# Rules\n\n" + "word " * 500 + "\n"})
+        self.assertGreater(self.size_of(files), 500)
+
+    def test_the_size_counts_the_state_through_the_script(self):
+        files = dict(MINIMAL, **{"state.md": "# State\n\n" + "word " * 500 + "\n"})
+        self.assertGreater(self.size_of(files), 500)
+
+    def test_without_the_start_script_the_plan_is_counted_whole(self):
+        with tempfile.TemporaryDirectory() as root:
+            alone = Path(root) / "tools" / "doc-check.py"
+            alone.parent.mkdir()
+            alone.write_bytes(TOOL.read_bytes())
+            folder = Path(root) / "internal-p"
+            make_folder(folder, dict(MINIMAL, **{"plan.md": LONG_PLAN}))
+            result = subprocess.run([sys.executable, "-I", str(alone), "--size", str(folder)],
+                                    capture_output=True, text=True)
+        self.assertRegex(result.stdout, r"^read at each start: \d{4,} words")
+
+    def test_the_check_writes_no_bytecode_beside_the_tools(self):
+        with tempfile.TemporaryDirectory() as root:
+            make_folder(root, MINIMAL)
+            subprocess.run([sys.executable, "-I", str(TOOL), "--size", root], capture_output=True, text=True)
+        self.assertFalse((TOOL.parent / "__pycache__").exists())
+
+
 if __name__ == "__main__":
     unittest.main()

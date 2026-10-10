@@ -112,6 +112,7 @@ class SkillStructure(unittest.TestCase):
                     "templates/close.md", "templates/lifecycle.md", "templates/code-map.md",
                     "templates/records/README.md", "templates/tools/README.md",
                     "templates/tools/doc-check.py", "templates/tools/machine-check.py",
+                    "templates/tools/start.py",
                     "templates/memory/MEMORY.md", "templates/memory/project-instruction-file.md",
                     "templates/memory/user-writing-style.md", "templates/obsolete.md",
                     "templates/review.md",
@@ -120,6 +121,11 @@ class SkillStructure(unittest.TestCase):
         missing = [name for name in expected if not (SKILL / name).is_file()]
         self.assertEqual(missing, [])
         self.assertTrue((ROOT / "README.md").is_file())
+
+    def test_the_start_routine_runs_the_start_script(self):
+        claude = (SKILL / "templates" / "CLAUDE.md").read_text(encoding="utf-8")
+        routine = claude[claude.index("runs the start routine"):claude.index("During the session")]
+        self.assertIn("tools/start.py", routine)
 
     def test_the_style_note_is_in_the_index_and_pointed_to_by_the_rules(self):
         index = (SKILL / "templates" / "memory" / "MEMORY.md").read_text(encoding="utf-8")

@@ -107,6 +107,9 @@ class Update(unittest.TestCase):
         self.assertEqual(plan["replace"], ["rules.md", "tools/doc-check.py"])
         self.assertTrue(plan["migrate"])
 
+    def test_the_start_script_is_a_routine_file(self):
+        self.assertIn("tools/start.py", self.update.ROUTINE_FILES)
+
     def test_the_plan_changes_nothing(self):
         before = {p: p.read_bytes() for p in self.target.rglob("*") if p.is_file()}
         result = self.run_update("plan")
