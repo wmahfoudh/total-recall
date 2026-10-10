@@ -7,6 +7,16 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D29, 11/10/2026: the start phrases in the global file
+
+A line in the global rules file names
+`internal-<project-name>/CLAUDE.md` for "let's start", "let's continue"
+and "let's resume". `machine-check.py` reports the line as the row
+"start phrases", and step 8 of the install proposes it when it is
+missing. The repository keeps no root `CLAUDE.md`. The global file
+stays whole, since it serves the projects without total recall. The
+user's word.
+
 ## D28, 11/10/2026: the tests that pin the wording stay
 
 The tests that check a sentence of a rule stay as they are. They stop a

@@ -243,6 +243,7 @@ table. Each row reads `present` or `missing`:
 | Row | What it is |
 |---|---|
 | global rules file | `~/.claude/CLAUDE.md`, the user's rules for every project. The internal folder carries its own copy in `rules.md`. This row is information |
+| start phrases | the line of the global rules file that names the project file, so that "let's start" finds the folder |
 | deny list: git writes, sudo, destructive tools | permission patterns that refuse those commands to a session |
 | guard hooks on Bash | scripts that read each command before it runs and refuse git writes, recursive deletes and writes into `.git` |
 | jq | needed by the guard scripts |
@@ -250,6 +251,15 @@ table. Each row reads `present` or `missing`:
 
 For each missing row among the deny lists and the hooks, propose the fix
 in one line. On the user's word, give the lines, and the user runs them.
+
+When the start phrases row reads `missing`, propose the line below for
+the end of `~/.claude/CLAUDE.md`, a new file if there is none. The user
+adds it. Without the line, a session opens with "read
+`internal-<project-name>/CLAUDE.md`".
+
+```
+In a project with a folder `internal-<project-name>/` at its root, "let's start", "let's continue" and "let's resume" mean: read `internal-<project-name>/CLAUDE.md` and run its start routine.
+```
 
 When `~/.claude/settings.json` does not exist:
 
@@ -282,8 +292,8 @@ End with the scenario, numbered, for the user to try:
 1. On a yes in step 5, `git status` shows nothing from
    `internal-<project-name>/`.
 2. A new session, opened with "read
-   `internal-<project-name>/CLAUDE.md`" (or with "let's start" where a
-   global file maps it), gives the briefing: Phase 01 open, Task 1
+   `internal-<project-name>/CLAUDE.md`" (or with "let's start" where the
+   global file has the line of step 8), gives the briefing: Phase 01 open, Task 1
    next.
 3. "let's close" rewrites `state.md` and adds the entry at the top of
    `history.md`.

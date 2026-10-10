@@ -103,7 +103,7 @@ The phrases are defined by the project file, so they work in a session that has 
 
 ## On another machine
 
-Install the skill, open the project, and start the session with "let's start". Claude Code knows the phrase from a global rules file, `~/.claude/CLAUDE.md`, that maps it to the project file. On a machine without that mapping, the first message of a session is "read `internal-<project-name>/CLAUDE.md`", and the phrases work from there. The rules are in the folder, and the session follows them without a global file. The machine check, `tools/machine-check.py` of the folder, says which guardrails the machine has: the permission deny list, the guard hooks, `jq`, the sandbox. The skill ships the deny list and the three guard scripts under `skill/machine/`, and proposes them when they are missing.
+Install the skill, open the project, and start the session with "let's start". The phrase works with a line in the global rules file, `~/.claude/CLAUDE.md`, that names `internal-<project-name>/CLAUDE.md`. The install proposes the line when it is missing. On a machine without the line, the first message of a session is "read `internal-<project-name>/CLAUDE.md`", and the phrases work from there. The rules are in the folder, and the session follows them without a global file. The machine check, `tools/machine-check.py` of the folder, says which guardrails the machine has: the permission deny list, the guard hooks, `jq`, the sandbox. The skill ships the deny list and the three guard scripts under `skill/machine/`, and proposes them when they are missing.
 
 ## The guardrails
 

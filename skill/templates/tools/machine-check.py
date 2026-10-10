@@ -17,6 +17,12 @@ GIT_WRITE_PATTERNS = {"Bash(git commit*)", "Bash(git push*)"}
 SUDO_PATTERNS = {"Bash(sudo *)", "Bash(sudo)"}
 DESTRUCTIVE_PATTERNS = {"Bash(dd *)", "Bash(mkfs*)", "Bash(shred *)"}
 MANAGED_DEFAULT = "/etc/claude-code/managed-settings.json"
+# The line the install proposes for the global rules file. Without it, a
+# session opened with "let's start" has nothing that names the folder.
+START_LINE = ('In a project with a folder `internal-<project-name>/` at its root, '
+              '"let\'s start", "let\'s continue" and "let\'s resume" mean: read '
+              '`internal-<project-name>/CLAUDE.md` and run its start routine.')
+START_MARKER = "internal-<project-name>/CLAUDE.md"
 
 
 def read_json(path):
@@ -60,6 +66,11 @@ def report(home, managed):
     rules = home / ".claude" / "CLAUDE.md"
     rows.append(("global rules file", "present" if rules.is_file() else "missing",
                  str(rules) if rules.is_file() else ""))
+    try:
+        mapped = START_MARKER in rules.read_text(encoding="utf-8")
+    except (OSError, ValueError):
+        mapped = False
+    rows.append(("start phrases", "present" if mapped else "missing", str(rules) if mapped else ""))
     denies = [(name, pattern) for name, settings in sources for pattern in deny_list(settings)]
     for label, patterns in (("deny list: git writes", GIT_WRITE_PATTERNS),
                             ("deny list: sudo", SUDO_PATTERNS),

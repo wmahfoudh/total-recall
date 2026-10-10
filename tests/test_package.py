@@ -302,6 +302,22 @@ class Readme(unittest.TestCase):
             self.assertFalse(phrase in text, phrase)
 
 
+class StartPhrases(unittest.TestCase):
+    def setUp(self):
+        self.check = load(SKILL / "templates" / "tools" / "machine-check.py", "machine_check")
+
+    def test_the_machine_step_hands_over_the_line_the_check_looks_for(self):
+        step = skill_steps()["8"]
+        self.assertIn(self.check.START_LINE, step)
+        self.assertIn(self.check.START_MARKER, self.check.START_LINE)
+        self.assertIn("| start phrases |", step)
+
+    def test_the_readme_names_the_line_and_not_a_mapping_that_does_not_exist(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertNotIn("that maps it to the project file", readme)
+        self.assertIn(self.check.START_MARKER, readme)
+
+
 class AnotherSystem(unittest.TestCase):
     def test_the_install_stops_on_another_documentation_system(self):
         step = skill_steps()["1"]

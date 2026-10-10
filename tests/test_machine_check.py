@@ -45,7 +45,7 @@ class MachineCheck(unittest.TestCase):
         result = run_tool(self.home, self.managed)
         self.assertEqual(result.returncode, 0, result.stderr)
         rows = rows_of(result.stdout)
-        self.assertEqual(set(rows), {"global rules file", "deny list: git writes", "deny list: sudo",
+        self.assertEqual(set(rows), {"global rules file", "start phrases", "deny list: git writes", "deny list: sudo",
                                      "deny list: destructive tools", "guard hooks on Bash", "jq", "sandbox"})
         self.assertTrue(all(status == "missing" for status, _ in rows.values()), rows)
 
@@ -78,6 +78,17 @@ class MachineCheck(unittest.TestCase):
         (self.home / ".claude" / "CLAUDE.md").write_text("# Rules\n", encoding="utf-8")
         rows = rows_of(run_tool(self.home, self.managed).stdout)
         self.assertEqual(rows["global rules file"][0], "present")
+
+    def test_the_start_phrases_are_missing_from_a_global_file_without_the_line(self):
+        (self.home / ".claude" / "CLAUDE.md").write_text("# My rules\n", encoding="utf-8")
+        result = run_tool(self.home, self.managed)
+        self.assertEqual(rows_of(result.stdout)["start phrases"][0], "missing")
+
+    def test_the_start_phrases_are_found_by_the_path_of_the_project_file(self):
+        line = 'In a project, "let\'s start" means: read `internal-<project-name>/CLAUDE.md`.\n'
+        (self.home / ".claude" / "CLAUDE.md").write_text("# My rules\n\n" + line, encoding="utf-8")
+        result = run_tool(self.home, self.managed)
+        self.assertEqual(rows_of(result.stdout)["start phrases"][0], "present")
 
     def test_a_hook_counts_when_its_script_exists_and_runs(self):
         hooks = self.home / ".claude" / "hooks"
