@@ -272,6 +272,13 @@ know the project, in the user's voice, and names the folder
   comparison of the cost) applied; about 14,000 words of this folder
   without its records, around 18,000 tokens at about 1.3 tokens a
   word, against one command; 91 tests green.
+- [x] **Step 5: The phrase and the lines** "let's start" in the README
+  in place of "read `internal-<project-name>/CLAUDE.md`", and the
+  wrapped lines joined, after the user's own edits (`7e49fdc` and
+  before). Done 10/10/2026: the read phrase kept once, under "On
+  another machine", for a machine whose global rules file does not map
+  "let's start"; 149 lines down to 94, the words identical apart from
+  the three changed sentences; 91 tests green.
 
 The git line: `doc: readme rewritten for a public skill, folder named after the project`.
 
