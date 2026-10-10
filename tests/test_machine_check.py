@@ -110,6 +110,46 @@ class MachineCheck(unittest.TestCase):
         rows = rows_of(run_tool(self.home, self.managed).stdout)
         self.assertEqual(rows["guard hooks on Bash"][0], "missing")
 
+    def guard_script(self):
+        hooks = self.home / ".claude" / "hooks"
+        hooks.mkdir()
+        script = hooks / "git-guard.sh"
+        script.write_text("#!/bin/sh\n", encoding="utf-8")
+        script.chmod(script.stat().st_mode | stat.S_IXUSR)
+
+    def test_a_hook_is_found_in_the_forms_a_settings_file_may_use(self):
+        self.guard_script()
+        for matcher, command in (("Bash|Write", "$HOME/.claude/hooks/git-guard.sh"),
+                                 ("*", "$HOME/.claude/hooks/git-guard.sh"),
+                                 ("Bash", '"$HOME/.claude/hooks/git-guard.sh"'),
+                                 ("Bash", "bash $HOME/.claude/hooks/git-guard.sh"),
+                                 ("Bash", "sh ~/.claude/hooks/git-guard.sh --strict")):
+            self.write_settings({"hooks": {"PreToolUse": [{"matcher": matcher, "hooks": [
+                {"type": "command", "command": command}]}]}})
+            rows = rows_of(run_tool(self.home, self.managed).stdout)
+            self.assertEqual(rows["guard hooks on Bash"][0], "present", (matcher, command))
+
+    def test_a_hook_on_another_tool_is_not_counted(self):
+        self.guard_script()
+        self.write_settings({"hooks": {"PreToolUse": [{"matcher": "Write|Edit", "hooks": [
+            {"type": "command", "command": "$HOME/.claude/hooks/git-guard.sh"}]}]}})
+        rows = rows_of(run_tool(self.home, self.managed).stdout)
+        self.assertEqual(rows["guard hooks on Bash"][0], "missing")
+
+    def test_a_settings_file_of_the_wrong_shape_is_missing_not_a_crash(self):
+        for data in ({"permissions": "nope"}, {"permissions": {"deny": [{"a": 1}, 3]}},
+                     {"hooks": {"PreToolUse": ["nope"]}}, {"hooks": {"PreToolUse": [{"hooks": ["x"]}]}},
+                     {"hooks": {"PreToolUse": [{"matcher": "Bash", "hooks": [{"type": "command", "command": "   "}]}]}},
+                     {"hooks": {"PreToolUse": [{"matcher": "Bash", "hooks": [{"type": "command", "command": "'open"}]}]}},
+                     {"hooks": {"PreToolUse": [{"matcher": "(", "hooks": []}]}},
+                     {"sandbox": "yes"}, [1], "text", 3):
+            self.write_settings(data)
+            result = run_tool(self.home, self.managed)
+            self.assertEqual(result.returncode, 0, (data, result.stderr))
+            rows = rows_of(result.stdout)
+            self.assertEqual(rows["deny list: sudo"][0], "missing", data)
+            self.assertEqual(rows["guard hooks on Bash"][0], "missing", data)
+
     def test_jq_is_looked_up_on_the_path(self):
         bin_dir = Path(self.tmp.name) / "bin"
         bin_dir.mkdir()

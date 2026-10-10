@@ -7,6 +7,14 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D33, 11/10/2026: the minors fixed at once
+
+The fifteen findings of Task 45 are fixed in one pass, by common sense,
+with no reading one at a time: they are small and need only logic.
+Finding 12, the skill-creator checks named in the spec, is dropped:
+the spec is a record kept as received, and the package test covers the
+frontmatter. The user's word.
+
 ## D32, 11/10/2026: Phase 03 closed, Phase 04 The reviewer's minors opened
 
 Phase 03 closes with its checkpoint met: the benchmark recorded, each

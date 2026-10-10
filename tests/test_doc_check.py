@@ -60,6 +60,14 @@ class TextRules(unittest.TestCase):
     def test_a_table_after_a_blank_line_is_fine(self):
         self.assertEqual(self.tool.find_list_breaks("Text\n\n| a |\n|---|\n| 1 |\n"), [])
 
+    def test_a_table_after_a_list_item_is_reported(self):
+        found = self.tool.find_list_breaks("Text\n\n- item\n| a |\n|---|\n")
+        self.assertEqual([n for n, _ in found], [4])
+
+    def test_a_list_item_after_a_paragraph_of_the_item_before_is_fine(self):
+        text = "Text\n\n- one\n\n  A paragraph of one.\n- two\n"
+        self.assertEqual(self.tool.find_list_breaks(text), [])
+
 
 MINIMAL = {
     "CLAUDE.md": "# P\n\n| File | What it holds |\n|---|---|\n| `state.md` | x |\n| `phases/` | y |\n",
@@ -147,6 +155,11 @@ class FolderRules(unittest.TestCase):
         code, out = self.check({"phases/phase-01-start.md": text})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
+    def test_an_open_step_with_a_done_mark_is_reported(self):
+        text = "# Phase 01: start\n\n### Task 1: a\n\n- [ ] **Step 1: a** b\n  Done 07/10/2026: it worked.\n"
+        code, out = self.check({"phases/phase-01-start.md": text})
+        self.assertIn("phases/phase-01-start.md:5: a step with 'Done DD/MM/YYYY:' needs its box ticked", out)
+
     def test_a_long_state_file_is_reported(self):
         code, out = self.check({"state.md": "# State\n" + "line\n" * 150})
         self.assertIn("state.md:151: state.md has 151 lines, over 150", out)
@@ -159,6 +172,14 @@ class FolderRules(unittest.TestCase):
     def test_a_history_title_with_a_qualifier_after_the_date_is_fine(self):
         code, out = self.check({"history.md": "# 07/10/2026, later - The second session\n"})
         self.assertEqual((code, out.strip()), (0, "clean"))
+
+    def test_a_history_title_with_a_capital_in_the_qualifier_is_fine(self):
+        code, out = self.check({"history.md": "# 07/10/2026, Later - The second session\n"})
+        self.assertEqual((code, out.strip()), (0, "clean"))
+
+    def test_a_history_file_that_starts_with_a_bom_is_still_checked(self):
+        code, out = self.check({"history.md": "\ufeff# The install\n"})
+        self.assertIn("history.md:1: a history entry starts with '# DD/MM/YYYY - <name>'", out)
 
     def test_a_note_missing_from_the_index_is_reported(self):
         code, out = self.check({"memory/other.md": "---\nname: other\n---\n\nText\n"})

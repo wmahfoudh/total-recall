@@ -93,9 +93,15 @@ def plan(templates, target, answers):
     """The (source, destination) pairs, once the templates and the answers are checked."""
     templates = Path(templates)
     check_templates(templates)
+    if not isinstance(answers, dict):
+        raise ValueError("the answers file must hold a JSON object, one value per placeholder")
     missing = [name for name in PLACEHOLDERS if name not in answers]
     if missing:
         raise ValueError("missing answers: " + ", ".join(missing))
+    # A list answer, such as the constraints, is joined into one string by the session.
+    odd = [name for name in PLACEHOLDERS if not isinstance(answers[name], str)]
+    if odd:
+        raise ValueError("answers that are not a string: " + ", ".join(odd))
     pairs = []
     for source in template_files(templates):
         relative = destination_of(render_text(str(source.relative_to(templates)), answers))

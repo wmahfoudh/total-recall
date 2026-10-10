@@ -41,42 +41,51 @@ def find_dashes(text):
 def find_list_breaks(text):
     """A list line or a table line that follows a line of text.
 
-    A blank line must come before a list or a table. An indented line
-    after a list item belongs to the list. The lines of a fenced code
-    block are skipped.
+    A blank line must come before a list or a table, and a table needs
+    one after a list item too. An indented line after a list item
+    belongs to the list, after a blank line as well: it is a paragraph
+    of the item. The lines of a fenced code block are skipped.
     """
     found = []
     lines = text.split("\n")
     in_block = False
+    in_list = False
     in_code = False
     for number, line in enumerate(lines, 1):
         if line.lstrip().startswith("```"):
             in_code = not in_code
-            in_block = False
+            in_block = in_list = False
             continue
         if in_code:
             continue
         if not line.strip():
             in_block = False
             continue
-        continuation = in_block and line.startswith("  ")
+        indented = line.startswith("  ")
         if is_list(line) or is_table(line):
             previous = lines[number - 2] if number > 1 else ""
-            opens_block = previous.strip() and not in_block
             after_fence = previous.lstrip().startswith("```")
-            if opens_block and not is_table(previous) and not after_fence:
+            if is_table(line):
+                breaks = previous.strip() and not is_table(previous)
+            else:
+                breaks = previous.strip() and not in_block and not is_table(previous)
+            if breaks and not after_fence:
                 found.append((number, "a list or a table needs a blank line before it"))
             in_block = True
-        elif not continuation:
-            in_block = False
+            in_list = is_list(line) or (in_list and indented)
+        elif indented and (in_block or in_list):
+            in_block = True
+        else:
+            in_block = in_list = False
     return found
 
 
 DATE_RE = r"\d{2}/\d{2}/\d{4}"
 TASK_RE = re.compile(r"^### Task (\d+):")
 DONE_STEP_RE = re.compile(r"^\s*- \[x\]", re.IGNORECASE)
+OPEN_STEP_RE = re.compile(r"^\s*- \[ \]")
 DONE_MARK_RE = re.compile(r"Done " + DATE_RE + ":")
-HISTORY_TITLE_RE = re.compile(r"^# " + DATE_RE + r"(, [a-z ]+)? - \S")
+HISTORY_TITLE_RE = re.compile(r"^# " + DATE_RE + r"(, [A-Za-z ]+)? - \S")
 STATE_MAX_LINES = 150
 DECISION_TITLE_RE = re.compile(r"^## D(\d+), " + DATE_RE + r": \S")
 REPLACED_RE = re.compile(r"^Replaced by D\d+ on (\d{2})/(\d{2})/(\d{4})\.$")
@@ -120,7 +129,7 @@ def check_tasks(phase_files):
     for path in phase_files:
         last = 0
         try:
-            text = path.read_text(encoding="utf-8")
+            text = path.read_text(encoding="utf-8-sig")
         except UnicodeDecodeError:
             continue
         for number, line in enumerate(text.split("\n"), 1):
@@ -139,11 +148,16 @@ def check_tasks(phase_files):
 
 
 def check_done_steps(text):
-    """A ticked step carries 'Done DD/MM/YYYY:' on its line or its continuation."""
+    """A ticked step carries 'Done DD/MM/YYYY:' on its line or its continuation.
+
+    An open step with the mark is reported too: start.py takes the first
+    open step for the current one.
+    """
     found = []
     lines = text.split("\n")
     for number, line in enumerate(lines, 1):
-        if not DONE_STEP_RE.match(line):
+        ticked = bool(DONE_STEP_RE.match(line))
+        if not ticked and not OPEN_STEP_RE.match(line):
             continue
         block = [line.strip()]
         for following in lines[number:]:
@@ -151,8 +165,11 @@ def check_done_steps(text):
                 block.append(following.strip())
             else:
                 break
-        if not DONE_MARK_RE.search(" ".join(block)):
+        marked = bool(DONE_MARK_RE.search(" ".join(block)))
+        if ticked and not marked:
             found.append((number, "a ticked step needs 'Done DD/MM/YYYY:' and what happened"))
+        elif not ticked and marked:
+            found.append((number, "a step with 'Done DD/MM/YYYY:' needs its box ticked"))
     return found
 
 
@@ -232,7 +249,7 @@ def words_of(paths):
         if not path.is_file():
             continue
         try:
-            words += len(path.read_text(encoding="utf-8").split())
+            words += len(path.read_text(encoding="utf-8-sig").split())
         except UnicodeDecodeError:
             continue
     return words
@@ -273,7 +290,7 @@ def check_memory(folder):
     if not index.exists():
         return [(index, 0, "memory/MEMORY.md is missing")]
     try:
-        index_text = index.read_text(encoding="utf-8")
+        index_text = index.read_text(encoding="utf-8-sig")
     except UnicodeDecodeError:
         return [(index, 0, "not UTF-8, the index cannot be read")]
     listed = set(re.findall(r"\]\(([^)]+\.md)\)", index_text))
@@ -298,7 +315,7 @@ def check_folder(folder):
         if "records" in path.relative_to(folder).parts:
             continue
         try:
-            text = path.read_text(encoding="utf-8")
+            text = path.read_text(encoding="utf-8-sig")
         except UnicodeDecodeError:
             add(path, 0, "not UTF-8, the document cannot be read")
             continue
@@ -306,7 +323,7 @@ def check_folder(folder):
             add(path, number, message)
     def text_of(path):
         try:
-            return path.read_text(encoding="utf-8")
+            return path.read_text(encoding="utf-8-sig")
         except UnicodeDecodeError:
             return ""
 
@@ -356,7 +373,7 @@ def main(argv):
     if show_size:
         claude = folder / "CLAUDE.md"
         try:
-            limit = size_limit(claude.read_text(encoding="utf-8")) if claude.exists() else SIZE_LIMIT
+            limit = size_limit(claude.read_text(encoding="utf-8-sig")) if claude.exists() else SIZE_LIMIT
         except UnicodeDecodeError:
             limit = SIZE_LIMIT
         print(f"read at each start: {start_size(folder)} words, limit {limit}")

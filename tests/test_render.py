@@ -99,6 +99,24 @@ class Render(unittest.TestCase):
         self.assertIn("task1_name", result.stderr)
         self.assertFalse(self.target.exists())
 
+    def test_an_answer_that_is_not_a_string_stops_the_run(self):
+        odd = dict(ANSWERS, constraints=["One.", "Two."])
+        answers = Path(self.tmp.name) / "odd.json"
+        answers.write_text(json.dumps(odd), encoding="utf-8")
+        result = self.run_render(answers)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("constraints", result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
+        self.assertFalse(self.target.exists())
+
+    def test_answers_that_are_not_an_object_stop_the_run(self):
+        answers = Path(self.tmp.name) / "list.json"
+        answers.write_text(json.dumps(list(ANSWERS)), encoding="utf-8")
+        result = self.run_render(answers)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
+        self.assertFalse(self.target.exists())
+
     def test_a_repair_adds_only_the_files_that_need_no_answer(self):
         make(self.templates, {"close.md": "# The close\n", "tools/README.md": "{{internal}}\n"})
         self.target.mkdir()

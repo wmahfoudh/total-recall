@@ -5,8 +5,8 @@ Updated {{date}}, at the install of the memory system.
 ## Position
 
 - Phase 01, {{phase1_name}}, open since {{date}}:
-  `phases/phase-01-{{phase1_slug}}.md`. Task 1, {{task1_name}}, is next
-  and has no steps yet.
+  `phases/phase-01-{{phase1_slug}}.md`. Task 1, {{task1_name}}, is next,
+  at step 1, the design.
 - No session of work yet.
 
 ## Done this session

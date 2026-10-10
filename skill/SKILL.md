@@ -84,14 +84,17 @@ holds. Then offer "review the memory".
 
 ## 1. The ground
 
-Check that the working directory is the root of a git repository:
+Check that the working directory is the root of a git repository. In
+a worktree or a submodule `.git` is a file, so the check asks git:
 
 ```
-test -d .git && echo repository || echo "no .git here"
+test "$(git rev-parse --show-toplevel 2>/dev/null)" = "$(pwd -P)" && echo repository || echo "not the root of a repository"
 ```
 
-When there is no `.git`, stop. Tell the user to run `git init` in the
-project folder first, and that nothing was written.
+When the line reads `not the root of a repository`, stop. Tell the user
+that nothing was written, and to open the session at the root of the
+repository, or to run `git init` in the project folder when it has no
+repository yet.
 
 The folder name is the last part of the working directory
 (`basename "$PWD"`). The internal folder is `internal-<project-name>`,
@@ -134,8 +137,9 @@ not write.
 
 Otherwise, check the folder and stop:
 
-1. Read `.git/info/exclude` and say whether the line
-   `/internal-<project-name>/` is there, as information.
+1. Read the exclusion file, `cat "$(git rev-parse --git-path info/exclude)"`,
+   and say whether the line `/internal-<project-name>/` is there, as
+   information.
 2. Run `python3 "internal-<project-name>/tools/machine-check.py"`, or the
    copy in `${CLAUDE_SKILL_DIR}/templates/tools/` when the folder has
    none, and show its table.
@@ -187,7 +191,8 @@ again, until the user says it is right.
 ## 5. The list and the go
 
 Show the files that will be written: the table above with the folder
-name filled in. Then ask one question:
+name filled in, and the name of the phase file,
+`phases/phase-01-<slug>.md`. Then ask one question:
 "Keep the folder out of git, yes or no?" On a yes, show the line that
 step 7 hands over. The answer is not written in any file. Wait for the
 go.
@@ -223,16 +228,18 @@ A fresh install reads `clean`.
 
 Only when the user answered yes in step 5. On a no, go to step 8.
 
-The line that keeps the folder out of git goes in `.git/info/exclude`,
-a file git never commits. A write into `.git` is the user's. Hand them
-the command:
+The line that keeps the folder out of git goes in the exclusion file,
+`.git/info/exclude`, a file git never commits. In a worktree, git keeps
+the file in the main repository, so the command asks git for its path.
+A write into `.git` is the user's. Hand them the command:
 
 ```
-printf '/internal-<project-name>/\n' >> .git/info/exclude
+printf '/internal-<project-name>/\n' >> "$(git rev-parse --git-path info/exclude)"
 ```
 
-When they say it is done, read the file (`cat .git/info/exclude`) and
-confirm the line. Then ask them to run `git status` and to confirm that
+When they say it is done, read the file
+(`cat "$(git rev-parse --git-path info/exclude)"`) and confirm the
+line. Then ask them to run `git status` and to confirm that
 nothing of the folder shows. Run no git command.
 
 ## 8. The machine
