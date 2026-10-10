@@ -24,6 +24,7 @@ The folder is named `internal-<project-name>`, after the project's folder. At th
 | `records/` | One-off records: a pasted log, a study, a spec written by a skill |
 | `tools/` | A check of the documents and a check of the machine |
 | `memory/` | The memory notes of the project and their index |
+| `backup/` | The archives of the folder, made by `/total-recall backup` and before each update, listed in its README |
 
 ## Adapt the templates
 
@@ -51,7 +52,7 @@ During the session the work follows the open phase, a task at a time. Small fact
 
 Requirements change. After a few months, the documents of a project can contradict each other. "review the memory" reads the whole folder and writes a report: contradictions, duplicates, text out of date, text in the wrong place, replaced decisions. Each item gives the current text, the proposed text and the reason. The review also takes in what was decided in the current session and is not written yet, such as a new rule or a correction. The memory notes are checked too, and a rule in a note is checked where it applies, across the repository for a rule about the repository. Nothing is applied before the user approves it by number.
 
-A folder made by an older version of the skill is brought to the current form by `/total-recall` in that project. The skill shows what changed in the routine files, numbers the decisions, then offers the review.
+A folder made by an older version of the skill is brought to the current form by `/total-recall update` in that project. The skill shows the plan and asks one yes, makes a backup, updates the routine files and numbers the decisions, then offers the review.
 
 ## The plan
 
@@ -84,7 +85,9 @@ The skill has one command, and Claude does not start the skill on its own (`disa
 |---|---|
 | `/total-recall` in a repository without an internal folder | The install: five questions, the description to approve, the folder written, the git question, the machine check |
 | `/total-recall` in a repository with another documentation system (a root `CLAUDE.md` or `AGENTS.md`, a `memory-bank/` folder) | Nothing written: the files found are named, with the way to move to total recall: move them out of the project, install, then bring them in through a session of questions |
-| `/total-recall` in a repository that has the folder | The check and the update: the missing files named and the repair offered, the routine files compared with the templates, older decisions migrated in a copy, then the offer of the review |
+| `/total-recall` in a repository that has the folder | The check: the exclusion line, the machine, what an update would change, then the offer of the review |
+| `/total-recall update` | The plan of the update, one yes, a backup ending in `-auto`, then the missing files added, the routine files replaced and the decisions numbered. The project's own content is not touched |
+| `/total-recall backup` | An archive of the folder in `backup/`, ending in `-manual` |
 
 The phrases are defined by the project file, so they work in a session that has read the folder, even with the skill uninstalled.
 
@@ -110,11 +113,11 @@ The guardrails keep a session from writing where it should not: a deny list of p
 
 ## Why does the skill use scripts?
 
-The skill writes the folder and checks it with small Python scripts, and Claude does the rest. The scripts give the same result at each run, and they cost few tokens. On the project used to build the skill, if Claude checked the documents itself, it would read about 14,000 words, around 18,000 tokens. The script does the same check in one command, and prints one line when the folder is clean. The scripts also refuse to overwrite a file, which matters for an uncommitted folder. They use the standard library only.
+The skill writes the folder and checks it with small Python scripts, and Claude does the rest. The scripts give the same result at each run, and they cost few tokens. On the project used to build the skill, if Claude checked the documents itself, it would read about 14,000 words, around 18,000 tokens. The script does the same check in one command, and prints one line when the folder is clean. The scripts also make a backup of the folder before they replace a file. They use the standard library only.
 
 ## Limits
 
-- When git ignores the folder, the folder has no history and no backup. Keep a copy of it yourself.
+- When git ignores the folder, the folder has no history. `/total-recall backup` writes an archive of it in `backup/`, and old archives are deleted by hand.
 - The skill writes nothing under `.claude/` and nothing outside the project. The sandbox is a setting of the machine.
 - The check tool reads Markdown in the form the templates use. A document in another form gets findings to read, not errors.
 - Tested on Linux with Python 3 (for the moment). The tools use the standard library only.

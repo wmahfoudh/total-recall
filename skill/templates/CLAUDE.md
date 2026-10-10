@@ -33,6 +33,7 @@ The size read at each start (this file, `rules.md`, `state.md`,
 | `records/` | One-off records, listed in its README |
 | `tools/` | The scripts of the project, listed in its README |
 | `memory/` | The memory notes of the project and their index |
+| `backup/` | The archives of the folder, made by `/total-recall backup` and before each update, listed in its README |
 
 ## Sessions
 

@@ -39,6 +39,48 @@ project's folder:
 | `records/` | One-off records, listed in its README |
 | `tools/` | `doc-check.py`, which checks the documents, and `machine-check.py`, which reports the guardrails of the machine, with a README |
 | `memory/` | The memory notes of the project and their index |
+| `backup/` | The archives of the folder, made by `/total-recall backup` and before each update, listed in its README |
+
+## The commands
+
+The words after `/total-recall` choose what the skill does:
+
+| Command | What it does |
+|---|---|
+| `/total-recall` | The install in a repository without the folder, steps 1 to 9. In a repository that has the folder, the check of step 2 |
+| `/total-recall backup` | The backup below, then stop |
+| `/total-recall update` | The update below, then stop |
+
+**The backup.** Run step 1 and the check of the first line in step 2,
+then:
+
+```
+python3 "${CLAUDE_SKILL_DIR}/scripts/update.py" backup --target "internal-<project-name>"
+```
+
+Show the `backup` line. No question is asked: the archive adds a file
+and changes nothing else.
+
+**The update.** Run step 1 and the check of the first line in step 2,
+then show the plan:
+
+```
+python3 "${CLAUDE_SKILL_DIR}/scripts/update.py" plan --target "internal-<project-name>"
+```
+
+For each `replace` line, read the difference with the template and say
+in one line what changed. Then ask one question: "Apply the update,
+yes or no?" On a yes:
+
+```
+python3 "${CLAUDE_SKILL_DIR}/scripts/update.py" apply --target "internal-<project-name>"
+```
+
+The script makes a backup ending in `-auto` first, then adds the
+missing files, replaces the routine files and migrates the decisions.
+Show its lines. A `needs answers:` line names a missing file of the
+project's own content, which is written by hand from what the folder
+holds. Then offer "review the memory".
 
 ## 1. The ground
 
@@ -90,59 +132,23 @@ does not look like a total-recall folder. Stop, and tell the user that
 nothing was written and that the skill does not change a folder it did
 not write.
 
-Otherwise, check the folder, bring it to the current form, and stop:
+Otherwise, check the folder and stop:
 
-1. List the files of `${CLAUDE_SKILL_DIR}/templates/` against the
-   internal folder, and name each one that is missing.
-2. Read `.git/info/exclude` and say whether the line
+1. Read `.git/info/exclude` and say whether the line
    `/internal-<project-name>/` is there, as information.
-3. Run `python3 "internal-<project-name>/tools/machine-check.py"`, or the
+2. Run `python3 "internal-<project-name>/tools/machine-check.py"`, or the
    copy in `${CLAUDE_SKILL_DIR}/templates/tools/` when the folder has
    none, and show its table.
-4. Offer the repair, and run it on the user's word only:
+3. Show what an update would change:
 
    ```
-   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --repair --target "internal-<project-name>"
+   python3 "${CLAUDE_SKILL_DIR}/scripts/update.py" plan --target "internal-<project-name>"
    ```
 
-   It adds the files that need no answer (the rules, the routines, the
-   tools, the code map, the records README) where they are missing,
-   keeps every existing file, and prints `needs answers:` for each
-   missing file that the install writes from the user's answers (the
-   project file, the snapshot, the plan, a phase file, the history, the
-   story, the decisions, the memory note, the tools README). Those are
-   written by hand from what the folder already holds, never a second
-   phase file: the existing phase files keep their numbers.
+   When it prints more than `nothing to update`, say that
+   `/total-recall update` applies it with one yes, after a backup.
 
-5. Compare the routine files with the current templates: `rules.md`,
-   `close.md`, `lifecycle.md`, `review.md`, `tools/doc-check.py`,
-   `tools/machine-check.py`. For each one that differs, run
-
-   ```
-   diff -u "internal-<project-name>/<file>" "${CLAUDE_SKILL_DIR}/templates/<file>"
-   ```
-
-   and say in a few lines what changed. `rules.md` is replaced whole,
-   since the project file adds to it and does not edit it. `close.md`
-   and `lifecycle.md` may hold the project's own edits: the user
-   chooses for each file. Hand the `cp` lines of the chosen files to
-   the user in one block. The user runs them.
-
-6. When the titles of `decisions.md` have no number, write the current
-   form in a copy:
-
-   ```
-   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --migrate-decisions "internal-<project-name>/decisions.md" --out "<scratchpad>/decisions.md"
-   ```
-
-   Show the head of the copy and each `warning:` line, then hand over
-   the line that replaces the file:
-
-   ```
-   cp "<scratchpad>/decisions.md" "internal-<project-name>/decisions.md"
-   ```
-
-7. Offer the review of the content, "review the memory", which follows
+4. Offer the review of the content, "review the memory", which follows
    `review.md` of the folder.
 
 Then stop. The steps that follow are for a fresh install.
@@ -203,8 +209,7 @@ python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --answers "<scratchpad>/answers.
 The script writes each file that does not exist and keeps each one that
 does, and prints a `wrote` or a `kept` line per file. Read the lines and
 show them. It refuses to run, and writes nothing, when a placeholder has
-no answer. Nothing is overwritten, because git cannot bring a file of
-this folder back.
+no answer.
 
 Then run the check and show its last line:
 
@@ -293,4 +298,6 @@ start" and design Task 1 with the user.
 - Write under `.claude/`, of the project or of the home.
 - Write outside the project, apart from the answers file in the session
   scratchpad. The machine lines are handed over, not run.
-- Overwrite an existing file. The render keeps what exists.
+- Change the project's own content in an update: the project file, the
+  state, the plan, the phases, the history, the story, the notes, the
+  text of the decisions.

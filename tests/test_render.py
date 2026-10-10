@@ -115,6 +115,14 @@ class Render(unittest.TestCase):
         self.assertIn("needs answers: phases/phase-01-{{phase1_slug}}.md", result.stdout)
         self.assertNotIn("CLAUDE.md", result.stdout)
 
+    def test_a_repair_finds_a_first_phase_file_under_its_own_name(self):
+        self.target.mkdir()
+        make(self.target, {"phases/phase-01-my-own-name.md": "# Phase 01: Mine\n"})
+        result = subprocess.run([sys.executable, "-I", str(RENDER), "--repair", "--target", str(self.target),
+                                 "--templates", str(self.templates)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("phase-01", result.stdout)
+
     def test_the_real_templates_are_the_default(self):
         result = subprocess.run([sys.executable, "-I", str(RENDER), "--help"], capture_output=True, text=True)
         self.assertIn("templates", result.stdout)

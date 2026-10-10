@@ -419,4 +419,61 @@ The files: `tests/test_package.py`.
 
 The git line: `fix: the tests no longer name the reference project`.
 
-**Checkpoint for the phase:** Tasks 18 to 28 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
+### Task 29: The backup and the update
+
+What it does and why: run on this folder, `/total-recall` showed the
+differences, then handed the user five `cp` lines and asked four
+separate yes. The user's word: the rule "the skill never overwrites a
+file" goes; the internal folder gets a `backup/` folder of dated
+archives; the skill gets two commands, `/total-recall backup` and
+`/total-recall update`, and the update makes a backup by itself, so
+that a migration is one yes.
+
+The design, the user's word on 10/10/2026:
+
+- An archive per backup, the whole folder apart from `backup/`, named
+  `internal-<project-name>-YYYY-MM-DD-HH-MM-<kind>.tar.gz`, the kind
+  `manual` for `/total-recall backup` and `auto` when the skill makes
+  it. A second archive in the same minute takes `-2`, the session's
+  ruling.
+- `backup/` follows the folder: no special treatment for git. Old
+  archives are deleted by the user.
+- The update shows a plan (files to add, routine files to replace,
+  decisions to migrate), asks one yes, makes an `auto` backup, applies
+  the plan, then offers the review. It never changes the project's own
+  content.
+- Found on the way, fixed here: the repair named the first phase file
+  as missing when it exists under its own name.
+
+The files: `skill/scripts/update.py` (new), `skill/scripts/render.py`
+(`plan_repair`), `skill/SKILL.md`, `skill/templates/CLAUDE.md`,
+`skill/templates/rules.md`, `README.md`, `tests/test_update.py` (new),
+`tests/test_render.py`, `tests/test_package.py`.
+
+**The steps:**
+
+- [x] **Step 1: The tests** The backup, the plan, the update, the
+  repair of the phase file, the text of the skill and the README; seen
+  red. Done 10/10/2026: sixteen red, eleven of them errors on the
+  missing script.
+- [x] **Step 2: The script** `update.py` and the repair; the tests of
+  the scripts green. Done 10/10/2026: 29 tests of the scripts green,
+  no bytecode written. `render.present` finds a first phase file under
+  its own name.
+- [x] **Step 3: The text** `SKILL.md`, the templates and the README;
+  the suite green. Done 10/10/2026: 113 tests green, `SKILL.md` 303
+  lines. A section "The commands" in `SKILL.md`; step 2 shows the plan
+  of the update and no `cp` line; the rule on overwriting replaced by
+  the rule on the project's own content; `templates/backup/README.md`
+  so that a fresh folder has the folder named in its table; a line in
+  `rules.md`, "The internal folder". One older test pointed at the new
+  first line of step 2. On a scratch copy of this folder: the plan
+  lists three files to add, four to replace and the decisions; the
+  apply writes `-auto` first and changes only those five files; the
+  check reads `clean`, 6045 words read at each start; the archive
+  restored in a new folder matches the 27 files of before; a second
+  apply finds nothing to update.
+
+The git line: `feat: backup and update commands, one yes for a migration`.
+
+**Checkpoint for the phase:** Tasks 18 to 29 delivered and tried by the user, the suite green, then the review of this folder on the user's word.

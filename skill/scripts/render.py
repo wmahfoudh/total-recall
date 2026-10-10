@@ -108,6 +108,20 @@ def plan_repair(templates, target):
     return pairs, by_hand
 
 
+def present(target, name):
+    """A template that needs answers is present when its file exists.
+
+    The first phase file is present under any name: the install names it
+    after the phase, so the name of the template does not match it.
+    """
+    target = Path(target)
+    if (target / name).exists():
+        return True
+    if name.startswith("phases/phase-01-"):
+        return any((target / "phases").glob("phase-01-*.md"))
+    return False
+
+
 def write(pairs, answers):
     """Writes each pair whose destination does not exist. Returns (written, kept)."""
     written, kept = [], []
@@ -228,7 +242,7 @@ def main(argv=None):
     for path in kept:
         print(f"kept {path}")
     for name in by_hand:
-        if not (Path(args.target) / name).exists():
+        if not present(args.target, name):
             print(f"needs answers: {name}")
     return 0
 

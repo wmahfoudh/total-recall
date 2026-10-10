@@ -276,6 +276,9 @@ file.
   Claude Code's own memory folder is left alone.
 - A spec or a plan written by a skill is saved under `records/` of the
   folder, and its tasks become tasks of the open phase.
+- `/total-recall update` replaces the routine files of the skill on the
+  user's yes, after a backup in `backup/`. The project's own files are
+  changed by the review, item by item.
 
 ### When to ask before a write
 

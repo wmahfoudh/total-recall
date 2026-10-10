@@ -226,10 +226,12 @@ class Review(unittest.TestCase):
         self.assertIn("Nothing is changed before the user approves", review)
         self.assertIn("doc-check.py\" --size", review)
 
-    def test_the_check_mode_brings_an_older_folder_to_the_current_form(self):
+    def test_the_check_mode_shows_the_plan_of_the_update(self):
         step = skill_steps()["2"]
-        for needle in ("--migrate-decisions", "diff -u", "review the memory"):
+        for needle in ('update.py" plan', "/total-recall update", "review the memory"):
             self.assertIn(needle, step)
+        for gone in ("--migrate-decisions", "diff -u", "cp "):
+            self.assertNotIn(gone, step)
 
     def test_the_review_starts_with_what_the_session_holds(self):
         review = self.read("review.md")
@@ -285,11 +287,35 @@ class AnotherSystem(unittest.TestCase):
         step = skill_steps()["2"]
         self.assertIn("head -n 1", step)
         self.assertIn("does not look like a total-recall folder", step)
-        self.assertLess(step.index("does not look like a total-recall folder"), step.index("1. List the files"))
+        self.assertLess(step.index("does not look like a total-recall folder"), step.index("Otherwise, check the folder"))
 
     def test_the_readme_names_the_refusal(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("another documentation system", readme)
+
+
+class BackupAndUpdate(unittest.TestCase):
+    def skill(self):
+        return (SKILL / "SKILL.md").read_text(encoding="utf-8")
+
+    def test_the_skill_has_the_two_commands(self):
+        text = self.skill()
+        for needle in ("/total-recall backup", "/total-recall update", 'update.py" backup', 'update.py" apply'):
+            self.assertIn(needle, text)
+
+    def test_the_skill_no_longer_refuses_to_overwrite(self):
+        never = self.skill().split("## What this skill never does", 1)[1]
+        self.assertNotIn("Overwrite an existing file", never)
+
+    def test_the_backup_folder_is_in_the_tables(self):
+        claude = (SKILL / "templates" / "CLAUDE.md").read_text(encoding="utf-8")
+        self.assertIn("| `backup/` |", claude)
+        self.assertIn("| `backup/` |", self.skill())
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("| `backup/` |", readme)
+        self.assertIn("/total-recall backup", readme)
+        self.assertIn("/total-recall update", readme)
+        self.assertNotIn("refuse to overwrite", readme)
 
 if __name__ == "__main__":
     unittest.main()
