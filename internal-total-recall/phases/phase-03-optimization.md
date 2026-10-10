@@ -392,6 +392,20 @@ of the baseline, and compared with it in a record.
 What it does and why: the close routine of `close.md`, the last task of
 the phase.
 
+**The steps:**
+
+- [x] **Step 1: The routine** The snapshot, the code map, the Roadmap,
+  the history, the story, the check, the close paragraph and Phase 04.
+  Done 11/10/2026: Phase 04 opened with item 2 of the Roadmap (D32).
+
 **Checkpoint for the phase:** the benchmark recorded and compared with
 the baseline, each task delivered or moved to the Roadmap on the user's
 word, the suite green.
+
+Closed 11/10/2026: a start reads 5,566 words, where the baseline start
+read 10,022 to 13,891 (`records/2026-10-11-benchmark.md`). The start
+script, the rules read once, the repeats removed from the rules and
+the templates, the start phrases line in the global file. Tasks 32 to
+44, 143 tests green, committed by the user up to `f12a068`. Moved out:
+Task 41 to the Roadmap, the guard scripts to Parked. Open at the close:
+the trial of a plain "let's start" in a fresh session.

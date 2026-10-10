@@ -7,6 +7,15 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D32, 11/10/2026: Phase 03 closed, Phase 04 The reviewer's minors opened
+
+Phase 03 closes with its checkpoint met: the benchmark recorded, each
+task delivered or moved on the user's word, the suite green. Phase 04
+takes item 2 of the Roadmap, the reviewer's minors, before the head,
+the second real project, which waits for a project to be chosen. The
+check's miss of a "Done" step not ticked joins the minors. The user's
+word.
+
 ## D31, 11/10/2026: the guard scripts stay in the skill
 
 The guard scripts stay in `skill/machine/hooks/`. Step 8 of the install

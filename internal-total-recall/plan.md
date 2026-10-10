@@ -24,24 +24,13 @@ the Roadmap when it is delivered in full.
    project of another kind, from the install to a few sessions, after
    the changes of Phase 03 are committed. The project is still to be
    chosen. A few sessions, in that project, at the user's pace.
-2. **The reviewer's minors.** The thirteen Minor findings of the fresh
-   review of 07/10/2026, in `records/2026-10-07-review.md`: the machine
-   check on a regex matcher, a quoted command and JSON of the wrong
-   shape; an answer that is not a string in the render; a BOM and a
-   table after a list item in the document check; the `.git` test in a
-   worktree; the snapshot and history templates at render time; "two
-   hook scripts" in the README; the description of the skill; the file
-   list of step 5; the skill-creator checks named in the spec; a
-   capital in the history qualifier. With them, found on 10/10/2026:
-   the check reports a list item that follows a paragraph inside the
-   item before it. Half a session, with the user's own notes.
-3. **The guardrails on another machine.** The machine check and the
+2. **The guardrails on another machine.** The machine check and the
    proposal of the deny list and the guard scripts, tried on a machine
    that has none. Half a session, on that machine.
-4. **The fine tuning of the templates.** After a few sessions on real
+3. **The fine tuning of the templates.** After a few sessions on real
    projects: the size of `state.md`, the number of memory notes, the
    close routine, the task form. What the sessions show. One session.
-5. **The internal folder in the package test.** The test reads
+4. **The internal folder in the package test.** The test reads
    `skill/`, `tests/` and the README, not the internal folder, which
    is now committed. A test for this project's folder, or a note that
    the review covers it. Small.

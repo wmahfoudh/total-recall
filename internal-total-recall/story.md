@@ -94,3 +94,23 @@ The script itself is small: the snapshot, the notes, the head of the
 plan, the current task. The tests went red first, then green, and the
 sample render caught a note that still said to read the rules whole.
 The next start is the trial. If it opens the rules again, we will know.
+
+## 11/10/2026, later: the end of Optimization
+
+The trial passed, the rules were read once. Then Claude told me the
+global file never said where the folder is. "let's start" worked
+because the session went looking. One line in the global file fixed
+it, and the install now offers the same line to anyone.
+
+Half the tasks ended with nothing, and that was fine. The compressed
+copy of the rules would have taught Claude the shorthand the rules
+forbid. The start levels could not skip the rules, Claude Code loads
+them anyway.
+
+Claude also got things wrong. It said the skill link was missing, from
+a listing cut at ten lines, and its link command made a loop inside the
+skill. It left a box unticked, and the start script pointed at an old
+task. Each slip was found and said plainly.
+
+The number I wanted: 5,566 words a start, from ten to fourteen
+thousand. Next, the minors, before a second project.

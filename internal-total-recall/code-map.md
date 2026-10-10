@@ -11,13 +11,24 @@ files since the commit named shows changes.
 
 The names are those of the tree on 11/10/2026.
 
+- Task 40 (`a0d3281`): `START_LINE`, `START_MARKER` and the row
+  "start phrases" in `skill/templates/tools/machine-check.py`; step 8
+  and 9 of `skill/SKILL.md`; the class `StartPhrases` of
+  `tests/test_package.py`, two tests of `tests/test_machine_check.py`.
+- Task 39 (`f9d0d2c`): the comment on the wording checks at the top of
+  `tests/test_package.py`.
+- Task 37 (`008bde2`): `TEMPLATE_NAMES` and `destination_of` in
+  `skill/scripts/render.py`; `skill/templates/CLAUDE.template.md`, the
+  template project file; the template note `project-instruction-file`
+  deleted; two tests of `tests/test_render.py`, three of
+  `tests/test_package.py`.
 - Task 33 (`06a7077`, `6c4354d`, `5f844b2`, `798e5df`):
   `skill/templates/tools/start.py`, new (`open_phase`, `sections`,
   `items`, `plan_head`, `tasks`, `current_task`, `preamble`,
   `start_text`, `StartError`, `main`); `start_script`, `words_of` and
   `start_size` in `skill/templates/tools/doc-check.py`;
   `ROUTINE_FILES` in `skill/scripts/update.py`; the start routine of
-  `skill/templates/CLAUDE.md`; `tests/test_start.py`, new, the class
+  `skill/templates/CLAUDE.template.md`; `tests/test_start.py`, new, the class
   `StartSize` of `tests/test_doc_check.py`.
 
 ## Phase 02

@@ -1,3 +1,22 @@
+# 11/10/2026, later - Phase 03 closed, Phase 04 opened
+
+Tasks 34 to 44 discussed one at a time, then Phase 03 closed against
+its baseline.
+
+- The start script tried by the user and passed. A plain "let's start"
+  found the folder only by listing the tree: the global file named no
+  folder. A line for it, reported by the machine check and proposed by
+  the install (D29).
+- The repeats removed from the rules and the style note (D23) and from
+  the templates, with the template project file renamed so that it no
+  longer loads here (D26). The close reads the tasks of the session
+  (D27).
+- Ended with no change: the compressed copy, the start levels, the
+  short close entries, the wording tests, the guard scripts. The second
+  real project moved to the Roadmap.
+- The benchmark: 5,566 words a start, from 10,022 to 13,891. 143 tests
+  green. Phase 04, The reviewer's minors, opened (D32).
+
 # 11/10/2026 - The start script
 
 The first task of Phase 03: a script prints what a session reads at
