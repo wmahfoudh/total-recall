@@ -231,6 +231,13 @@ at each close, and output costs more than input. A line in `close.md`
 for shorter entries. The tests of caveman found that a plain "be
 concise" gives most of the gain.
 
+**The steps:**
+
+- [x] **Step 1: The discussion** Whether the task ends as a change, a
+  Roadmap item or nothing. Done 11/10/2026: nothing, on the user's
+  word, D25. The history entries, newest first: 156, 142, 232, 269 and
+  522 words; the story entries: 142, 159, 172 and 365.
+
 ### Task 37: The repeats of the templates
 
 What it does and why: the templates write the description twice

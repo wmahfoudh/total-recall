@@ -7,6 +7,19 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D25, 11/10/2026: no line for shorter close entries
+
+Task 36 ends with no change to `close.md`. The reasons:
+
+- the history entries went from 522 words to about 150 under the
+  present routine, which already asks for short bullets and a story
+  the size of a social media post;
+- a start does not read `history.md` or `story.md`, so the cost is the
+  writing, about 550 words a close with `state.md`;
+- the story is the user's diary, and its length is the user's taste.
+
+The user's word.
+
 ## D24, 11/10/2026: no start levels
 
 Task 35 ends with no change: the start keeps a single level. The
