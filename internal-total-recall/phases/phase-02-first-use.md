@@ -32,7 +32,7 @@ from it. The user tries, takes notes, and brings them to a session.
    tests, the backup and the update.
 6. The review of this project's folder with the new command, on the
    user's word after the delivery: `records/2026-10-10-review-2.md`.
-7. The close of the phase, as its last task.
+7. Task 31, the close of the phase, as its last task.
 
 ### The opening of the phase
 
@@ -508,4 +508,26 @@ memory", with the decisions of this session taken in.
 
 The git line: `doc: update and review of the project's memory`.
 
+### Task 31: The close
+
+What it does and why: the close routine of `close.md`, the last task of
+the phase, which opens Phase 03. The user's word, 10/10/2026: close
+now, the backup is fine. The update was run for real on this folder in
+Task 30.
+
+**The steps:**
+
+- [x] **Step 1: The routine** The snapshot, the check of this file, the
+  Roadmap, the history, the story, the decisions, the check tool, then
+  the close paragraph and Phase 03. Done 10/10/2026: Phase 03,
+  Optimization, opened on the user's word, with its name from the user
+  and not from the head of the Roadmap (D21).
+
 **Checkpoint for the phase:** Tasks 18 to 30 delivered and tried by the user, the suite green, then the close of the phase on the user's word.
+
+Closed 10/10/2026: the feedback of the first trials turned into the
+second version of the skill: the memory used with care, the review of
+the memory, the refusal of another documentation system, the backup and
+the update. Tasks 15 to 31, 113 tests green, committed by the user up to
+`e2f9edc`. Open at the close: the trial of the update on a scratch
+repository, the user's word that the backup is fine standing for it.

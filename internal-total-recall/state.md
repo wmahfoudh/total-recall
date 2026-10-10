@@ -1,42 +1,38 @@
 # State
 
-Updated 10/10/2026, at the close of the session of the first trials:
-Phase 02 open, Tasks 15 to 30 done.
+Updated 10/10/2026, at the close of Phase 02 and the opening of
+Phase 03, in a session of exploration.
 
 ## Position
 
-- Phase 02, First use, open since 07/10/2026:
-  `phases/phase-02-first-use.md`. Tasks 15 to 30 are done: the user's
-  notes on the first trials became the spec and the plan of the memory
-  used with care (Tasks 18 to 25), then the refusal of another
-  documentation system (26), the review that takes in the session and
-  the memory notes (27), the name of the reference project out of the
-  tests (28), the backup and the update (29), and the first update and
-  review of this folder (30).
-- The package: `skill/`, `tests/` (113 tests green) and `README.md`.
-  All committed by the user. The folder is in git, on purpose (D12),
-  with its first archive in `backup/`.
-- This folder: brought to the current form by `/total-recall update`
-  and reviewed (`records/2026-10-10-review-2.md`). The check reads
-  `clean`, 6224 words read at each start, limit 8000.
+- Phase 03, Optimization, open since 10/10/2026:
+  `phases/phase-03-optimization.md`. It lowers the cost of a start,
+  measured against `records/2026-10-10-baseline.md`, and holds the
+  points of the exploration as Tasks 34 to 42, to discuss when they
+  open (D21).
+- Phase 02 closed 10/10/2026, Tasks 15 to 31, the user's word that the
+  backup is fine standing for the trial.
+- The package: `skill/`, `tests/` (113 tests green) and `README.md`,
+  unchanged in this session.
 
 ## Done this session
 
-- The whole of Tasks 15 to 30: `history.md` has the entry, the phase
-  file the steps.
+- The repository explored, with six points raised; the cost of a start
+  discussed, then the tools that cut tokens (caveman, caveman-compress,
+  ponytail, rtk) and what applies here.
+- The baseline measured and recorded (Task 32, step 1), Phase 02
+  closed (Task 31), Phase 03 written with Tasks 32 to 44.
 
 ## Next
 
 At "let's start", in a new session:
 
-1. The briefing. Then the user's trial of the new commands on a
-   scratch repository, with the scenario of Task 25 and the backup and
-   the update, and the notes from it.
-2. The Roadmap of `plan.md`, from item 1, the reviewer's minors.
+1. The briefing, then the user's `/context`: Task 32, step 2.
+2. Task 33, the start script, from step 1, the design with the user.
 
 ## Waiting on the user
 
-- The trial on a scratch repository and the notes.
+- The figure of `/context` after "let's start" in a fresh session.
 - The decision on the name of the reference project in the git
   history, under Blocked in `plan.md`.
 - The push, when the user wants the README on GitHub.

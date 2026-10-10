@@ -61,3 +61,20 @@ and handed me five copy commands to type, for files that are not even
 mine. I said stop. Now there is a backup folder, and an update is one
 yes. The skill ran it on itself, reviewed itself, and the folder reads
 clean.
+
+## 10/10/2026, later: what a start costs
+
+I asked for an exploration, no code. It came back with six points, and
+the first one stopped me: each session starts by reading six thousand
+words of my own rules and notes. Most of it is the template, the same
+in every project. My memory is not free.
+
+So I asked what other people do. Caveman makes the replies short, and
+the replies are the cheap part. Its sibling compresses the memory
+files, and that is where the cost is. Ponytail asks the model to write
+less code. The idea we kept is the plainest: a small script that prints
+the part of the plan a start needs, the same trick as the check tool.
+
+I closed Phase 02 without the trial on a scratch repository. The
+backup works, the update already ran on this folder, good enough. Phase
+03 is called Optimization, and it starts with a number to beat.

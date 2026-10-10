@@ -7,6 +7,17 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D21, 10/10/2026: Phase 02 closed, Phase 03 Optimization opened
+
+Phase 02 closes with the trial of the update on a scratch repository
+not run: the user's word that the backup is fine stands for it, and
+the update was run for real on this folder in Task 30. Phase 03 takes
+its name, Optimization, from the user and not from the head of the
+Roadmap. It lowers the cost of a start, measured against
+`records/2026-10-10-baseline.md`, and takes items 4 and 6 of the
+Roadmap with the points of the exploration of 10/10/2026. The user's
+word.
+
 ## D20, 10/10/2026: the README speaks to the reader
 
 The README speaks to the reader with "you", with no first person, by

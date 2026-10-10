@@ -42,18 +42,10 @@ the Roadmap when it is delivered in full.
 3. **The fine tuning of the templates.** After a few sessions on real
    projects: the size of `state.md`, the number of memory notes, the
    close routine, the task form. What the sessions show. One session.
-4. **"let's start" for a new user.** A line of a global rules file that
-   maps the phrase to the project file, handed over by the skill, so
-   that a new user does not need the read phrase. To try on a machine
-   without the user's global file. Half a session.
-5. **The internal folder in the package test.** The test reads
+4. **The internal folder in the package test.** The test reads
    `skill/`, `tests/` and the README, not the internal folder, which
    is now committed. A test for this project's folder, or a note that
    the review covers it. Small.
-6. **The repeats of the templates.** The templates write the
-   description twice (`CLAUDE.md` and the Goal of `plan.md`) and the
-   constraints twice, and the note `project-instruction-file` repeats
-   `CLAUDE.md` and `rules.md`, all read at each start. Half a session.
 
 ## Parked
 

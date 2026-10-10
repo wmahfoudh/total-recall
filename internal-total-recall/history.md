@@ -1,3 +1,19 @@
+# 10/10/2026, later - Phase 02 closed, Phase 03 Optimization opened
+
+A session of exploration and discussion, with no change to the code.
+
+- The repository explored and six points raised: the cost of a start,
+  the phase file that grows, the tests that pin the wording, a single
+  real user, the global rules file, the guard hooks.
+- The cost of a start measured: 6,207 words in this project, 4,854 in
+  the template, of which `rules.md` and the style note are 3,742.
+- The tools that cut tokens read (caveman, caveman-compress, ponytail,
+  rtk): a start script chosen first, with three other ideas planned.
+- The baseline in `records/2026-10-10-baseline.md`. Phase 02 closed
+  (Task 31), Phase 03 opened with Tasks 32 to 44, D21. The backup by
+  the script refused by the permission check of the session: the
+  baseline names the commit `b315d2c`.
+
 # 10/10/2026 - The memory used with care, the backup and the update
 
 The user's notes on the first trials, turned into the skill's second
