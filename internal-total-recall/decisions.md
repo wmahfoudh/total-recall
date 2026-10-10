@@ -7,6 +7,13 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D28, 11/10/2026: the tests that pin the wording stay
+
+The tests that check a sentence of a rule stay as they are. They stop a
+rewrite from dropping a rule unnoticed, and a meant change of wording
+changes the test in the same edit. A comment at the top of
+`tests/test_package.py` gives this reason. The user's word.
+
 ## D27, 11/10/2026: the close reads the tasks of the session
 
 Step 3 of the close reads only the tasks of the session, found by their

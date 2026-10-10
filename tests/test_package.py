@@ -16,6 +16,9 @@ TEXT = (".md", ".py", ".sh", ".json", ".txt")
 # repository, so the test keeps its SHA-256 hash and hashes each word.
 FORBIDDEN_HASHES = {"535609a8f9190ae30850b6c191e554c978db017302fbb285554d04519a5daa69"}
 HOME_PATH = "/" + "home" + "/"
+# Several tests below check a sentence of a rule in SKILL.md, the README
+# or a template. They stop a rewrite from dropping the rule unnoticed.
+# When a change of wording is meant, the test is changed in the same edit.
 
 
 def load(path, name):

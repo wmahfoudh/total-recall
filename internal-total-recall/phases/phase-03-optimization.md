@@ -306,6 +306,15 @@ sentences of `SKILL.md` and the templates. They keep the rules in the
 text, and each change of wording becomes a change of a test too: Task
 22 found two literals of its plan that did not match its own tests.
 
+Discussed with the user 11/10/2026, D28: of the 51 checks of text, about
+a dozen pin a sentence of a rule, and they stay. The others check
+names, text that a tool reads, or old wording kept out.
+
+**The steps:**
+
+- [x] **Step 1: The comment** The reason of the wording checks at the
+  top of `tests/test_package.py`. Done 11/10/2026: three lines, suite green.
+
 ### Task 40: "let's start" for a new user
 
 What it does and why: the phrase works on this machine because the
