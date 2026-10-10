@@ -52,13 +52,45 @@ When there is no `.git`, stop. Tell the user to run `git init` in the
 project folder first, and that nothing was written.
 
 The folder name is the last part of the working directory
-(`basename "$PWD"`). The internal folder is `internal-<project-name>`, with
-the name kept as it is, spaces and capitals included.
+(`basename "$PWD"`). The internal folder is `internal-<project-name>`,
+with the name kept as it is, spaces and capitals included.
+
+Then look for another documentation system at the root of the project:
+
+```
+for f in CLAUDE.md CLAUDE.local.md AGENTS.md .claude/CLAUDE.md memory-bank; do test -e "$f" && echo "found: $f" || true; done
+```
+
+When a line reads `found:`, the project has another documentation
+system, and the skill does not change it. Stop, and tell the user in
+one message that nothing was written, which files were found, and the
+way to move to total recall:
+
+1. Move these files out of the project. Claude Code also loads a
+   `CLAUDE.md` found in a subfolder, so a move inside the project keeps
+   it in use.
+2. Run `/total-recall` again to install the memory.
+3. Open a session with "let's start", give Claude the path of the old
+   files, and ask it to bring them in. Claude reads them, asks questions,
+   and proposes where each item goes, by the rule "When to ask before a
+   write" of `rules.md`.
 
 ## 2. The mode
 
-When `internal-<project-name>/` exists, check it, bring it to the current
-form, and stop:
+When `internal-<project-name>/` exists, first read the first line of
+its project file:
+
+```
+head -n 1 "internal-<project-name>/CLAUDE.md"
+```
+
+The skill always writes `@rules.md` there. When the file is missing or
+its first line is another, the folder
+does not look like a total-recall folder. Stop, and tell the user that
+nothing was written and that the skill does not change a folder it did
+not write.
+
+Otherwise, check the folder, bring it to the current form, and stop:
 
 1. List the files of `${CLAUDE_SKILL_DIR}/templates/` against the
    internal folder, and name each one that is missing.

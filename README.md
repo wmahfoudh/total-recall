@@ -69,6 +69,7 @@ The skill has one command, and Claude does not start the skill on its own (`disa
 | Where you type it | What happens |
 |---|---|
 | `/total-recall` in a repository without an internal folder | The install: five questions, the description to approve, the folder written, the git question, the machine check |
+| `/total-recall` in a repository with another documentation system (a root `CLAUDE.md` or `AGENTS.md`, a `memory-bank/` folder) | Nothing written: the files found are named, with the way to move to total recall: move them out of the project, install, then bring them in through a session of questions |
 | `/total-recall` in a repository that has the folder | The check and the update: the missing files named and the repair offered, the routine files compared with the templates, older decisions migrated in a copy, then the offer of the review |
 
 The phrases are defined by the project file, so they work in a session that has read the folder, even with the skill uninstalled.

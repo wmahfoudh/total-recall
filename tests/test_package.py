@@ -244,5 +244,24 @@ class Readme(unittest.TestCase):
         for phrase in ("voice", "does not track", "not in git", "keeps it out of git"):
             self.assertFalse(phrase in text, phrase)
 
+
+class AnotherSystem(unittest.TestCase):
+    def test_the_install_stops_on_another_documentation_system(self):
+        step = skill_steps()["1"]
+        for name in ("CLAUDE.md", "CLAUDE.local.md", "AGENTS.md", ".claude/CLAUDE.md", "memory-bank"):
+            self.assertIn(name, step)
+        self.assertIn("another documentation system", step)
+        self.assertIn("Move these files out of the project", step)
+
+    def test_the_check_mode_stops_on_a_folder_the_skill_did_not_write(self):
+        step = skill_steps()["2"]
+        self.assertIn("head -n 1", step)
+        self.assertIn("does not look like a total-recall folder", step)
+        self.assertLess(step.index("does not look like a total-recall folder"), step.index("1. List the files"))
+
+    def test_the_readme_names_the_refusal(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("another documentation system", readme)
+
 if __name__ == "__main__":
     unittest.main()

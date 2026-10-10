@@ -318,4 +318,35 @@ no copy elsewhere" for "an uncommitted folder", added to rule 4 of
 template `skill/templates/memory/user-writing-style.md`: the two
 copies identical, the suite green.
 
-**Checkpoint for the phase:** Tasks 18 to 25 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
+### Task 26: The refusal of another documentation system
+
+What it does and why: the user's question, 10/10/2026: what happens
+when the skill runs on a project documented another way. The render
+replaces nothing, but the skill does not see another system: a root
+`CLAUDE.md` would contradict the internal folder, and a folder of the
+same name that is not a total-recall folder would get the repair. The
+user's word: refuse, recommend to move the old documentation out of
+the project, install, then bring it in through a session of questions.
+
+The files: `skill/SKILL.md` (steps 1 and 2), `README.md` (the table of
+the commands), `tests/test_package.py`.
+
+**The steps:**
+
+- [x] **Step 1: The tests** The detection and the refusal in step 1,
+  the first line `@rules.md` in step 2, the row of the README, seen
+  red. Done 10/10/2026: three red.
+- [x] **Step 2: The text** `SKILL.md` and the README; the suite green.
+  Done 10/10/2026: 94 tests green, `SKILL.md` 295 lines. What counts
+  as another system: a root `CLAUDE.md`, `CLAUDE.local.md` or
+  `AGENTS.md`, a `.claude/CLAUDE.md`, a `memory-bank/` folder; a
+  `docs/` folder does not. The two commands of the skill run on
+  scratch folders: three `found:` lines on a project with another
+  system, none on a clean one or on this repository; `@rules.md` on a
+  rendered folder, another line on a foreign folder, an error on a
+  missing file. The detection ends with `|| true`, so that a clean
+  project exits with 0 and does not read as a failure.
+
+The git line: `feat: refuse to install over another documentation system`.
+
+**Checkpoint for the phase:** Tasks 18 to 26 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
