@@ -186,6 +186,68 @@ class FolderRules(unittest.TestCase):
         code, out = self.check({"records/log.md": f"pasted {EM} as is\nText\n- list\n"})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
+    def test_a_decision_title_in_another_form_is_reported(self):
+        code, out = self.check({"decisions.md": "# Decisions\n\n## 07/10/2026: old form\n\nText.\n"})
+        self.assertEqual(code, 1)
+        self.assertIn("decisions.md:3: a decision starts with '## Dn, DD/MM/YYYY: <name>'", out)
+
+    def test_decisions_must_come_newest_first(self):
+        text = "# Decisions\n\n## D1, 07/10/2026: a\n\nText.\n\n## D2, 08/10/2026: b\n\nText.\n"
+        code, out = self.check({"decisions.md": text})
+        self.assertIn("decisions.md:7: D2 is below D1: the newest decision comes first", out)
+
+    def test_decisions_newest_first_are_clean(self):
+        text = "# Decisions\n\n## D2, 08/10/2026: b\n\nText.\n\n## D1, 07/10/2026: a\n\nText.\n"
+        code, out = self.check({"decisions.md": text})
+        self.assertEqual((code, out.strip()), (0, "clean"))
+
+    def test_a_title_inside_a_code_block_is_not_a_decision(self):
+        text = "# Decisions\n\n## D1, 07/10/2026: a\n\n```\n## not a title\n```\n"
+        code, out = self.check({"decisions.md": text})
+        self.assertEqual((code, out.strip()), (0, "clean"))
+
+    def test_an_obsolete_decision_needs_its_replaced_line(self):
+        text = "# Obsolete decisions\n\n## D1, 07/10/2026: a\n\nText.\n"
+        code, out = self.check({"obsolete.md": text})
+        self.assertIn("obsolete.md:3: an obsolete decision needs 'Replaced by Dn on DD/MM/YYYY.' under its title", out)
+
+    def test_obsolete_decisions_most_recently_replaced_first_are_clean_with_any_numbers(self):
+        text = ("# Obsolete decisions\n\n## D1, 07/10/2026: a\n\nReplaced by D4 on 10/10/2026.\n\nText.\n\n"
+                "## D3, 08/10/2026: b\n\nReplaced by D5 on 09/10/2026.\n\nText.\n")
+        code, out = self.check({"obsolete.md": text})
+        self.assertEqual((code, out.strip()), (0, "clean"))
+
+    def test_obsolete_decisions_must_come_most_recently_replaced_first(self):
+        text = ("# Obsolete decisions\n\n## D3, 08/10/2026: b\n\nReplaced by D5 on 09/10/2026.\n\nText.\n\n"
+                "## D1, 07/10/2026: a\n\nReplaced by D4 on 10/10/2026.\n\nText.\n")
+        code, out = self.check({"obsolete.md": text})
+        self.assertIn("obsolete.md:9: this decision was replaced after the one above it: "
+                      "the most recently replaced comes first", out)
+
+    def test_a_size_over_the_limit_is_reported(self):
+        claude = MINIMAL["CLAUDE.md"] + "\nThe size read at each start: 60 words at most.\n"
+        code, out = self.check({"CLAUDE.md": claude, "state.md": "# State\n\n" + "word " * 60 + "\n"})
+        self.assertEqual(code, 1)
+        self.assertRegex(out, r"CLAUDE\.md:0: the files read at each start hold \d+ words, over the limit of 60")
+
+    def test_the_limit_may_be_written_with_a_comma(self):
+        claude = MINIMAL["CLAUDE.md"] + "\nThe size read at each start: 1,000 words at most.\n"
+        code, out = self.check({"CLAUDE.md": claude, "state.md": "# State\n\n" + "word " * 900 + "\n"})
+        self.assertEqual((code, out.strip()), (0, "clean"))
+
+    def test_the_default_limit_is_8000_words(self):
+        code, out = self.check({"state.md": "# State\n\n" + "word " * 8001 + "\n"})
+        self.assertRegex(out, r"over the limit of 8000")
+
+    def test_the_size_option_prints_the_size_before_the_findings(self):
+        with tempfile.TemporaryDirectory() as root:
+            make_folder(root, MINIMAL)
+            result = subprocess.run([sys.executable, "-I", str(TOOL), "--size", root],
+                                    capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertRegex(result.stdout, r"^read at each start: \d+ words, limit 8000\n")
+        self.assertEqual(result.stdout.strip().splitlines()[-1], "clean")
+
     def test_a_missing_folder_is_a_usage_error(self):
         result = run_tool("/nonexistent/folder")
         self.assertEqual(result.returncode, 2)

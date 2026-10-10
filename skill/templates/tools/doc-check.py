@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Checks the documents of an internal folder.
 
-Usage: python3 doc-check.py <internal folder>
+Usage: python3 doc-check.py [--size] <internal folder>
 
 Prints one line per finding, "path:line: message", then a count. Exits
 with 1 when it found something, 0 when the documents are clean, 2 on a
-usage error. Python 3 with the standard library only.
+usage error. With --size, the first line gives the words read at each
+start and the limit of CLAUDE.md. Python 3 with the standard library
+only.
 
 The records folder is skipped: a record is kept as it was received.
 """
@@ -75,6 +77,11 @@ DONE_STEP_RE = re.compile(r"^\s*- \[x\]", re.IGNORECASE)
 DONE_MARK_RE = re.compile(r"Done " + DATE_RE + ":")
 HISTORY_TITLE_RE = re.compile(r"^# " + DATE_RE + r"(, [a-z ]+)? - \S")
 STATE_MAX_LINES = 150
+DECISION_TITLE_RE = re.compile(r"^## D(\d+), " + DATE_RE + r": \S")
+REPLACED_RE = re.compile(r"^Replaced by D\d+ on (\d{2})/(\d{2})/(\d{4})\.$")
+START_FILES = ("CLAUDE.md", "rules.md", "state.md", "plan.md")
+SIZE_LIMIT = 8000
+SIZE_RE = re.compile(r"The size read at each start[^0-9]*([0-9][0-9,]*) words")
 
 
 def check_documents_table(folder, text):
@@ -164,6 +171,76 @@ def check_history(text):
     return found
 
 
+def check_decisions(text, obsolete=False):
+    """Each entry of decisions.md or obsolete.md is titled '## Dn, DD/MM/YYYY: <name>'.
+
+    In decisions.md the numbers fall from the top: the newest decision
+    comes first. In obsolete.md the first line of text under a title is
+    'Replaced by Dn on DD/MM/YYYY.', and those dates fall from the top:
+    the most recently replaced decision comes first, whatever its
+    number. The lines of a fenced code block are skipped.
+    """
+    found = []
+    lines = text.split("\n")
+    previous = None
+    in_code = False
+    for number, line in enumerate(lines, 1):
+        if line.lstrip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code or not line.startswith("## "):
+            continue
+        match = DECISION_TITLE_RE.match(line)
+        if not match:
+            found.append((number, "a decision starts with '## Dn, DD/MM/YYYY: <name>'"))
+            continue
+        if obsolete:
+            following = next((later.strip() for later in lines[number:] if later.strip()), "")
+            replaced = REPLACED_RE.match(following)
+            if not replaced:
+                found.append((number, "an obsolete decision needs 'Replaced by Dn on DD/MM/YYYY.' under its title"))
+                continue
+            day, month, year = replaced.groups()
+            current = (int(year), int(month), int(day))
+            if previous is not None and current > previous:
+                found.append((number, "this decision was replaced after the one above it: "
+                                      "the most recently replaced comes first"))
+        else:
+            current = int(match.group(1))
+            if previous is not None and current >= previous:
+                found.append((number, f"D{current} is below D{previous}: the newest decision comes first"))
+        previous = current
+    return found
+
+
+def start_size(folder):
+    """The words of the files read at each start: CLAUDE.md, rules.md, state.md, plan.md and the memory notes.
+
+    plan.md is counted whole, although a session reads its head: the
+    count errs on the high side.
+    """
+    folder = Path(folder)
+    paths = [folder / name for name in START_FILES]
+    memory = folder / "memory"
+    if memory.is_dir():
+        paths += sorted(memory.glob("*.md"))
+    words = 0
+    for path in paths:
+        if not path.is_file():
+            continue
+        try:
+            words += len(path.read_text(encoding="utf-8").split())
+        except UnicodeDecodeError:
+            continue
+    return words
+
+
+def size_limit(claude_text):
+    """The limit written in CLAUDE.md, 'The size read at each start: N words', or the default."""
+    match = SIZE_RE.search(claude_text)
+    return int(match.group(1).replace(",", "")) if match else SIZE_LIMIT
+
+
 def check_memory(folder):
     """Each note is in the index, and each index line names a note."""
     memory = folder / "memory"
@@ -229,16 +306,36 @@ def check_folder(folder):
     if history.exists():
         for number, message in check_history(text_of(history)):
             add(history, number, message)
+    for name, obsolete in (("decisions.md", False), ("obsolete.md", True)):
+        path = folder / name
+        if path.exists():
+            for number, message in check_decisions(text_of(path), obsolete):
+                add(path, number, message)
+    limit = size_limit(text_of(claude)) if claude.exists() else SIZE_LIMIT
+    words = start_size(folder)
+    if words > limit:
+        findings.append(f"CLAUDE.md:0: the files read at each start hold {words} words, over the limit of {limit}")
     for path, number, message in check_memory(folder):
         add(path, number, message)
     return findings
 
 
 def main(argv):
-    if len(argv) != 2 or not Path(argv[1]).is_dir():
-        print("usage: doc-check.py <internal folder>", file=sys.stderr)
+    args = argv[1:]
+    show_size = "--size" in args
+    args = [arg for arg in args if arg != "--size"]
+    if len(args) != 1 or not Path(args[0]).is_dir():
+        print("usage: doc-check.py [--size] <internal folder>", file=sys.stderr)
         return 2
-    findings = check_folder(argv[1])
+    folder = Path(args[0])
+    if show_size:
+        claude = folder / "CLAUDE.md"
+        try:
+            limit = size_limit(claude.read_text(encoding="utf-8")) if claude.exists() else SIZE_LIMIT
+        except UnicodeDecodeError:
+            limit = SIZE_LIMIT
+        print(f"read at each start: {start_size(folder)} words, limit {limit}")
+    findings = check_folder(folder)
     for line in findings:
         print(line)
     if findings:
