@@ -64,7 +64,7 @@ A copy (`cp -r skill ~/.claude/skills/total-recall`) is not updated when this re
 
 ## Commands
 
-The skill has one command, and Claude does not start the skill on its own (`disable-model-invocation: true` in `SKILL.md`): you type `/total-recall`. A request in plain words, such as "set up the documentation", does not start it, so the skill does not change the documents of a project that keeps its documentation another way.
+The skill has one command, and Claude does not start the skill on its own (`disable-model-invocation: true` in `SKILL.md`): you type `/total-recall`. A request in plain words, such as "set up the documentation", does not start it, so the skill does not change the documents of a project that keeps its documentation another way. The same setting keeps the description of the skill out of the context until you type the command, so the skill costs no tokens in a session that does not use it.
 
 | Where you type it | What happens |
 |---|---|

@@ -288,7 +288,9 @@ know the project, in the user's voice, and names the folder
   skill on its own", the description not in context until invoked);
   the description of `SKILL.md` no longer says that a request in words
   starts it; the typos and the first person sentences of the README
-  aligned with the user's opening; 91 tests green.
+  aligned with the user's opening; 91 tests green. Then, on the user's
+  word, one sentence on the tokens: the description stays out of the
+  context until the command is typed.
 
 The git line: `doc: readme rewritten for a public skill, folder named after the project`.
 
