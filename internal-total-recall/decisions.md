@@ -7,6 +7,13 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D30, 11/10/2026: the second real project moves to the Roadmap
+
+Task 41 leaves Phase 03 and becomes item 1 of the Roadmap. It is not an
+optimization, its sessions run in another project at the user's pace,
+and it tries the templates best once the changes of the phase are
+committed. The project is still to be chosen. The user's word.
+
 ## D29, 11/10/2026: the start phrases in the global file
 
 A line in the global rules file names

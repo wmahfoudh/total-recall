@@ -256,7 +256,7 @@ the templates.
 
 **The steps:**
 
-- [ ] **Step 1: The tests** The rename in the render tests and the
+- [x] **Step 1: The tests** The rename in the render tests and the
   package test, the note gone from the expected files and the index,
   no `{{description}}` or `{{constraints}}` in the template plan. Seen
   red. Done 11/10/2026: five new tests and the template paths of
@@ -356,6 +356,12 @@ it, and the install proposes it. The global file stays whole.
 What it does and why: the only project that runs the skill is its own
 repository, and most of the feedback of Phase 02 came from it. A
 second, ordinary project tries the templates on work of another kind.
+
+**The steps:**
+
+- [x] **Step 1: The discussion** Whether the task ends as a change, a
+  Roadmap item or nothing. Done 11/10/2026: item 1 of the Roadmap, on
+  the user's word, D30. The project is still to be chosen.
 
 ### Task 42: The guard hooks
 
