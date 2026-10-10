@@ -201,9 +201,16 @@ the work without stopping it. The user's note. Plan, Task 22.
 
 **The steps:**
 
-- [ ] **Step 1: The tests** `WhenToAsk`, seen red.
-- [ ] **Step 2: The text** `rules.md`, `CLAUDE.md`, `close.md`; the
-  suite green.
+- [x] **Step 1: The tests** `WhenToAsk`, seen red. Done 10/10/2026:
+  three red.
+- [x] **Step 2: The text** `rules.md`, `CLAUDE.md`, `close.md`; the
+  suite green. Done 10/10/2026: 83 tests green. Two literals of the
+  plan's text did not match its tests (`**When to ask:**` with the
+  colon inside the bold, the quoted heading wrapped over two lines),
+  fixed in the text: the colon outside the bold like the other labels,
+  the quote on one line. A sample render reads `clean`, 4762 words read
+  at each start. The close now has nine steps: the new step 1, the old
+  ones renumbered 2 to 9.
 
 The git line: `feat: ask before a write only when the user's judgment matters`.
 

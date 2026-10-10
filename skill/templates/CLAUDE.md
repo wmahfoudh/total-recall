@@ -12,6 +12,10 @@ with no need for the phrase.
 `{{internal}}/` is the memory of the project. Claude Code loads this
 file when a session reads a file in the folder.
 
+The size read at each start (this file, `rules.md`, `state.md`,
+`plan.md` and the memory notes): 8,000 words at most.
+`tools/doc-check.py` reports it.
+
 | File | What it holds |
 |---|---|
 | `rules.md` | The rules for every project: writing, working with the user, verification. Imported above |
@@ -49,10 +53,12 @@ During the session:
   the documents too. A task opens with what it does and why.
 - A step is ticked with its date the moment it is done, with a line on
   what happened.
-- A correction from the user becomes a memory note at once, or updates
-  the note on that topic.
-- A decision is appended to `decisions.md` when it is taken. A document
-  is edited mid-session only when a decision makes it wrong.
+- What the session learns is written by the rule of `rules.md`,
+  "When to ask before a write": a correction from the user is proposed
+  at once, the rest waits for a pause.
+- A decision goes at the top of `decisions.md` with the next number,
+  and a decision it replaces moves to `obsolete.md`. A document is
+  edited mid-session only when a decision makes it wrong.
 - A spec or a plan written by a skill is saved under `records/`, and its
   tasks become tasks of the open phase.
 

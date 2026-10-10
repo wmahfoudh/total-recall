@@ -276,3 +276,34 @@ file.
   Claude Code's own memory folder is left alone.
 - A spec or a plan written by a skill is saved under `records/` of the
   folder, and its tasks become tasks of the open phase.
+
+### When to ask before a write
+
+The memory is read again in each session, so what goes in it costs
+tokens and attention. The session decides when the user's judgment is
+needed, and the user keeps working on the project in the meantime.
+
+**Written without asking**, when the place is obvious and the cost is
+small:
+
+- a ticked step, a history entry, a decision, a Roadmap item;
+- a fact in the file that owns it, when that file is not read at each
+  start: a phase file, a record, the code map.
+
+**Asked first**, when the user's judgment matters:
+
+- the text goes into a file read at each start (`CLAUDE.md`,
+  `rules.md`, a memory note), and each line there is read in every
+  session;
+- the text changes, weakens or contradicts something written;
+- the place is unclear, or between two files;
+- the text is large: a new file, a new note, a section rewritten.
+
+**When to ask**: the questions are held for a pause in the work, the
+end of a task or the close, and asked together in one message. A
+correction from the user is proposed at once, since it changes the
+work of the same session.
+
+**A proposal** gives what would be written, where, its size when the
+file is read at each start, and two or three options: this place, a
+cheaper place, nothing.

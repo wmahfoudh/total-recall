@@ -171,5 +171,28 @@ class GitQuestion(unittest.TestCase):
             for phrase in ("out of git", "does not track", "info/exclude", "not in git", "goes through git"):
                 self.assertFalse(phrase in text, f"{path.relative_to(SKILL)} says {phrase!r}")
 
+
+class WhenToAsk(unittest.TestCase):
+    def read(self, name):
+        return (SKILL / "templates" / name).read_text(encoding="utf-8")
+
+    def test_the_rules_say_when_to_ask_before_a_write(self):
+        rules = self.read("rules.md")
+        self.assertIn("### When to ask before a write", rules)
+        for label in ("**Written without asking**", "**Asked first**", "**When to ask**", "**A proposal**"):
+            self.assertIn(label, rules)
+
+    def test_the_project_file_points_to_the_rule_and_sets_the_size(self):
+        claude = self.read("CLAUDE.md")
+        self.assertIn('"When to ask before a write"', claude)
+        self.assertNotIn("becomes a memory note at once", claude)
+        self.assertIn("The size read at each start", claude)
+        self.assertIn("8,000 words", claude)
+
+    def test_the_close_asks_the_held_proposals_first(self):
+        steps = re.findall(r"^(\d+)\. (.*)$", self.read("close.md"), re.MULTILINE)
+        self.assertEqual(steps[0][0], "1")
+        self.assertTrue(steps[0][1].startswith("Ask the proposals held"), steps[0])
+
 if __name__ == "__main__":
     unittest.main()
