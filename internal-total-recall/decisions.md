@@ -91,3 +91,36 @@ user's word, after finding the name in seven files of this folder.
 A history title may carry a word after the date, `# DD/MM/YYYY, later -
 <name>`, for a second session of a day: the user's habit, seen in the
 reference history. The session's ruling during Task 4.
+
+## 10/10/2026: the internal folder in git, the user's choice
+
+The skill asks the user at the install whether the internal folder
+stays out of git, and writes the exclusion line only on a yes. No
+document, README or memory note states the choice. This project's
+folder is in git since `1c64cda`, on purpose: the user's word. It
+replaces the exclusion of "the folder and nothing else". The documents
+of this folder follow at the review of the memory.
+
+## 10/10/2026: the memory used with care
+
+The skill writes to the memory without asking when the place is
+obvious and the cost small, and asks first when the text goes into a
+file read at each start, changes something written, has no clear place
+or is large. The questions wait for a pause, except a correction. A
+review of the memory, "review the memory", proposes its changes in a
+report and applies only the approved ones. `/total-recall` on an
+existing folder brings it to the current form. The user's notes, the
+spec `records/2026-10-10-design.md`.
+
+## 10/10/2026: the decisions newest first, and obsolete.md
+
+The decisions are numbered and kept newest first, and a replaced
+decision moves whole to `obsolete.md` with the number and the date of
+the one that replaces it. The user's idea and the name `obsolete.md`.
+`story.md` stays oldest first.
+
+## 10/10/2026: the README for a public skill
+
+The README is written in the user's voice and by the user's rules,
+without saying so, and names the folder `internal-<project-name>`. The
+review of this project waits for the final skill and the user's word.

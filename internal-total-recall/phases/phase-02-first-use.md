@@ -22,8 +22,13 @@ from it. The user tries, takes notes, and brings them to a session.
 1. Task 15, the feedback of the first trial.
 2. Task 16, the name of the reference project removed from this folder.
 3. Task 17, the user's style as a memory note.
-4. The tasks the feedback gives, numbered when they are written.
-5. The close of the phase, as its last task.
+4. Tasks 18 to 25, the memory used with care: the spec
+   `records/2026-10-10-design.md` and the plan
+   `records/2026-10-10-plan.md`, approved 10/10/2026, run in this
+   session by the session itself, a task at a time on the user's word.
+5. The review of this project's folder with the new command, on the
+   user's word after the delivery.
+6. The close of the phase, as its last task.
 
 ### The opening of the phase
 
@@ -39,16 +44,22 @@ tasks of this phase.
 
 **The steps:**
 
-- [ ] **Step 1: The notes** The user's notes, read one item at a time,
+- [x] **Step 1: The notes** The user's notes, read one item at a time,
   with the session's view on each: a fault to reproduce, a change to
   design, or a note for the Roadmap. The first two came on 07/10/2026,
   from the user's read of this folder right after the close: the
   reference project named in the folder (Task 16, done), and the
   user's style not found under `memory/` (Task 17, done on the user's
-  word). The notes of the trials on other repositories are still to
-  come.
-- [ ] **Step 2: The tasks** Each agreed item written as a task of this
-  phase, in the task form, numbered from 18.
+  word). Done 10/10/2026: three notes from the trials (the git
+  question, the memory used with care with a review command, the
+  README), and two ideas of the user (decisions newest first,
+  `obsolete.md`), discussed one at a time and written as a spec,
+  `records/2026-10-10-design.md`, waiting on the user's review.
+- [x] **Step 2: The tasks** Each agreed item written as a task of this
+  phase, in the task form, numbered from 18. Done 10/10/2026: the plan
+  `records/2026-10-10-plan.md`, approved by the user, written below as
+  Tasks 18 to 25. The full steps, the code and the tests are in the
+  plan.
 
 ### Task 16: The name of the reference project removed from this folder
 
@@ -96,4 +107,127 @@ any text, and `rules.md` points to it.
 
 The git line: `feat: the user's writing style shipped as a memory note`.
 
-**Checkpoint for the phase:** written when the tasks are known.
+### Task 18: The check of the decisions and of the size
+
+What it does and why: `doc-check.py` checks that the decisions are
+numbered and newest first, that each obsolete decision has its
+"Replaced by" line with the most recently replaced first, and that the
+size read at each start stays under the limit of `CLAUDE.md`. The
+review and the close rely on these checks. Plan, Task 18.
+
+The files: `skill/templates/tools/doc-check.py`,
+`skill/templates/tools/README.md`, `tests/test_doc_check.py`. The
+copy in this folder's `tools/` waits for the review of this project.
+
+**The steps:**
+
+- [x] **Step 1: The tests** Eleven tests in `FolderRules`, seen red.
+  Done 10/10/2026: seven red. The four others check a clean folder and
+  passed before the code, since the old tool reports nothing there: the
+  plan's "eleven red" was a miscount.
+- [x] **Step 2: The code** `check_decisions`, `start_size`,
+  `size_limit`, the option `--size`, the README line; the suite green.
+  Done 10/10/2026: 69 tests green. The new tool run on this folder
+  prints `read at each start: 5780 words, limit 8000` and 15 findings,
+  the 15 old titles of `decisions.md`, expected until the review.
+
+The git line: `feat: check the order of the decisions and the size read at each start`.
+
+### Task 19: The migration of the decisions
+
+What it does and why: `render.py --migrate-decisions` writes the
+decisions of an older folder in the new form, in a copy, so that an
+older project can be brought up to date without losing a word. Plan,
+Task 19.
+
+**The steps:**
+
+- [ ] **Step 1: The tests** Six tests in `MigrateDecisions`, seen red.
+- [ ] **Step 2: The code** The migration and its options; the suite
+  green.
+
+The git line: `feat: migrate an older decisions file to numbered entries, newest first`.
+
+### Task 20: The decisions newest first and obsolete.md
+
+What it does and why: the templates write the decisions numbered and
+newest first, and ship `obsolete.md`. Plan, Task 20.
+
+**The steps:**
+
+- [ ] **Step 1: The tests** The package and the real render, seen red.
+- [ ] **Step 2: The templates** `decisions.md`, `obsolete.md`, the
+  table of `CLAUDE.md`, `lifecycle.md`; the suite green.
+
+The git line: `feat: decisions numbered and newest first, replaced ones in obsolete.md`.
+
+### Task 21: The git question
+
+What it does and why: the skill asks whether the internal folder stays
+out of git, and no template states the answer. The user's note. Plan,
+Task 21.
+
+**The steps:**
+
+- [ ] **Step 1: The tests** `GitQuestion`, seen red.
+- [ ] **Step 2: The text** `SKILL.md` and the templates; the suite
+  green.
+
+The git line: `feat: ask whether git should ignore the internal folder`.
+
+### Task 22: When to ask before a write
+
+What it does and why: the rules say when a write to the memory needs
+the user's judgment and when it does not, so that the documents follow
+the work without stopping it. The user's note. Plan, Task 22.
+
+**The steps:**
+
+- [ ] **Step 1: The tests** `WhenToAsk`, seen red.
+- [ ] **Step 2: The text** `rules.md`, `CLAUDE.md`, `close.md`; the
+  suite green.
+
+The git line: `feat: ask before a write only when the user's judgment matters`.
+
+### Task 23: The review of the memory
+
+What it does and why: "review the memory" proposes the cleanup of the
+folder in a report and applies the approved items, and `/total-recall`
+brings an older folder to the current form. The user's note. Plan,
+Task 23.
+
+**The steps:**
+
+- [ ] **Step 1: The tests** `Review` and the repair, seen red.
+- [ ] **Step 2: The text** `review.md`, `CLAUDE.md`, `close.md`,
+  `SKILL.md`; the suite green.
+
+The git line: `feat: review of the memory, and the update of an older folder`.
+
+### Task 24: The README for a public skill
+
+What it does and why: the README is written for readers who do not
+know the project, in the user's voice, and names the folder
+`internal-<project-name>` in backticks. The user's note. Plan, Task 24.
+
+**The steps:**
+
+- [ ] **Step 1: The tests** `Readme`, seen red.
+- [ ] **Step 2: The draft** Shown to the user and corrected.
+- [ ] **Step 3: The README and the placeholder** The suite green.
+
+The git line: `doc: readme rewritten for a public skill, folder named after the project`.
+
+### Task 25: The final check
+
+What it does and why: the suite, the sample render, the migration on a
+copy of this folder's decisions, and the scenario for the user. Plan,
+Task 25.
+
+**The steps:**
+
+- [ ] **Step 1: The checks** The suite, the sample render, the
+  migration on a copy.
+- [ ] **Step 2: The scenario** Given to the user.
+
+**Checkpoint for the phase:** Tasks 18 to 25 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
