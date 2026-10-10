@@ -334,8 +334,7 @@ shrinks to the start phrases and a pointer is decided here, with the
 entry point (D23).
 
 Found 11/10/2026: the global file says the phrases run "the routine the
-project's instruction file defines" and names no folder. The skill is
-not linked in `~/.claude/skills/` on this machine.
+project's instruction file defines" and names no folder.
 
 Discussed with the user 11/10/2026, D29: a line in the global file
 names `internal-<project-name>/CLAUDE.md`, the machine check reports
@@ -348,8 +347,9 @@ it, and the install proposes it. The global file stays whole.
 - [x] **Step 2: The code** `START_LINE` and the row in
   `machine-check.py`, step 8 and 9 of `SKILL.md`, the README, the copy
   here. Done 11/10/2026: 143 tests green; here the row reads `missing`.
-- [ ] **Step 3: The line on this machine** The user adds the line to
-  the global file; the machine check reads `present`.
+- [x] **Step 3: The line on this machine** The user adds the line to
+  the global file; the machine check reads `present`. Done 11/10/2026:
+  the row reads `present`. The trial of a plain "let's start" is next.
 
 ### Task 41: A second real project
 
