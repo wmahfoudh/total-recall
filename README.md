@@ -58,7 +58,7 @@ A copy (`cp -r skill ~/.claude/skills/total-recall`) is not updated when this re
 1. In the project folder, run `git init` if the folder is not a repository yet.
 2. Start Claude Code there and type `/total-recall`.
 3. Answer the five questions, read the description it writes, and correct it until it is right.
-4. Say whether git should ignore the folder. On a yes, run the line the skill hands over, then `git status` to see that nothing of the folder shows.
+4. You want your interactions with Claude to stay private? Say whether git should ignore the folder. On a yes, run the line the skill hands over, then `git status` to see that nothing of the folder shows.
 5. Read the machine table. When a guardrail is missing, the skill proposes the lines to run.
 6. Open the first session with "let's start".
 
