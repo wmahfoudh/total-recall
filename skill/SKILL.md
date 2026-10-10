@@ -1,6 +1,6 @@
 ---
 name: total-recall
-description: Sets up a persistent memory for a project in an internal folder, checks an existing one and brings it to the current form. Each Claude Code session then knows what was done and what comes next. Use when the user types /total-recall, or asks to set up, install, check, repair or update the project memory, the internal folder or total recall on a repository.
+description: Sets up a persistent memory for a project in an internal folder, checks an existing one and brings it to the current form. Each Claude Code session then knows what was done and what comes next. Run it by typing /total-recall, to install the memory in a repository or to check and update an existing one.
 disable-model-invocation: true
 ---
 

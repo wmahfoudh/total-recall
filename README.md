@@ -62,6 +62,23 @@ A copy (`cp -r skill ~/.claude/skills/total-recall`) is not updated when this re
 5. Read the machine table. When a guardrail is missing, the skill proposes the lines to run.
 6. Open the first session with "let's start".
 
+## Commands
+
+The skill has one command, and Claude does not start the skill on its own (`disable-model-invocation: true` in `SKILL.md`): you type `/total-recall`. A request in plain words, such as "set up the documentation", does not start it, so the skill does not change the documents of a project that keeps its documentation another way.
+
+| Where you type it | What happens |
+|---|---|
+| `/total-recall` in a repository without an internal folder | The install: five questions, the description to approve, the folder written, the git question, the machine check |
+| `/total-recall` in a repository that has the folder | The check and the update: the missing files named and the repair offered, the routine files compared with the templates, older decisions migrated in a copy, then the offer of the review |
+
+The phrases are defined by the project file, so they work in a session that has read the folder, even with the skill uninstalled.
+
+| Phrase | What happens |
+|---|---|
+| "let's start", "let's continue", "let's resume" | The start routine: the folder read, the briefing, then Claude waits for the go |
+| "let's close", "docs routine", "documentation routine", "sync the docs" | The close routine: the proposals held during the session, the snapshot, the history, the story, the check |
+| "review the memory" | The review: a report under `records/`, nothing changed before the answer by number |
+
 ## Check it
 
 1. On a yes at step 4, `git status` shows nothing from the internal folder.

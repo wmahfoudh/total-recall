@@ -279,6 +279,16 @@ know the project, in the user's voice, and names the folder
   another machine", for a machine whose global rules file does not map
   "let's start"; 149 lines down to 94, the words identical apart from
   the three changed sentences; 91 tests green.
+- [x] **Step 6: The commands** A section of the README with the table
+  of `/total-recall` and the table of the phrases, and the reason for
+  `disable-model-invocation: true`: a request in plain words does not
+  start the skill, which keeps it away from a project documented
+  another way. The user's word. Done 10/10/2026: the setting checked
+  in the Claude Code documentation of skills ("Claude can't invoke the
+  skill on its own", the description not in context until invoked);
+  the description of `SKILL.md` no longer says that a request in words
+  starts it; the typos and the first person sentences of the README
+  aligned with the user's opening; 91 tests green.
 
 The git line: `doc: readme rewritten for a public skill, folder named after the project`.
 
