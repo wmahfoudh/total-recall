@@ -27,6 +27,7 @@ The size read at each start (this file, `rules.md`, `state.md`,
 | `decisions.md` | The decisions in force, numbered, newest first |
 | `obsolete.md` | The decisions replaced by a newer one, with the number of the one that replaced them |
 | `close.md` | The close routine |
+| `review.md` | The review of the memory |
 | `lifecycle.md` | Phases, tasks and steps, their numbers, the opening and the close of a phase |
 | `code-map.md` | Where the work of each phase is in the tree |
 | `records/` | One-off records, listed in its README |
@@ -65,6 +66,9 @@ During the session:
 "let's close", "docs routine", "documentation routine" or "sync the
 docs" runs the close routine: read `close.md` and follow it. It runs
 without asking permission. The user reads the result.
+
+"review the memory" runs the review: read `review.md` and follow it.
+It changes nothing before the user approves its report.
 
 ## Phases
 

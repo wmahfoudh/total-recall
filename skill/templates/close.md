@@ -43,6 +43,9 @@ result.
    named in `CLAUDE.md` exists, the dashes, the blank lines, the task
    numbers, the ticked steps, the length of `state.md`, the history
    titles and the memory index.
+10. Suggest the review in one line when a reason exists: the check
+    reports the size over the limit, a contradiction was found in the
+    session, or a phase closes. The close does not start it.
 
 ## At a phase close
 

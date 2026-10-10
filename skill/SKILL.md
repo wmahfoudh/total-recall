@@ -30,8 +30,10 @@ folder:
 | `phases/` | One file per phase: the preamble, the order, the tasks with their steps. Phase 01 is written at the install |
 | `history.md` | The session log, newest first |
 | `story.md` | The diary in the user's voice, appended at the end |
-| `decisions.md` | Dated decisions, appended at the end |
+| `decisions.md` | The decisions in force, numbered, newest first |
+| `obsolete.md` | The decisions replaced by a newer one, with the number of the one that replaced them |
 | `close.md` | The close routine |
+| `review.md` | The review of the memory |
 | `lifecycle.md` | Phases, tasks and steps, their numbers, the opening and the close of a phase |
 | `code-map.md` | Where the work of each phase is in the tree |
 | `records/` | One-off records, listed in its README |
@@ -55,7 +57,8 @@ the name kept as it is, spaces and capitals included.
 
 ## 2. The mode
 
-When `internal-<folder>/` exists, check it and stop:
+When `internal-<folder>/` exists, check it, bring it to the current
+form, and stop:
 
 1. List the files of `${CLAUDE_SKILL_DIR}/templates/` against the
    internal folder, and name each one that is missing.
@@ -78,6 +81,37 @@ When `internal-<folder>/` exists, check it and stop:
    story, the decisions, the memory note, the tools README). Those are
    written by hand from what the folder already holds, never a second
    phase file: the existing phase files keep their numbers.
+
+5. Compare the routine files with the current templates: `rules.md`,
+   `close.md`, `lifecycle.md`, `review.md`, `tools/doc-check.py`,
+   `tools/machine-check.py`. For each one that differs, run
+
+   ```
+   diff -u "internal-<folder>/<file>" "${CLAUDE_SKILL_DIR}/templates/<file>"
+   ```
+
+   and say in a few lines what changed. `rules.md` is replaced whole,
+   since the project file adds to it and does not edit it. `close.md`
+   and `lifecycle.md` may hold the project's own edits: the user
+   chooses for each file. Hand the `cp` lines of the chosen files to
+   the user in one block. The user runs them.
+
+6. When the titles of `decisions.md` have no number, write the current
+   form in a copy:
+
+   ```
+   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --migrate-decisions "internal-<folder>/decisions.md" --out "<scratchpad>/decisions.md"
+   ```
+
+   Show the head of the copy and each `warning:` line, then hand over
+   the line that replaces the file:
+
+   ```
+   cp "<scratchpad>/decisions.md" "internal-<folder>/decisions.md"
+   ```
+
+7. Offer the review of the content, "review the memory", which follows
+   `review.md` of the folder.
 
 Then stop. The steps that follow are for a fresh install.
 

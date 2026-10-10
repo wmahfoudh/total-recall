@@ -215,5 +215,12 @@ class RealTemplates(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue((self.target / "obsolete.md").exists())
 
+    def test_a_repair_of_an_older_folder_adds_the_review(self):
+        self.target.mkdir()
+        (self.target / "CLAUDE.md").write_text("mine\n", encoding="utf-8")
+        subprocess.run([sys.executable, "-I", str(RENDER), "--repair", "--target", str(self.target)],
+                       capture_output=True, text=True)
+        self.assertTrue((self.target / "review.md").exists())
+
 if __name__ == "__main__":
     unittest.main()

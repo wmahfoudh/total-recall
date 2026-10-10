@@ -100,6 +100,7 @@ class SkillStructure(unittest.TestCase):
                     "templates/tools/doc-check.py", "templates/tools/machine-check.py",
                     "templates/memory/MEMORY.md", "templates/memory/project-instruction-file.md",
                     "templates/memory/user-writing-style.md", "templates/obsolete.md",
+                    "templates/review.md",
                     "machine/settings-guardrails.json", "machine/hooks/bash-guard.sh",
                     "machine/hooks/git-guard.sh", "machine/hooks/guard-lib.sh"]
         missing = [name for name in expected if not (SKILL / name).is_file()]
@@ -193,6 +194,31 @@ class WhenToAsk(unittest.TestCase):
         steps = re.findall(r"^(\d+)\. (.*)$", self.read("close.md"), re.MULTILINE)
         self.assertEqual(steps[0][0], "1")
         self.assertTrue(steps[0][1].startswith("Ask the proposals held"), steps[0])
+
+
+class Review(unittest.TestCase):
+    def read(self, name):
+        return (SKILL / "templates" / name).read_text(encoding="utf-8")
+
+    def test_the_review_is_named_in_the_project_file_and_the_skill(self):
+        claude = self.read("CLAUDE.md")
+        self.assertIn("| `review.md` |", claude)
+        self.assertIn('"review the memory"', claude)
+        self.assertIn("| `review.md` |", (SKILL / "SKILL.md").read_text(encoding="utf-8"))
+
+    def test_the_review_writes_a_report_before_any_change(self):
+        review = self.read("review.md")
+        self.assertIn("records/YYYY-MM-DD-review.md", review)
+        self.assertIn("Nothing is changed before the user approves", review)
+        self.assertIn("doc-check.py\" --size", review)
+
+    def test_the_check_mode_brings_an_older_folder_to_the_current_form(self):
+        step = skill_steps()["2"]
+        for needle in ("--migrate-decisions", "diff -u", "review the memory"):
+            self.assertIn(needle, step)
+
+    def test_the_close_suggests_the_review_without_starting_it(self):
+        self.assertIn("Suggest the review", self.read("close.md"))
 
 if __name__ == "__main__":
     unittest.main()

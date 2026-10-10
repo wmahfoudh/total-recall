@@ -223,9 +223,27 @@ Task 23.
 
 **The steps:**
 
-- [ ] **Step 1: The tests** `Review` and the repair, seen red.
-- [ ] **Step 2: The text** `review.md`, `CLAUDE.md`, `close.md`,
-  `SKILL.md`; the suite green.
+- [x] **Step 1: The tests** `Review` and the repair, seen red. Done
+  10/10/2026: six red, one of them an error on the missing
+  `review.md`.
+- [x] **Step 2: The text** `review.md`, `CLAUDE.md`, `close.md`,
+  `SKILL.md`; the suite green. Done 10/10/2026: 88 tests green,
+  `SKILL.md` 263 lines. The new items of step 2 write `<folder>` like
+  the rest of `SKILL.md`, renamed with the rest in Task 24. Three blank
+  lines added before a list item that follows a paragraph inside the
+  item before it (`review.md` step 2, `SKILL.md` items 5 and 6): the
+  check reports that form, a limit already among the review's minors.
+  On a scratch copy of this folder, the repair writes `obsolete.md` and
+  `review.md` and keeps the rest. Four routine files differ from the
+  templates (lines changed: `rules.md` 23, `close.md` 27,
+  `lifecycle.md` 2, `tools/doc-check.py` 99). A sample render reads
+  `clean`, 4791 words read at each start.
+
+What was found on the way: the repair prints `needs answers:
+phases/phase-01-{{phase1_slug}}.md` on a folder whose first phase file
+has its own name (`phase-01-the-skill.md` here). The file exists, and
+the hint is wrong. The behavior predates this plan. A candidate for the
+Roadmap, with the review's minors.
 
 The git line: `feat: review of the memory, and the update of an older folder`.
 
