@@ -23,8 +23,8 @@ result.
    `lifecycle.md`, "The numbers". For a code project, add an entry per
    delivered task that touched code to `code-map.md`, in the section of
    the open phase, with the commit it describes.
-4. Clear the Roadmap in `plan.md`: an item delivered in full leaves it
-   and the rest is renumbered. The Roadmap holds only what comes next.
+4. Clear the Roadmap in `plan.md`: an item that opened as a phase or a
+   task leaves it, and the rest is renumbered. The Roadmap holds only what comes next.
    `history.md` keeps the record of what was delivered.
 5. Add an entry at the top of `history.md`: the title
    `# DD/MM/YYYY - <meaningful name>`, a line of description, then short

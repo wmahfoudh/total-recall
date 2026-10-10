@@ -25,5 +25,6 @@ the path the user gives. When a comparison needs a copy, copy into the
 session scratchpad. Write "the reference project" or "the reference
 folder" in any document. The package test checks `skill/`, `tests/`
 and `README.md` for the name by its hash, so that the test does not
-name it; a `grep -ri` of the name over this folder is part of the close
-until a check tool does it.
+name it. The review runs the same hash check over the tracked files
+and this folder, and prints only the paths, until item 3 of the
+Roadmap brings this folder into the package test.

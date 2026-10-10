@@ -10,7 +10,7 @@ Updated 11/10/2026, at the close of Phase 04.
 - Phase 04 closed: the reviewer's minors fixed, committed by the user
   as `e01301f` (D33, D34).
 - The package: `skill/`, `tests/` (153 tests green) and `README.md`,
-  committed up to `e01301f`, the close not yet.
+  committed up to the close of Phase 04.
 
 ## Done this session
 
@@ -18,6 +18,8 @@ Updated 11/10/2026, at the close of Phase 04.
 - Task 45: the fifteen findings handled in one pass, test first. 8, 9
   and 10 were already fixed, 12 dropped.
 - Task 46: the close of Phase 04, Phase 05 opened.
+- The review of the memory, `records/2026-10-11-review.md`, all items
+  applied. The same changes to the templates are Task 48.
 
 ## Next
 
@@ -28,7 +30,9 @@ At "let's start", in a new session:
 
 ## Waiting on the user
 
-- The commit of this close.
+- The commit of the review.
+- The removal of the two empty folders `.claude/` of this folder, item
+  B of the review.
 - The project for Task 47.
 - The trial of the exclusion path in a real git worktree (not tried):
   `git worktree add ../tr-wt`, then in it

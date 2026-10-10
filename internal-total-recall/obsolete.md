@@ -4,6 +4,15 @@ The decisions replaced by a newer one, the most recently replaced
 first. Each entry is moved whole from `decisions.md`, with one line
 under its title: `Replaced by Dn on DD/MM/YYYY.`
 
+## D8, 07/10/2026: the minors of the review
+
+Replaced by D33 on 11/10/2026.
+
+The thirteen Minor findings of the fresh review are not fixed in the
+build session: they are item 2 of the Roadmap, candidates for the
+tasks of Phase 02 with the user's own notes. The rule of the executing
+skill: minors never enter the fix pass, the user decides.
+
 ## D15, 10/10/2026: the README for a public skill
 
 Replaced by D20 on 10/10/2026.
@@ -45,3 +54,13 @@ the machine, no `CLAUDE.local.md` at the root. The user's word: the
 repository must not show that Claude is part of the stack, and the
 system must not depend on a setting of a machine. The exclusion is one
 line in `.git/info/exclude`, which git never commits.
+
+## D5, 07/10/2026: the rules file
+
+Replaced by D9 on 07/10/2026.
+
+The rules travel with the project in `rules.md`: the global file, the
+user's seventeen writing rules merged into the writing section, and the
+rules taken from the memory notes of the reference. Where the global
+file and the user's own rules differ, the user's own rules win. The
+user's word: "most important is human style and my own writing style".

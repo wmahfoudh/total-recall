@@ -23,6 +23,8 @@ Finding 12, the skill-creator checks named in the spec, is dropped:
 the spec is a record kept as received, and the package test covers the
 frontmatter. The user's word.
 
+It replaces D8, the minors as a Roadmap item.
+
 ## D32, 11/10/2026: Phase 03 closed, Phase 04 The reviewer's minors opened
 
 Phase 03 closes with its checkpoint met: the benchmark recorded, each
@@ -260,12 +262,10 @@ spec, which had put the style in `rules.md` and shipped one note. The
 user's word: "in memory is stronger and less prone to be forgotten,
 that is the purpose". A correction on the text updates the note.
 
-## D8, 07/10/2026: the minors of the review
-
-The thirteen Minor findings of the fresh review are not fixed in the
-build session: they are item 2 of the Roadmap, candidates for the
-tasks of Phase 02 with the user's own notes. The rule of the executing
-skill: minors never enter the fix pass, the user decides.
+It replaces D5, and restates what holds: the rules travel with the
+project in `rules.md`, from the global file and the memory notes of
+the reference, and the user's own rules win where they differ from the
+global file.
 
 ## D7, 07/10/2026: the repair mode
 
@@ -275,14 +275,6 @@ records README) and names each missing file that needs answers, for
 the session to write by hand from what the folder holds. It never
 writes a second phase file. The session's ruling on the reviewer's
 first Important finding, with a failing test first.
-
-## D5, 07/10/2026: the rules file
-
-The rules travel with the project in `rules.md`: the global file, the
-user's seventeen writing rules merged into the writing section, and the
-rules taken from the memory notes of the reference. Where the global
-file and the user's own rules differ, the user's own rules win. The
-user's word: "most important is human style and my own writing style".
 
 ## D3, 07/10/2026: the loading
 

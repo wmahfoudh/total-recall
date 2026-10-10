@@ -20,7 +20,8 @@ what those sessions show. The user can rename it.
 **The order:**
 
 1. Task 47, the second project.
-2. The close of the phase, as its last task, numbered when it is
+2. Task 48, the templates after the review of 11/10/2026.
+3. The close of the phase, as its last task, numbered when it is
    written.
 
 ### The opening of the phase
@@ -37,5 +38,19 @@ see how the templates hold outside this repository.
 
 - [ ] **Step 1: The choice** The user chooses the project, then the
   steps are written here in place of this one.
+
+### Task 48: The templates after the review of 11/10/2026
+
+What it does and why: items 1 and 3 of the review of 11/10/2026
+(`records/2026-10-11-review.md`), applied to this folder, are carried
+into the templates of the skill: a Roadmap item leaves the Roadmap when
+it opens as a phase or a task, in `lifecycle.md`, `plan.md` and step 4
+of `close.md`; the start phrases line in the `machine-check.py` line of
+`tools/README.md`. Step 6 of `review.md`, item 2, too.
+
+**The steps:**
+
+- [ ] **Step 1: The templates** The changes made, checked by the sample
+  render and `tools/doc-check.py`, the suite green.
 
 **Checkpoint for the phase:** written when the tasks are known.
