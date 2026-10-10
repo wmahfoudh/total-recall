@@ -217,6 +217,20 @@ class Review(unittest.TestCase):
         for needle in ("--migrate-decisions", "diff -u", "review the memory"):
             self.assertIn(needle, step)
 
+    def test_the_review_starts_with_what_the_session_holds(self):
+        review = self.read("review.md")
+        self.assertIn("From this session", review)
+        self.assertLess(review.index("From this session"), review.index("Read the whole folder"))
+
+    def test_the_review_checks_the_memory_notes_where_their_rules_apply(self):
+        review = self.read("review.md")
+        self.assertIn("The memory notes", review)
+        self.assertIn("across the repository", review)
+
+    def test_the_readme_says_the_review_takes_in_the_session(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("decided in the current session", readme)
+
     def test_the_close_suggests_the_review_without_starting_it(self):
         self.assertIn("Suggest the review", self.read("close.md"))
 

@@ -356,4 +356,39 @@ the commands), `tests/test_package.py`.
 
 The git line: `feat: refuse to install over another documentation system`.
 
-**Checkpoint for the phase:** Tasks 18 to 26 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
+### Task 27: The review takes in the session and the memory notes
+
+What it does and why: the first review of this folder, 10/10/2026,
+missed two items of the memory folder until the user asked, among
+them the name of the reference project in `tests/test_package.py`.
+Two causes in `review.md`: its five kinds of items compare text inside
+the folder, with nothing on the notes, so a rule of a note about the
+repository was never checked where it applies; and it reads only the
+files, so the decisions and corrections of the session that are not
+written yet were left out. The user's word: fix the causes in the
+skill, then run it again, the session's decisions taken in.
+
+The files: `skill/templates/review.md`, `README.md`,
+`tests/test_package.py`.
+
+**The steps:**
+
+- [x] **Step 1: The tests** "From this session" before the reading of
+  the folder, the sixth kind on the memory notes with the search
+  across the repository, the sentence of the README; seen red. Done
+  10/10/2026: three red.
+- [x] **Step 2: The text** `review.md` and the README; the suite green.
+  Done 10/10/2026: 97 tests green. `review.md` starts with what the
+  session holds and is not written yet, and looks for six kinds of
+  items, the memory notes the sixth; its steps renumbered 1 to 7. The
+  README says the review takes in the session and checks the notes. A
+  sample render reads `clean`, 4814 words read at each start. The
+  proof by a real run is the review of this folder, after Task 28.
+
+What was found on the way: the first review of this folder is
+`records/2026-10-10-review.md`, 21 items, set aside on the user's
+word until the skill is fixed. It is run again with the new code.
+
+The git line: `fix: review takes in the session's decisions and checks the memory notes`.
+
+**Checkpoint for the phase:** Tasks 18 to 27 delivered and tried by the user, the suite green, then the review of this folder on the user's word.

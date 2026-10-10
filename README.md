@@ -49,7 +49,7 @@ During the session the work follows the open phase, a task at a time. Small fact
 
 ## The review of the memory
 
-Requirements change. After a few months, the documents of a project can contradict each other. "review the memory" reads the whole folder and writes a report: contradictions, duplicates, text out of date, text in the wrong place, replaced decisions. Each item gives the current text, the proposed text and the reason. Nothing is applied before the user approves it by number.
+Requirements change. After a few months, the documents of a project can contradict each other. "review the memory" reads the whole folder and writes a report: contradictions, duplicates, text out of date, text in the wrong place, replaced decisions. Each item gives the current text, the proposed text and the reason. The review also takes in what was decided in the current session and is not written yet, such as a new rule or a correction. The memory notes are checked too, and a rule in a note is checked where it applies, across the repository for a rule about the repository. Nothing is applied before the user approves it by number.
 
 A folder made by an older version of the skill is brought to the current form by `/total-recall` in that project. The skill shows what changed in the routine files, numbers the decisions, then offers the review.
 
