@@ -1,3 +1,29 @@
+# 10/10/2026 - The memory used with care, the backup and the update
+
+The user's notes on the first trials, turned into the skill's second
+version, then run on this folder.
+
+- The notes discussed one at a time: the git question at the install,
+  the memory used with care with a review command, the README for a
+  public skill; the user's ideas of decisions newest first and of
+  `obsolete.md`. The spec and the plan in `records/`, Tasks 18 to 25,
+  each test first.
+- The document check gained the order of the decisions, the obsolete
+  entries and the size read at each start; `render.py` gained the
+  migration of the decisions; the templates, `SKILL.md` and the README
+  followed.
+- The README rewritten with the user: "let's start", one line per
+  paragraph, the commands, the templates to adapt and a fork, the
+  reader as "you". Rule 16 of the style note changed to match.
+- Found on the way: the skill would have touched another documentation
+  system (Task 26); the review missed the memory folder and the
+  session's own decisions (Task 27); the tests named the reference
+  project (Task 28); the update was five `cp` lines and four yes, now
+  `/total-recall update`, one yes after a backup (Task 29).
+- This folder updated and reviewed: 25 items applied, D16 to D20, four
+  decisions in `obsolete.md` (Task 30). 113 tests green, the check
+  clean.
+
 # 07/10/2026, later - The first feedback: the reference project named in the folder
 
 Right after the close, the user read this folder and found two things.

@@ -42,3 +42,22 @@ test, like the rest.
 
 Tomorrow I try it on a scratch repository, and I will take notes. That
 is what Phase 02 is for.
+
+## 10/10/2026: one yes
+
+I came back with three notes and left with a second version of the
+skill. The notes were small: ask me about git, use the memory with
+care, write a README a stranger can read. The care part grew. Memory
+is precious, so the skill now asks only when a line will be read in
+every session, and keeps the rest quiet.
+
+Then I asked the skill to review its own project, and it missed the
+memory folder. It also missed that the tests named the project I swore
+never to name. Not a slip of the session: the routine never told it to
+look there. We fixed the routine, not the run.
+
+The best moment was the stupid one. The update showed me differences
+and handed me five copy commands to type, for files that are not even
+mine. I said stop. Now there is a backup folder, and an update is one
+yes. The skill ran it on itself, reviewed itself, and the folder reads
+clean.
