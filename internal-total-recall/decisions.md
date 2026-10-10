@@ -7,6 +7,15 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D31, 11/10/2026: the guard scripts stay in the skill
+
+The guard scripts stay in `skill/machine/hooks/`. Step 8 of the install
+already proposes them only when the machine check reports them missing,
+a session never reads them, and they enforce the rules of `rules.md` on
+the user's own commands and removals. A repository of their own is
+Parked, back if a second user installs the skill or if the copies fall
+behind the scripts the machine runs. The user's word.
+
 ## D30, 11/10/2026: the second real project moves to the Roadmap
 
 Task 41 leaves Phase 03 and becomes item 1 of the Roadmap. It is not an

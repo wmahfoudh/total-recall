@@ -55,6 +55,9 @@ Asks set aside, each with the condition for its return.
   without the phrase or the file read, and misses the rules.
 - The `autoMemoryDirectory` setting pointing Claude Code's memory at the
   folder: back only if the user accepts a file under `.claude/`.
+- The guard scripts in a repository of their own: back if a second user
+  installs the skill, or if the scripts this machine runs change and
+  the copies of `skill/machine/hooks/` fall behind (D31).
 
 ## Blocked
 

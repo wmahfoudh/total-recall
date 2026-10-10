@@ -370,6 +370,12 @@ the whole machine, and the rest of the skill is for a project. Whether
 they stay in the skill, become an option, or move to a repository of
 their own.
 
+**The steps:**
+
+- [x] **Step 1: The discussion** Whether the task ends as a change, a
+  Roadmap item or nothing. Done 11/10/2026: nothing and a Parked item,
+  D31. The three scripts match those this machine runs, byte for byte.
+
 ### Task 43: The benchmark
 
 What it does and why: the cost of a start measured again by the method
