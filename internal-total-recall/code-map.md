@@ -9,9 +9,29 @@ files since the commit named shows changes.
 
 ## Phase 02
 
-No code: Task 17 (`f1bf102`) changed the templates
-(`skill/templates/memory/user-writing-style.md`, new; the memory index;
-`rules.md`) and the package test (`test_the_style_note_is_in_the_index_and_pointed_to_by_the_rules`).
+The names are those of the tree on 10/10/2026.
+
+- Task 29 (`03f1d12`, `e2f9edc`): `skill/scripts/update.py`, new
+  (`is_total_recall`, `backup`, `decisions_to_migrate`, `plan_update`,
+  `apply_update`, `print_plan`, `main`), `render.present` in
+  `skill/scripts/render.py`, `tests/test_update.py` (the classes
+  `Backup` and `Update`), the class `BackupAndUpdate` of
+  `tests/test_package.py`.
+- Task 28 (`c3eee97`): `tests/test_package.py`, `FORBIDDEN_HASHES`,
+  `HOME_PATH`, `forbidden_words`.
+- Tasks 20 to 27: templates and text, with the classes `GitQuestion`,
+  `WhenToAsk`, `Review`, `Readme`, `AnotherSystem` of
+  `tests/test_package.py` and `RealTemplates` of `tests/test_render.py`.
+- Task 19 (`9201de6`): `skill/scripts/render.py`, `split_decisions`,
+  `migrate_decisions`, `run_migration`, the option
+  `--migrate-decisions`; the class `MigrateDecisions` of
+  `tests/test_render.py`.
+- Task 18 (`d64cf13`): `skill/templates/tools/doc-check.py`,
+  `check_decisions`, `start_size`, `size_limit`, the option `--size`.
+- Task 17 (`f1bf102`): the templates
+  (`skill/templates/memory/user-writing-style.md`, new; the memory
+  index; `rules.md`) and the package test
+  (`test_the_style_note_is_in_the_index_and_pointed_to_by_the_rules`).
 
 ## Phase 01
 
@@ -19,8 +39,8 @@ The package as first built is commit `aca0d06`. The fixes of the review
 (Task 12: `needs_of`, `check_templates`, `plan_repair` and the
 `--repair` option of `render.py`; the UTF-8 guard and the header rule of
 `check_documents_table` in `doc-check.py`; the quoting of the tools
-README; step 2 of `SKILL.md`) are uncommitted at the close of the
-phase. The names are those of the tree on 07/10/2026.
+README; step 2 of `SKILL.md`) are commits `3d49152` and `45ed75f`.
+The names are those of the tree on 07/10/2026.
 
 - Task 4: `skill/templates/tools/doc-check.py` (`find_dashes`,
   `find_list_breaks`, `check_documents_table`, `check_tasks`,

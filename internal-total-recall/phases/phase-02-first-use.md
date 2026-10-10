@@ -26,9 +26,13 @@ from it. The user tries, takes notes, and brings them to a session.
    `records/2026-10-10-design.md` and the plan
    `records/2026-10-10-plan.md`, approved 10/10/2026, run in this
    session by the session itself, a task at a time on the user's word.
-5. The review of this project's folder with the new command, on the
-   user's word after the delivery.
-6. The close of the phase, as its last task.
+5. Tasks 26 to 29, found on the way and asked by the user: the refusal
+   of another documentation system, the review that takes in the
+   session and the notes, the name of the reference project out of the
+   tests, the backup and the update.
+6. The review of this project's folder with the new command, on the
+   user's word after the delivery: `records/2026-10-10-review-2.md`.
+7. The close of the phase, as its last task.
 
 ### The opening of the phase
 
@@ -476,4 +480,32 @@ The files: `skill/scripts/update.py` (new), `skill/scripts/render.py`
 
 The git line: `feat: backup and update commands, one yes for a migration`.
 
-**Checkpoint for the phase:** Tasks 18 to 29 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
+### Task 30: The update and the review of this folder
+
+What it does and why: the first real run of the new skill on its own
+project, on the user's word: `/total-recall update`, then "review the
+memory", with the decisions of this session taken in.
+
+**The steps:**
+
+- [x] **Step 1: The update** Done 10/10/2026: one yes, the archive
+  `backup/internal-total-recall-2026-10-10-15-38-auto.tar.gz`, three
+  files added, four replaced, the decisions numbered D1 to D15; the
+  check `clean`.
+- [x] **Step 2: The report** Done 10/10/2026:
+  `records/2026-10-10-review-2.md`, 25 items, the first seven from the
+  session; the rule of the note `reference-system-read-only` checked
+  across the tracked files, none names the project.
+- [x] **Step 3: The approved items** Done 10/10/2026: all, item 9 (b),
+  item 10 (a). Decisions D16 to D20 written, D12 and D13 restating what
+  holds; D2, D4, D6 and D15 moved to `obsolete.md`; rule 16 of the
+  style note changed in the note and its template; the git statements
+  removed from `CLAUDE.md`, `plan.md` and the instruction note; the
+  table and the size line of `CLAUDE.md`; the code map, the records
+  list, the order of the phase, the tools README; the Roadmap and
+  Blocked. The check `clean`, 6224 words read at each start; the suite
+  green. `state.md` is left to the close.
+
+The git line: `doc: update and review of the project's memory`.
+
+**Checkpoint for the phase:** Tasks 18 to 30 delivered and tried by the user, the suite green, then the close of the phase on the user's word.

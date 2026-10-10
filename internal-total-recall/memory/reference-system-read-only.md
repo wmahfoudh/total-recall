@@ -23,6 +23,7 @@ this folder, where it must not be.
 **How to apply:** read the reference with `cat`, `sed` or `grep`, on
 the path the user gives. When a comparison needs a copy, copy into the
 session scratchpad. Write "the reference project" or "the reference
-folder" in any document. The package test checks the word in `skill/`
-and `README.md`; a `grep -ri` of the name over this folder is part of
-the close until a check tool does it.
+folder" in any document. The package test checks `skill/`, `tests/`
+and `README.md` for the name by its hash, so that the test does not
+name it; a `grep -ri` of the name over this folder is part of the close
+until a check tool does it.

@@ -7,11 +7,54 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
-## D15, 10/10/2026: the README for a public skill
+## D20, 10/10/2026: the README speaks to the reader
 
-The README is written in the user's voice and by the user's rules,
-without saying so, and names the folder `internal-<project-name>`. The
-review of this project waits for the final skill and the user's word.
+The README speaks to the reader with "you", with no first person, by
+the user's own rewrites: the opening in the user's words, "let's start"
+where the read phrase was, one line per paragraph, a section on the
+templates to adapt and on a fork. Rule 16 of the style note changed to
+match, in the note and its template, the user's word at the review. It
+replaces D15, and restates what holds: the folder is named
+`internal-<project-name>`, in backticks.
+
+## D19, 10/10/2026: the skill starts by its command only
+
+`disable-model-invocation: true` stays in `SKILL.md`: Claude does not
+start the skill on its own, so a request in plain words does not start
+it on a project documented another way, and the description of the
+skill stays out of the context until the command. The user's word.
+
+## D18, 10/10/2026: the review takes in the session and the notes
+
+The review starts with what the session decided and the folder does
+not hold yet, and checks the memory notes: a rule of a note is checked
+where it applies, across the repository for a rule about the
+repository. The user's word, after the first review missed the memory
+folder: the causes are fixed in the skill, then the skill runs again.
+
+## D17, 10/10/2026: the refusal of another documentation system
+
+The skill writes nothing over another documentation system (a root
+`CLAUDE.md`, `CLAUDE.local.md` or `AGENTS.md`, a `.claude/CLAUDE.md`, a
+`memory-bank/` folder) or over a folder whose `CLAUDE.md` does not
+start with `@rules.md`. It names what it found and recommends to move
+it out of the project, install, then bring it in through a session of
+questions. The user's word.
+
+## D16, 10/10/2026: the backup and the update
+
+The rule "the skill never overwrites a file" is gone. `backup/` holds
+dated archives of the folder, named
+`internal-<project-name>-YYYY-MM-DD-HH-MM-manual.tar.gz` or `-auto`,
+with no special treatment for git, old ones deleted by the user.
+`/total-recall backup` writes a manual archive; `/total-recall update`
+shows its plan, asks one yes, writes an auto archive, then adds the
+missing files, replaces the routine files and migrates the decisions,
+never the project's own content. The user's word. It replaces D6, and
+restates what holds: `/total-recall` is user invoked only; at the
+install it asks the questions, writes a description the user approves,
+writes the folder, reports the machine and proposes the missing
+guardrails.
 
 ## D14, 10/10/2026: the decisions newest first, and obsolete.md
 
@@ -31,14 +74,25 @@ report and applies only the approved ones. `/total-recall` on an
 existing folder brings it to the current form. The user's notes, the
 spec `records/2026-10-10-design.md`.
 
+It replaces D4 for the corrections, and restates the rest of D4's
+changes from the reference: always an open phase; a decisions file; the
+snapshot kept to four sections; no phase index table; planned task
+numbers in the phase file only; steps ticked at the moment; records in
+a folder with their own list; skill output under `records/`; reading
+the file starts the routine; the code map carries its commit; a memory
+note per topic; the rules loaded twice on this machine, accepted.
+
 ## D12, 10/10/2026: the internal folder in git, the user's choice
 
 The skill asks the user at the install whether the internal folder
 stays out of git, and writes the exclusion line only on a yes. No
 document, README or memory note states the choice. This project's
 folder is in git since `1c64cda`, on purpose: the user's word. It
-replaces the exclusion of "the folder and nothing else". The documents
-of this folder follow at the review of the memory.
+replaces D2, and restates what holds: nothing else is written outside
+the folder, no file under `.claude/`, no setting of the machine, no
+`CLAUDE.local.md` at the root. The reason of D2, that the repository
+must not show Claude in the stack, is dropped: the user's word at the
+review of the memory.
 
 ## D11, 07/10/2026: the history title
 
@@ -78,14 +132,6 @@ the session to write by hand from what the folder holds. It never
 writes a second phase file. The session's ruling on the reviewer's
 first Important finding, with a failing test first.
 
-## D6, 07/10/2026: the skill is the installer
-
-`/total-recall` installs the folder, or checks an existing one, and
-nothing more. It is user invoked only. It asks three to five questions,
-writes a description the user approves, then writes the folder, hands
-over the exclusion line, reports the machine, and proposes the missing
-guardrails with the lines for the user to run.
-
 ## D5, 07/10/2026: the rules file
 
 The rules travel with the project in `rules.md`: the global file, the
@@ -93,17 +139,6 @@ user's seventeen writing rules merged into the writing section, and the
 rules taken from the memory notes of the reference. Where the global
 file and the user's own rules differ, the user's own rules win. The
 user's word: "most important is human style and my own writing style".
-
-## D4, 07/10/2026: the twelve changes from the reference
-
-Approved by the user, each with its reason in the spec, "What changes":
-always an open phase; a decisions file; the snapshot kept to four
-sections, with corrections as memory notes at once; no phase index
-table; planned task numbers in the phase file only; steps ticked at the
-moment; records in a folder with their own list; skill output under
-`records/`; reading the file starts the routine; the code map carries
-its commit; a memory note per topic; the rules loaded twice on this
-machine, accepted.
 
 ## D3, 07/10/2026: the loading
 
@@ -113,15 +148,6 @@ session runs the start routine. "let's start" works on this machine
 through the global file; "read internal-<folder>/CLAUDE.md" works
 anywhere. The skill is not relied on for the loading: it can be
 uninstalled. The user's word.
-
-## D2, 07/10/2026: the folder and nothing else
-
-The memory lives in `internal-<folder>/` at the root of the project,
-and nothing else is written: no file under `.claude/`, no setting of
-the machine, no `CLAUDE.local.md` at the root. The user's word: the
-repository must not show that Claude is part of the stack, and the
-system must not depend on a setting of a machine. The exclusion is one
-line in `.git/info/exclude`, which git never commits.
 
 ## D1, 07/10/2026: the memory system
 

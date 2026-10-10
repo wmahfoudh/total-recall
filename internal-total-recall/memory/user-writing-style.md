@@ -88,11 +88,10 @@ this note.
     subject gets its own paragraph. Contractions, plain intensifiers
     ("really", "just"), a rhetorical tag and a conversational aside are
     the author's own: kept when they write them, not generated.
-16. In prose for a product's readers, the author speaks in the first
-    person and the past tense about why the project exists, its limits
-    and the effort ("I tried", "broke my flow"), and uses "we" for the
-    author and the reader. Code and configuration documentation stays
-    neutral.
+16. In prose for a product's readers, the text speaks to the reader
+    with "you" and gives the product as the actor, with no first person
+    of the author: "You type `/total-recall`", "The skill asks". Code
+    and configuration documentation stays neutral.
 17. Markup is shown literally, in backticks, when the markup is the
     point.
 18. The summary of a release is read by someone who does not use the
