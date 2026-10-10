@@ -81,8 +81,17 @@ filter the output of commands before it reaches the context.
   The four others of `StartSize` pass before the code: the rules, the
   state, the old count without the script and no bytecode hold today
   too. The suite: 134 tests, 4 failures, 14 errors.
-- [ ] **Step 3: The code** `start.py` in the templates and the measure
-  of `doc-check.py`, the suite green.
+- [x] **Step 3: The code** `start.py` in the templates and the measure
+  of `doc-check.py`, the suite green. Done 11/10/2026: 133 of 134 tests
+  green, the one red is the start routine of Step 4.
+  `skill/templates/tools/start.py`, new; `start_script`, `words_of` and
+  `start_size` in `doc-check.py`, which loads the script beside it with
+  no bytecode; `tools/start.py` in `ROUTINE_FILES` of `update.py`. Run
+  on this folder: exit 0, 3,189 words, the plan in 294 words (the file
+  653), the phase in 1,012 (the file 1,697, Task 33 alone is long). The
+  new measure reads 6,706 words where the old one read 6,046: the old
+  one left the phase file out. The start as read before was 6,046 and
+  the whole phase file, 7,743 words, and the rules read twice on top.
 - [ ] **Step 4: The routine** The start routine and the size line of
   the template `CLAUDE.md`, the file lists of `SKILL.md` and the
   README; checked by the sample render.
@@ -133,6 +142,12 @@ that subdirectory", with its imports, and step 1 of the start routine
 reads both files too. Seen in the session of 10/10/2026: `CLAUDE.md`
 read with `cat`, then both files added again by Claude Code at the read
 of `close.md`. About 3,500 words a start, not counted in the baseline.
+
+The same load happens in this repository for the templates: the write
+of `skill/templates/tools/start.py` on 11/10/2026 made Claude Code load
+`skill/templates/CLAUDE.md` and `skill/templates/rules.md` as
+instructions, about 3,300 words, each time a session works in
+`skill/templates/`. A candidate for Task 37.
 
 ### Task 34: The compressed copy of the rules
 

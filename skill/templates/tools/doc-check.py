@@ -11,6 +11,7 @@ only.
 
 The records folder is skipped: a record is kept as it was received.
 """
+import importlib.util
 import re
 import sys
 from pathlib import Path
@@ -79,7 +80,6 @@ HISTORY_TITLE_RE = re.compile(r"^# " + DATE_RE + r"(, [a-z ]+)? - \S")
 STATE_MAX_LINES = 150
 DECISION_TITLE_RE = re.compile(r"^## D(\d+), " + DATE_RE + r": \S")
 REPLACED_RE = re.compile(r"^Replaced by D\d+ on (\d{2})/(\d{2})/(\d{4})\.$")
-START_FILES = ("CLAUDE.md", "rules.md", "state.md", "plan.md")
 SIZE_LIMIT = 8000
 SIZE_RE = re.compile(r"The size read at each start[^0-9]*([0-9][0-9,]*) words")
 
@@ -213,17 +213,20 @@ def check_decisions(text, obsolete=False):
     return found
 
 
-def start_size(folder):
-    """The words of the files read at each start: CLAUDE.md, rules.md, state.md, plan.md and the memory notes.
+def start_script():
+    """start.py beside this tool, loaded as a module, or None."""
+    path = Path(__file__).resolve().parent / "start.py"
+    if not path.is_file():
+        return None
+    # The tools live in the templates of the skill too, where no bytecode may be written.
+    sys.dont_write_bytecode = True
+    spec = importlib.util.spec_from_file_location("start", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
-    plan.md is counted whole, although a session reads its head: the
-    count errs on the high side.
-    """
-    folder = Path(folder)
-    paths = [folder / name for name in START_FILES]
-    memory = folder / "memory"
-    if memory.is_dir():
-        paths += sorted(memory.glob("*.md"))
+
+def words_of(paths):
     words = 0
     for path in paths:
         if not path.is_file():
@@ -233,6 +236,28 @@ def start_size(folder):
         except UnicodeDecodeError:
             continue
     return words
+
+
+def start_size(folder):
+    """The words read at each start: CLAUDE.md, rules.md and the output of start.py.
+
+    Without start.py beside this tool, or when it fails, state.md,
+    plan.md and the memory notes are counted whole, as an older folder
+    reads them.
+    """
+    folder = Path(folder)
+    words = words_of([folder / "CLAUDE.md", folder / "rules.md"])
+    script = start_script()
+    if script is not None:
+        try:
+            return words + len(script.start_text(folder).split())
+        except script.StartError:
+            pass
+    paths = [folder / "state.md", folder / "plan.md"]
+    memory = folder / "memory"
+    if memory.is_dir():
+        paths += sorted(memory.glob("*.md"))
+    return words + words_of(paths)
 
 
 def size_limit(claude_text):

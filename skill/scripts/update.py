@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import render  # noqa: E402
 
 ROUTINE_FILES = ("rules.md", "close.md", "lifecycle.md", "review.md",
-                 "tools/doc-check.py", "tools/machine-check.py")
+                 "tools/doc-check.py", "tools/machine-check.py", "tools/start.py")
 KINDS = ("manual", "auto")
 SIGNATURE = "@rules.md"
 
