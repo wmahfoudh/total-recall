@@ -7,6 +7,19 @@ close. Read it when the work touches code, before exploring the code.
 Check a claim when the code contradicts it, or when `git log` on the
 files since the commit named shows changes.
 
+## Phase 03
+
+The names are those of the tree on 11/10/2026.
+
+- Task 33 (`06a7077`, `6c4354d`, `5f844b2`, `798e5df`):
+  `skill/templates/tools/start.py`, new (`open_phase`, `sections`,
+  `items`, `plan_head`, `tasks`, `current_task`, `preamble`,
+  `start_text`, `StartError`, `main`); `start_script`, `words_of` and
+  `start_size` in `skill/templates/tools/doc-check.py`;
+  `ROUTINE_FILES` in `skill/scripts/update.py`; the start routine of
+  `skill/templates/CLAUDE.md`; `tests/test_start.py`, new, the class
+  `StartSize` of `tests/test_doc_check.py`.
+
 ## Phase 02
 
 The names are those of the tree on 10/10/2026.

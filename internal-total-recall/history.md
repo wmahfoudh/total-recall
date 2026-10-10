@@ -1,3 +1,22 @@
+# 11/10/2026 - The start script
+
+The first task of Phase 03: a script prints what a session reads at
+its start, and the start no longer reads the rules twice.
+
+- The tokens left out of the baseline on the user's word: the phase
+  measures words.
+- Found in the design: Claude Code loads `CLAUDE.md` and `rules.md` of
+  the folder when the session reads a file there, and the routine read
+  them too, about 3,500 words a start. The same happens for the
+  templates of the skill when a session works in `skill/templates/`.
+- Task 33, steps 1 to 5, test first: `tools/start.py`, the measure of
+  `doc-check.py --size` through it, the start routine of the template
+  and of this folder, the note `project-instruction-file`. 134 tests
+  green, D22.
+- The start of this folder: 7,022 words with the script, 8,059 by the
+  old routine, 11,621 with the double read. Step 6, the trial, is the
+  user's.
+
 # 10/10/2026, later - Phase 02 closed, Phase 03 Optimization opened
 
 A session of exploration and discussion, with no change to the code.

@@ -78,3 +78,19 @@ the part of the plan a start needs, the same trick as the check tool.
 I closed Phase 02 without the trial on a scratch repository. The
 backup works, the update already ran on this folder, good enough. Phase
 03 is called Optimization, and it starts with a number to beat.
+
+## 11/10/2026: read twice
+
+I dropped the tokens first. Words are enough to compare, and I did not
+want a measure that needs me in a fresh session each time.
+
+The design of the script brought the real find. Claude Code loads the
+rules of the folder by itself as soon as a session reads a file there,
+and my own routine told it to read them again. Three and a half
+thousand words, each start, since the first day. Nobody had looked,
+because the routine looked right.
+
+The script itself is small: the snapshot, the notes, the head of the
+plan, the current task. The tests went red first, then green, and the
+sample render caught a note that still said to read the rules whole.
+The next start is the trial. If it opens the rules again, we will know.
