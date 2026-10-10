@@ -283,8 +283,18 @@ Task 25.
 
 **The steps:**
 
-- [ ] **Step 1: The checks** The suite, the sample render, the
-  migration on a copy.
-- [ ] **Step 2: The scenario** Given to the user.
+- [x] **Step 1: The checks** The suite, the sample render, the
+  migration on a copy. Done 10/10/2026: 91 tests green; a sample render
+  writes 20 files and reads `clean`, 4791 words read at each start; the
+  migration of a copy of this folder's decisions puts D15 on top; this
+  folder reads `clean` with its own tool and 15 findings with the new
+  one (the old decision titles, for the review); no bytecode in
+  `skill/`.
+- [x] **Step 2: The scenario** Given to the user. Done 10/10/2026: five
+  checks on a scratch repository, in the reply of the session.
+
+The user's correction of the day on the text, "a folder that may have
+no copy elsewhere" for "an uncommitted folder", added to rule 4 of
+`memory/user-writing-style.md` on the user's word.
 
 **Checkpoint for the phase:** Tasks 18 to 25 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
