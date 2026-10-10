@@ -3,6 +3,7 @@
 
 Usage: python3 render.py --answers FILE --target DIR [--templates DIR]
        python3 render.py --repair --target DIR [--templates DIR]
+       python3 render.py --migrate-decisions FILE --out FILE [--templates DIR]
 
 The answers file is JSON with one value per placeholder. Placeholders
 are written {{name}} in the templates, in file names and in text. A
@@ -12,6 +13,12 @@ is overwritten. Scripts are copied as they are and made executable.
 With --repair no answers are read: only the templates that carry no
 placeholder are added where they are missing, and each missing file
 that needs answers is named for the session to write by hand.
+
+With --migrate-decisions the decisions file of an older folder is
+written in the current form to the --out file: the entries numbered D1
+to Dn in the order they were taken, the newest first, under the header
+of the template. The source is not changed, and an --out file that
+exists is not replaced.
 
 Exits 0 when done, 2 when a template names an unknown placeholder or
 the answers lack one. Nothing is written in that case.
@@ -29,6 +36,8 @@ PLACEHOLDER_RE = re.compile(r"\{\{(\w+)\}\}")
 RENDERED_SUFFIXES = (".md", ".json", ".txt")
 SCRIPT_SUFFIXES = (".py", ".sh")
 DEFAULT_TEMPLATES = Path(__file__).resolve().parent.parent / "templates"
+NUMBERED_RE = re.compile(r"^## D\d+, ")
+TITLE_DATE_RE = re.compile(r"^\d{2}/\d{2}/\d{4}: ")
 
 
 def placeholders_in(text):
@@ -118,14 +127,88 @@ def write(pairs, answers):
     return written, kept
 
 
+def split_decisions(text):
+    """The header and the entries of a decisions file, in file order.
+
+    An entry starts at a '## ' line outside a fenced code block.
+    """
+    header, entries = [], []
+    in_code = False
+    for line in text.split("\n"):
+        if line.lstrip().startswith("```"):
+            in_code = not in_code
+        if not in_code and line.startswith("## "):
+            entries.append([line])
+        elif entries:
+            entries[-1].append(line)
+        else:
+            header.append(line)
+    return "\n".join(header), ["\n".join(entry) for entry in entries]
+
+
+def migrate_decisions(text, header):
+    """The decisions numbered in file order, the newest first, under the header.
+
+    An older file adds its entries at the end, so the file order is the
+    order in which they were taken. Returns (text, warnings). Raises
+    ValueError when the file holds no entry or is already numbered.
+    """
+    _, entries = split_decisions(text)
+    if not entries:
+        raise ValueError("no decision found: an entry starts with '## '")
+    if any(NUMBERED_RE.match(entry) for entry in entries):
+        raise ValueError("the decisions are already numbered, nothing was written")
+    numbered, warnings = [], []
+    for number, entry in enumerate(entries, 1):
+        title, _, body = entry.partition("\n")
+        name = title[3:]
+        if not TITLE_DATE_RE.match(name):
+            warnings.append(f"D{number} has no date in its title: {name}")
+        numbered.append(f"## D{number}, {name}\n{body}".rstrip("\n"))
+    return header.rstrip("\n") + "\n\n" + "\n\n".join(reversed(numbered)) + "\n", warnings
+
+
+def run_migration(source, out, templates):
+    """Writes the migrated copy. Returns the exit code."""
+    out = Path(out)
+    if out.exists():
+        print(f"{out} exists, nothing was written", file=sys.stderr)
+        return 2
+    try:
+        text = Path(source).read_text(encoding="utf-8")
+        template = (Path(templates) / "decisions.md").read_text(encoding="utf-8")
+        new_text, warnings = migrate_decisions(text, split_decisions(template)[0])
+    except UnicodeDecodeError:
+        # A subclass of ValueError, so it is caught first.
+        print(f"{source} is not UTF-8, nothing was written", file=sys.stderr)
+        return 2
+    except (OSError, ValueError) as error:
+        print(error, file=sys.stderr)
+        return 2
+    out.write_text(new_text, encoding="utf-8")
+    for warning in warnings:
+        print(f"warning: {warning}")
+    print(f"wrote {out}")
+    return 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Writes the internal folder of a project from the templates.")
     parser.add_argument("--answers", help="the JSON file with one value per placeholder")
     parser.add_argument("--repair", action="store_true",
                         help="add only the files that need no answer, and name the others")
-    parser.add_argument("--target", required=True, help="the internal folder to write")
+    parser.add_argument("--target", help="the internal folder to write")
+    parser.add_argument("--migrate-decisions",
+                        help="the decisions file of an older folder, written in the current form to --out")
+    parser.add_argument("--out", help="the file the migrated decisions are written to")
     parser.add_argument("--templates", default=str(DEFAULT_TEMPLATES), help="the templates folder")
     args = parser.parse_args(argv)
+    if args.migrate_decisions:
+        if not args.out:
+            parser.error("--out is needed with --migrate-decisions")
+        return run_migration(args.migrate_decisions, args.out, args.templates)
+    if not args.target:
+        parser.error("--target is needed")
     if not args.repair and not args.answers:
         parser.error("--answers is needed, or --repair")
     by_hand = []

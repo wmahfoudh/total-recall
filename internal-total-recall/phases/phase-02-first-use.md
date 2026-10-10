@@ -142,9 +142,15 @@ Task 19.
 
 **The steps:**
 
-- [ ] **Step 1: The tests** Six tests in `MigrateDecisions`, seen red.
-- [ ] **Step 2: The code** The migration and its options; the suite
-  green.
+- [x] **Step 1: The tests** Six tests in `MigrateDecisions`, seen red.
+  Done 10/10/2026: five red. The sixth checks that the source is left
+  as it was, which holds before the code too.
+- [x] **Step 2: The code** The migration and its options; the suite
+  green. Done 10/10/2026: 75 tests green. On a copy of this folder's
+  decisions: 15 entries, D15 on top, 15 words more (one `Dn,` each),
+  the original's checksum unchanged, a second run refused with exit 2,
+  and the new check reads `clean` on a scratch copy of the folder with
+  the migrated file.
 
 The git line: `feat: migrate an older decisions file to numbered entries, newest first`.
 

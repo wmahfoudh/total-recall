@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -117,6 +118,74 @@ class Render(unittest.TestCase):
     def test_the_real_templates_are_the_default(self):
         result = subprocess.run([sys.executable, "-I", str(RENDER), "--help"], capture_output=True, text=True)
         self.assertIn("templates", result.stdout)
+
+
+OLD_DECISIONS = (
+    "# Decisions\n\nOne entry per decision, appended at the end.\n\n"
+    "## 07/10/2026: the first\n\nFirst text.\n\n"
+    "## 07/10/2026: the second\n\nSecond text.\n\n```\n## inside a block\n```\n\n"
+    "## the third, without a date\n\nThird text.\n"
+)
+
+
+class MigrateDecisions(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        root = Path(self.tmp.name)
+        self.templates = root / "templates"
+        make(self.templates, {"decisions.md": "# Decisions\n\nNew header.\n\n## D1, {{date}}: x\n\ny\n"})
+        self.source = root / "decisions.md"
+        self.source.write_text(OLD_DECISIONS, encoding="utf-8")
+        self.out = root / "copy.md"
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def run_migrate(self):
+        return subprocess.run([sys.executable, "-I", str(RENDER), "--migrate-decisions", str(self.source),
+                               "--out", str(self.out), "--templates", str(self.templates)],
+                              capture_output=True, text=True)
+
+    def test_the_decisions_are_numbered_and_newest_first(self):
+        result = self.run_migrate()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        text = self.out.read_text(encoding="utf-8")
+        self.assertTrue(text.startswith("# Decisions\n\nNew header.\n\n## D3, the third, without a date\n"), text)
+        titles = re.findall(r"^## .*$", text, re.MULTILINE)
+        self.assertEqual(titles, ["## D3, the third, without a date", "## D2, 07/10/2026: the second",
+                                  "## inside a block", "## D1, 07/10/2026: the first"])
+        for body in ("First text.", "Second text.", "Third text.", "```\n## inside a block\n```"):
+            self.assertIn(body, text)
+        self.assertIn(f"wrote {self.out}", result.stdout)
+
+    def test_a_title_without_a_date_is_warned(self):
+        result = self.run_migrate()
+        self.assertIn("warning: D3 has no date in its title: the third, without a date", result.stdout)
+
+    def test_the_original_is_left_as_it_was(self):
+        self.run_migrate()
+        self.assertEqual(self.source.read_text(encoding="utf-8"), OLD_DECISIONS)
+
+    def test_an_existing_output_is_not_replaced(self):
+        self.out.write_text("mine\n", encoding="utf-8")
+        result = self.run_migrate()
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("exists", result.stderr)
+        self.assertEqual(self.out.read_text(encoding="utf-8"), "mine\n")
+
+    def test_numbered_decisions_are_refused(self):
+        self.source.write_text("# Decisions\n\n## D1, 07/10/2026: a\n\nText.\n", encoding="utf-8")
+        result = self.run_migrate()
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("already numbered", result.stderr)
+        self.assertFalse(self.out.exists())
+
+    def test_a_file_that_is_not_utf8_is_refused(self):
+        self.source.write_bytes("## 07/10/2026: caf\xe9\n".encode("latin-1"))
+        result = self.run_migrate()
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("not UTF-8", result.stderr)
+        self.assertFalse(self.out.exists())
 
 
 if __name__ == "__main__":
