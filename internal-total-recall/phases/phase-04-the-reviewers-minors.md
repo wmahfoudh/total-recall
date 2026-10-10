@@ -18,8 +18,7 @@ of the check found since, in this repository.
 **The order:**
 
 1. Task 45, the reviewer's minors.
-2. The close of the phase, as its last task, numbered when it is
-   written.
+2. Task 46, the close.
 
 ### The opening of the phase
 
@@ -82,8 +81,8 @@ qualifier. With them, two faults of the check found later:
   reads `clean` at 5,637 words, the tools of this folder match the
   templates, `machine-check.py` reports this machine in full, no dash
   in the changed files.
-- [ ] **Step 9: The user's trial** The user reads the changes and runs
-  the suite.
+- [x] **Step 9: The user's trial** The user reads the changes and runs
+  the suite. Done 11/10/2026: committed by the user as `e01301f`.
 
 **Suggested git line:**
 
@@ -92,4 +91,24 @@ git add skill/SKILL.md skill/scripts/render.py skill/templates/state.md skill/te
 git commit -m "fix: the reviewer's minors in the checks, the render and the install steps"
 ```
 
-**Checkpoint for the phase:** written when the tasks are known.
+### Task 46: The close
+
+What it does and why: the close routine of `close.md`, the last task of
+the phase.
+
+**The steps:**
+
+- [x] **Step 1: The routine** The snapshot, the code map, the Roadmap,
+  the history, the story, the check, the close paragraph and Phase 05.
+  Done 11/10/2026: Phase 05 opened with the head of the Roadmap, the
+  second real project.
+
+**Checkpoint for the phase:** each of the fifteen findings fixed,
+already fixed or dropped with its reason, the tools of this folder
+equal to the templates, the suite green.
+
+Closed 11/10/2026: the minors fixed in one pass on the user's word
+(D33), test first, 153 tests green, committed by the user as
+`e01301f`. Findings 8, 9 and 10 were already fixed, finding 12
+dropped. Open at the close: the exclusion path in a real git worktree,
+not tried.

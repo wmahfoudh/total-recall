@@ -7,6 +7,20 @@ close. Read it when the work touches code, before exploring the code.
 Check a claim when the code contradicts it, or when `git log` on the
 files since the commit named shows changes.
 
+## Phase 04
+
+The names are those of the tree on 11/10/2026.
+
+- Task 45 (`e01301f`): `mapping`, `listing`, `matches_bash`,
+  `bash_hooks` and `script_of` in
+  `skill/templates/tools/machine-check.py`; the answer checks of `plan`
+  in `skill/scripts/render.py`; `find_list_breaks`, `OPEN_STEP_RE`,
+  `check_done_steps`, `HISTORY_TITLE_RE` and the `utf-8-sig` reads in
+  `skill/templates/tools/doc-check.py`; steps 1, 2, 5 and 7 of
+  `skill/SKILL.md`; `skill/templates/state.md`; ten tests across
+  `tests/test_machine_check.py`, `tests/test_render.py` and
+  `tests/test_doc_check.py`.
+
 ## Phase 03
 
 The names are those of the tree on 11/10/2026.

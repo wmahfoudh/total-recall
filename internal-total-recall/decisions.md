@@ -7,6 +7,14 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D34, 11/10/2026: Phase 04 closed, Phase 05 A second real project opened
+
+Phase 04 closes with its checkpoint met: the fifteen findings handled,
+committed as `e01301f`, the suite green. Phase 05 opens with the head
+of the Roadmap, the second real project, which the user set aside
+until Phase 04 was done. The project is still to be chosen. The rule
+of `lifecycle.md`, at the user's "let's close".
+
 ## D33, 11/10/2026: the minors fixed at once
 
 The fifteen findings of Task 45 are fixed in one pass, by common sense,

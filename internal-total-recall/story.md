@@ -114,3 +114,20 @@ task. Each slip was found and said plainly.
 
 The number I wanted: 5,566 words a start, from ten to fourteen
 thousand. Next, the minors, before a second project.
+
+## 11/10/2026, third: the minors in one pass
+
+Claude wanted to read the fifteen findings with me one at a time. I
+asked for a list, then for all of them fixed at once. They were small,
+logic only, no taste involved.
+
+It went fast. Tests first, nine red, then green. Three of the fifteen
+were already fixed, and one was a check written into an old spec that
+nobody had planned, so it was dropped.
+
+Two small bumps on the way. The guard hook refused a script because
+its text named a git command, even as advice for the user. And `cp`
+asked to confirm an overwrite in the background, and the command hung
+until Claude stopped it. Both guards did their job.
+
+Next, the second project. I still have to pick it.

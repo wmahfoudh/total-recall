@@ -20,17 +20,13 @@ Ordered. Each item is a few lines: what it is, why, its size in
 sessions. An item becomes a phase or a task when it opens, and leaves
 the Roadmap when it is delivered in full.
 
-1. **A second real project.** The templates tried on an ordinary
-   project of another kind, from the install to a few sessions, after
-   the changes of Phase 03 are committed. The project is still to be
-   chosen. A few sessions, in that project, at the user's pace.
-2. **The guardrails on another machine.** The machine check and the
+1. **The guardrails on another machine.** The machine check and the
    proposal of the deny list and the guard scripts, tried on a machine
    that has none. Half a session, on that machine.
-3. **The fine tuning of the templates.** After a few sessions on real
+2. **The fine tuning of the templates.** After a few sessions on real
    projects: the size of `state.md`, the number of memory notes, the
    close routine, the task form. What the sessions show. One session.
-4. **The internal folder in the package test.** The test reads
+3. **The internal folder in the package test.** The test reads
    `skill/`, `tests/` and the README, not the internal folder, which
    is now committed. A test for this project's folder, or a note that
    the review covers it. Small.

@@ -1,3 +1,16 @@
+# 11/10/2026, third - Phase 04 closed, Phase 05 opened
+
+The reviewer's minors fixed in one pass, then Phase 04 closed.
+
+- The plain "let's start" tried and passed. The commit of the Phase 03
+  close done by the user.
+- The fifteen findings listed, then fixed at once on the user's word
+  (D33), test first: the machine check, the render, the document
+  check, the install steps and the state template. 8, 9 and 10 were
+  already fixed, 12 dropped. 153 tests green, `e01301f`.
+- Phase 05, A second real project, opened (D34). The project is still
+  to be chosen.
+
 # 11/10/2026, later - Phase 03 closed, Phase 04 opened
 
 Tasks 34 to 44 discussed one at a time, then Phase 03 closed against
