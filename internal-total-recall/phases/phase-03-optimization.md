@@ -288,6 +288,17 @@ seventeen tasks. The start reads only its preamble and current task,
 but the close and the review read it whole, and their cost grows with
 it.
 
+Discussed with the user 11/10/2026, D27: the review keeps reading the
+whole file, since it is rare and looks across the folder. The close
+reads only the tasks of the session, and a done step says what
+happened in a line or two, as `CLAUDE.md` already asks.
+
+**The steps:**
+
+- [x] **Step 1: The close and the form** Step 3 of `close.md` and the
+  form of a phase file in `lifecycle.md`, in the templates and here.
+  Done 11/10/2026: both edited and copied, the check `clean`.
+
 ### Task 39: The tests that pin the wording
 
 What it does and why: many tests of `tests/test_package.py` check exact

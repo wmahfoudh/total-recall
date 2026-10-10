@@ -7,6 +7,13 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D27, 11/10/2026: the close reads the tasks of the session
+
+Step 3 of the close reads only the tasks of the session, found by their
+headings, and `doc-check.py` checks the form of the rest of the phase
+file. A done step says what happened in a line or two. The review still
+reads the whole file. The user's word.
+
 ## D26, 11/10/2026: the repeats of the templates removed
 
 Task 37 removes four repeats of the templates:

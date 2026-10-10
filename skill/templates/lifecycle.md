@@ -32,7 +32,7 @@ its place in time.
   - For code, the files and the interfaces at its opening.
   - `**The steps:**`, each `- [ ] **Step K: <name>** <what the step
     does>`. A done step reads `- [x]` and ends with `Done DD/MM/YYYY:`
-    and what happened.
+    and what happened, in a line or two.
   - What was found on the way, under the task, with its evidence.
   - The suggested git line.
 - `**Checkpoint for the phase:**` at the end, then the close paragraph

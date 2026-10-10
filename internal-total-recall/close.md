@@ -16,6 +16,9 @@ result.
    150 lines. What another file records is a pointer, not a copy.
 3. In the open phase file, check that each piece of work of the session
    is under a numbered task, with its delivered steps ticked and dated.
+   Read only the tasks of the session, found by their headings
+   (`grep -n "^### Task"`), not the whole file: the check of step 9
+   covers the form of the rest.
    Work that no task planned is grouped into a few numbered tasks:
    `lifecycle.md`, "The numbers". For a code project, add an entry per
    delivered task that touched code to `code-map.md`, in the section of
