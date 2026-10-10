@@ -1,4 +1,5 @@
 import importlib.util
+import hashlib
 import json
 import os
 import re
@@ -11,7 +12,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SKILL = ROOT / "skill"
 TEXT = (".md", ".py", ".sh", ".json", ".txt")
-FORBIDDEN = ("oryx", "/home/")
+# The name of the reference project is written nowhere in the
+# repository, so the test keeps its SHA-256 hash and hashes each word.
+FORBIDDEN_HASHES = {"535609a8f9190ae30850b6c191e554c978db017302fbb285554d04519a5daa69"}
+HOME_PATH = "/" + "home" + "/"
 
 
 def load(path, name):
@@ -20,6 +24,12 @@ def load(path, name):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def forbidden_words(text, hashes):
+    """The words of the text, lowercased, whose SHA-256 hash is in hashes."""
+    words = sorted(set(re.findall(r"[a-z0-9]+", text.lower())))
+    return [w for w in words if hashlib.sha256(w.encode()).hexdigest() in hashes]
 
 
 def text_files():
@@ -54,12 +64,16 @@ class WritingRules(unittest.TestCase):
 
     def test_nothing_names_the_origin_project_or_a_home_path(self):
         for path in text_files():
-            if path.parent.name == "tests":
-                continue
             text = path.read_text(encoding="utf-8").lower()
-            for word in FORBIDDEN:
-                self.assertNotIn(word, text, f"{path.relative_to(ROOT)} names {word!r}")
+            self.assertEqual(forbidden_words(text, FORBIDDEN_HASHES), [],
+                             f"{path.relative_to(ROOT)} names the reference project")
+            self.assertNotIn(HOME_PATH, text, f"{path.relative_to(ROOT)} names a home path")
 
+
+    def test_a_forbidden_word_is_found_by_its_hash(self):
+        digest = hashlib.sha256(b"sample").hexdigest()
+        self.assertEqual(forbidden_words("A Sample, then more.", {digest}), ["sample"])
+        self.assertEqual(forbidden_words("Nothing here.", {digest}), [])
 
 class SkillStructure(unittest.TestCase):
     def frontmatter(self):

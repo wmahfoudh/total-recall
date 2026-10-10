@@ -391,4 +391,32 @@ word until the skill is fixed. It is run again with the new code.
 
 The git line: `fix: review takes in the session's decisions and checks the memory notes`.
 
-**Checkpoint for the phase:** Tasks 18 to 27 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
+### Task 28: The name of the reference project out of the tests
+
+What it does and why: item 20 of the first review. D10 and the note
+`reference-system-read-only` say the name of the reference project is
+written nowhere in the repository, and the list of forbidden words of
+`tests/test_package.py` held it since `aca0d06`. The test skipped the
+`tests/` folder in its own check. The test now keeps the SHA-256 hash
+of the name, and checks the tests too.
+
+The files: `tests/test_package.py`.
+
+**The steps:**
+
+- [x] **Step 1: The tests** The check of the forbidden words covers
+  `tests/`, and a test of the hash on a sample word; seen red. Done
+  10/10/2026: the check red on `tests/test_package.py` itself, the
+  hash test an error, its helper not written yet.
+- [x] **Step 2: The hash** The name replaced by its hash, the home
+  path written so that it does not match itself; the suite green.
+  Done 10/10/2026: 98 tests green. The hash computed from the old
+  tuple, so that the name was not typed again. The name found in no
+  file of the tree. The hash finds one match in the test file of
+  `aca0d06` and none in the new one. The name stays in the git history
+  from `aca0d06` up to this fix: removing it there is a rewrite of the
+  history, the user's decision.
+
+The git line: `fix: the tests no longer name the reference project`.
+
+**Checkpoint for the phase:** Tasks 18 to 28 delivered and tried by the user, the suite green, then the review of this folder on the user's word.
