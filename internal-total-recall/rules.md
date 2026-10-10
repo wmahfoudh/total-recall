@@ -37,21 +37,13 @@ finds synonyms, so the rule is taught by pairs:
   fix is in. Both handlers now share one lock, which stops the random
   failure. The test passed three times in a row."
 
-No clause tacked on with ", and", no image where a fact will do, no other
-product named as a comparison, no showing off.
+No other product named as a comparison, no showing off.
 
 ### The user's style
 
-The user's own style is the memory note `user-writing-style` of the
-internal folder, `memory/user-writing-style.md`: eighteen rules from
-their line by line corrections and their own rewrites, and the rule of
-a reply (short, the decision first, one idea at a time). The note is
-read whole at the start of a session, with the other notes, and again
-before writing any text for the user: a page, a changelog, a git
-message, a comment, a reply. A correction from the user on the text
-updates the note, not this file. The user keeps the style as a memory
-note on purpose: it is read whole and is less easily forgotten than a
-section of this file.
+The user's own style is the memory note
+`memory/user-writing-style.md` of the internal folder, read whole
+before writing any text for the user.
 
 ### Prose tics to hunt
 
@@ -65,7 +57,7 @@ After drafting any prose, reread for:
   replace with one concrete fact.
 - Software verbs in text meant for readers: a person opens and reads,
   software renders.
-- Headings or bullets all built the same way. Headings are plain nouns.
+- Headings or bullets all built the same way.
 - "for you", "simply", "just", "note that", hollow emphasis.
 - A semicolon where a full stop belongs; sentences all the same length;
   two colons in one sentence; bullets ending in commas; a word other than
@@ -115,11 +107,7 @@ grep every touched file for both characters and rewrite the hits.
 
 ### Text a product shows its user
 
-- The reader is "you" and the product is the actor: "The program will ask
-  you to save it first, so it knows the file's type".
 - One idea per tip. A second idea is a second tip.
-- A notice names the thing it talks about: "The source file was not
-  changed", not "Your file was not changed".
 
 ### Git messages
 

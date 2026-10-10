@@ -14,11 +14,10 @@ tells my text from theirs.
 
 **Why:** the user wants their plain style applied to what I write, and
 asked for rules that tell my text from theirs, easy to follow, so that
-what I write reads as theirs. A phrase made up in a session reads as
-jargon even when each word is plain. A slogan or a staged sentence
-reads as the style of a machine. The user keeps this as a memory note
-on purpose: a note is read whole at the start of a session and before
-any text is written, and is less easily forgotten than a section of a
+what I write reads as theirs. A slogan or a staged sentence reads as
+the style of a machine. The user keeps this as a memory note on
+purpose: a note is read whole at the start of a session and before any
+text is written, and is less easily forgotten than a section of a
 longer file.
 
 **How to apply:** read this note whole before writing text for a page,
@@ -69,8 +68,10 @@ this note.
     that defends the first. A link is a pointer ("More details in
     PRIVACY.md."), not a summary of its page.
 11. Fewer "you" and "your". The thing gets its own name: "the open
-    document", "the active theme", "the current position". "You" stays
-    for an action the reader takes ("You can middle click").
+    document", "the active theme", "the current position". A notice
+    names the thing it talks about: "The source file was not changed",
+    not "Your file was not changed". "You" stays for an action the
+    reader takes ("You can middle click").
 12. Repeat the noun instead of a pronoun. Write "a", not the emphatic
     "one".
 13. A heading is a flat description ("Uses the file system") or a short
@@ -100,11 +101,9 @@ this note.
     weight, in terms that a measurement supports.
 
 **Where each rule applies:** rules 1 to 7, 10, 12 and 14 hold for all
-the text, a git message and a code comment too: a git message names the
-change by its standard term and stops, a comment states the constraint
-or the reason and stops. The others are about prose for readers: the
-pages, the tips, a changelog. The user's own bullets in a document are
-theirs: ask before rewording them.
+the text, a git message and a code comment too. The others are about
+prose for readers: the pages, the tips, a changelog. The user's own
+bullets in a document are theirs: ask before rewording them.
 
 **A reply:** short, in plain simple sentences, with one idea at a time
 and the decision first. Open with the decision or the answer, then give

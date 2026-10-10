@@ -117,9 +117,13 @@ filter the output of commands before it reaches the context.
   phase part 1,256, Task 33 being long). The old routine on the same
   files: 8,059 words, and 11,621 with the rules read twice. The
   shell's `cp` asks before an overwrite: a copy is made by Python.
-- [ ] **Step 6: The trial** The user opens a fresh session with
+- [x] **Step 6: The trial** The user opens a fresh session with
   "let's start": the briefing comes from the output of the script, and
-  `CLAUDE.md` and `rules.md` are loaded once.
+  `CLAUDE.md` and `rules.md` are loaded once. Done 11/10/2026: passed on
+  the user's word: `CLAUDE.md` read once with the Read tool, `rules.md`
+  loaded once by its import, the script exit 0. Whether the script
+  alone makes Claude Code load `CLAUDE.md` stays unknown, since the
+  file was loaded before it ran. The entry point went to Task 40.
 
 **The design**, agreed 11/10/2026:
 
@@ -178,6 +182,34 @@ caveman-compress keeps an original and a compressed copy. The cost: two
 copies to keep in step, and a style note that teaches plain English by
 its own sentences.
 
+Discussed with the user 11/10/2026, D23: no compressed copy. A copy in
+shorthand shows Claude the style the rules forbid, the pairs of
+examples do not compress, and two copies drift apart. The task removes
+the repeats between `rules.md` and the style note instead, each rule
+written once in plain English. The kept copy is by default the one in
+the style note.
+
+**The steps:**
+
+- [x] **Step 1: The comparison** Each rule found in both `rules.md` and
+  the style note, with the copy to keep. Approved by the user before
+  any edit. Done 11/10/2026: six repeats, approved as listed. The use
+  of the note, the ", and" clause, "Headings are plain nouns" (which
+  disagreed with rule 13) and the product text kept in the note, the
+  example of a notice moved into rule 11. The jargon sentence and the
+  comments and git messages kept in `rules.md`. The prose tics and the
+  opening paragraph of `rules.md` left as they are.
+- [x] **Step 2: The edit** The repeats removed from the template
+  `rules.md` and the style note and from the copies in this folder,
+  checked by the sample render, `doc-check.py` and the suite. Done
+  11/10/2026: both templates edited, copied here by Python. The suite
+  caught the pointer to the note without its path; the path is back.
+  134 tests green, the check `clean` here and on a sample render.
+- [x] **Step 3: The measure** `doc-check.py --size` before and after,
+  written here. Done 11/10/2026: 6,305 words read at each start before,
+  6,128 after, 177 words fewer. `rules.md` and the note went from 3,742
+  words to 3,565. The sample render reads 4,812.
+
 ### Task 35: The start levels
 
 What it does and why: a light start that reads `state.md` and the
@@ -219,6 +251,17 @@ What it does and why: the phrase works on this machine because the
 user's global rules file maps it to the project file. A new user has no
 such file. A line handed over by the skill, tried on a machine without
 the global file. Item 4 of the Roadmap, moved here.
+
+Seen at the trial of Task 33, 11/10/2026: even on this machine, a plain
+"let's start" had nothing at the root of the repository or in Claude
+Code's memory folder that named `internal-total-recall/`. The session
+found the folder by listing the tree. "read
+internal-total-recall/CLAUDE.md" is the sure way in, by `rules.md`.
+
+The global rules file of this machine, 2,052 words, repeats most of
+`rules.md`, and both load at each start in this project. Whether it
+shrinks to the start phrases and a pointer is decided here, with the
+entry point (D23).
 
 ### Task 41: A second real project
 

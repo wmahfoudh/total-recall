@@ -7,6 +7,20 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D23, 11/10/2026: no compressed copy of the rules, the repeats removed
+
+Task 34 makes no compressed copy of the rules. It removes the repeats
+between `rules.md` and the style note, each rule written once in plain
+English. The reasons:
+
+- a copy in shorthand shows Claude the style the rules forbid;
+- the pairs of wrong and right examples do not compress;
+- two copies drift apart, and a check sees words, not meaning.
+
+The global rules file of this machine, which repeats most of
+`rules.md`, is weighed in Task 40 with the entry point. The user's
+word.
+
 ## D22, 11/10/2026: the start script, and the rules loaded by Claude Code
 
 The start routine runs `tools/start.py`, which prints the whole start
