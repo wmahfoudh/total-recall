@@ -381,6 +381,12 @@ their own.
 What it does and why: the cost of a start measured again by the method
 of the baseline, and compared with it in a record.
 
+**The steps:**
+
+- [x] **Step 1: The measure and the record** Done 11/10/2026:
+  `records/2026-10-11-benchmark.md`, on `b1b1c97`. 5,566 words a start,
+  where the baseline start read 10,022 to 13,891.
+
 ### Task 44: The close
 
 What it does and why: the close routine of `close.md`, the last task of
