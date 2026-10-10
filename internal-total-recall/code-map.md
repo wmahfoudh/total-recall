@@ -7,6 +7,15 @@ close. Read it when the work touches code, before exploring the code.
 Check a claim when the code contradicts it, or when `git log` on the
 files since the commit named shows changes.
 
+## Phase 05
+
+The names are those of the tree on 11/10/2026.
+
+- Task 48 (`ca32cec`): the Roadmap sentence of
+  `skill/templates/lifecycle.md` and `skill/templates/plan.md`, step 4
+  of `skill/templates/close.md`, step 6 of `skill/templates/review.md`,
+  the `machine-check.py` line of `skill/templates/tools/README.md`.
+
 ## Phase 04
 
 The names are those of the tree on 11/10/2026.

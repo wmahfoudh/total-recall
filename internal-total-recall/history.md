@@ -1,3 +1,18 @@
+# 11/10/2026, fourth - The review of the memory and Task 48
+
+The review of the memory at the close of Phase 04, then its changes
+carried into the templates.
+
+- The review, `records/2026-10-11-review.md`: two items from the
+  session, six numbered, all applied on the user's word. D5 and D8
+  moved to `obsolete.md`, an item leaves the Roadmap when it opens as
+  a phase or a task, the hash check replaces the grep of the note.
+- The reference name checked by hash over the tracked files and this
+  folder: no hit.
+- The two empty `.claude/` folders of this folder removed by the user.
+- Task 48: the same changes in the templates, `ca32cec`. 153 tests
+  green.
+
 # 11/10/2026, third - Phase 04 closed, Phase 05 opened
 
 The reviewer's minors fixed in one pass, then Phase 04 closed.

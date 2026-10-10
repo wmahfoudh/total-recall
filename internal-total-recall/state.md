@@ -1,25 +1,23 @@
 # State
 
-Updated 11/10/2026, at the close of Phase 04.
+Updated 11/10/2026, at the close of the session.
 
 ## Position
 
 - Phase 05, A second real project, open since 11/10/2026:
   `phases/phase-05-a-second-real-project.md`. Task 47 is at step 1,
-  the choice of the project, which is the user's.
-- Phase 04 closed: the reviewer's minors fixed, committed by the user
-  as `e01301f` (D33, D34).
+  the choice of the project, which is the user's. Task 48 is done.
 - The package: `skill/`, `tests/` (153 tests green) and `README.md`,
-  committed up to the close of Phase 04.
+  committed up to `ca32cec`, the close not yet.
 
 ## Done this session
 
 - The plain "let's start" tried and passed.
-- Task 45: the fifteen findings handled in one pass, test first. 8, 9
-  and 10 were already fixed, 12 dropped.
-- Task 46: the close of Phase 04, Phase 05 opened.
+- Task 45: the fifteen findings of Phase 04 handled in one pass, test
+  first (D33). Task 46: Phase 04 closed, Phase 05 opened (D34).
 - The review of the memory, `records/2026-10-11-review.md`, all items
-  applied. The same changes to the templates are Task 48.
+  applied: D5 and D8 to `obsolete.md`, an item leaves the Roadmap when
+  it opens. Task 48: the same changes in the templates, `ca32cec`.
 
 ## Next
 
@@ -30,9 +28,7 @@ At "let's start", in a new session:
 
 ## Waiting on the user
 
-- The commit of the review.
-- The removal of the two empty folders `.claude/` of this folder, item
-  B of the review.
+- The commit of this close.
 - The project for Task 47.
 - The trial of the exclusion path in a real git worktree (not tried):
   `git worktree add ../tr-wt`, then in it

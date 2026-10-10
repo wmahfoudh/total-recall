@@ -131,3 +131,16 @@ asked to confirm an overwrite in the background, and the command hung
 until Claude stopped it. Both guards did their job.
 
 Next, the second project. I still have to pick it.
+
+## 11/10/2026, fourth: the review after the close
+
+The review found two decisions that should have moved to the obsolete
+file long ago, one of them since the first day. Nobody had noticed,
+because nothing broke. It also found that the Roadmap rule said one
+thing and we did another, twice. I picked the practice and the text
+followed, here and in the templates.
+
+The note on the reference name asked for a grep that no session can
+run, since no session may know the name. A hash does the job.
+
+Phase 05 waits for me now. I have to choose the project.
