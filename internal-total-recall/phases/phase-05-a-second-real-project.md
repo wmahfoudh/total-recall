@@ -50,7 +50,19 @@ of `close.md`; the start phrases line in the `machine-check.py` line of
 
 **The steps:**
 
-- [ ] **Step 1: The templates** The changes made, checked by the sample
-  render and `tools/doc-check.py`, the suite green.
+- [x] **Step 1: The templates** The changes made, checked by the sample
+  render and `tools/doc-check.py`, the suite green. Done 11/10/2026:
+  `lifecycle.md`, `plan.md`, `close.md`, `review.md` and
+  `tools/README.md` of the templates changed. `lifecycle.md`,
+  `close.md`, `review.md` and the tools README now match this folder,
+  and `update.py plan` reads `nothing to update`. The sample render
+  reads `clean`. 153 tests green.
+
+**Suggested git line:**
+
+```
+git add skill/templates internal-total-recall
+git commit -m "doc: templates updated with the changes of the memory review"
+```
 
 **Checkpoint for the phase:** written when the tasks are known.

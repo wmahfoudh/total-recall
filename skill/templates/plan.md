@@ -17,8 +17,8 @@ phase is named in `state.md`. The rules of the numbers are in
 ## Roadmap
 
 Ordered. Each item is a few lines: what it is, why, its size in
-sessions. An item becomes a phase or a task when it opens, and leaves
-the Roadmap when it is delivered in full. Nothing yet.
+sessions. An item leaves the Roadmap when it opens as a phase or a
+task: the phase file holds it from then on. Nothing yet.
 
 ## Parked
 

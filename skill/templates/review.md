@@ -62,9 +62,11 @@ report.
    answer by number: "all", "all but 3", "1 and 4". A contradiction is
    settled only by the user's choice. The other items can be approved
    together.
-6. Apply the approved items. A replaced decision moves whole to the top
-   of `obsolete.md`, with the line `Replaced by Dn on DD/MM/YYYY.`
-   under its title, and the newer decision names it.
+6. Apply the approved items. A replaced decision moves whole to
+   `obsolete.md`, at its place by the date it was replaced, the top for
+   a decision replaced today, with the line
+   `Replaced by Dn on DD/MM/YYYY.` under its title, and the newer
+   decision names it.
 7. Add the report to `records/README.md`, run the check with the size
    again, and fix what it reports.
 
