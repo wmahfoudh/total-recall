@@ -346,6 +346,13 @@ the commands), `tests/test_package.py`.
   rendered folder, another line on a foreign folder, an error on a
   missing file. The detection ends with `|| true`, so that a clean
   project exits with 0 and does not read as a failure.
+- [x] **Step 3: The templates to adapt** On the user's word, a section
+  of the README before "How a session works": the templates to read
+  and adapt before the first install, and where a change applies.
+  Done 10/10/2026: five templates named, the style note to replace
+  with the reader's own; 94 tests green. Then, on the user's word, a
+  paragraph that encourages a fork for a reader's own set of
+  templates.
 
 The git line: `feat: refuse to install over another documentation system`.
 

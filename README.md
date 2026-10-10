@@ -1,6 +1,6 @@
-# Total recall
+# Total Recall
 
-**Total Recall** is a skill that initializes a living memory system for a project at creation. This avoids asking the expensive *explore the code* at each start of a session, explaining again where the project was, what was decided and how you like to work. It gives a project a folder of plain documents inside the project, which a session reads at its start and updates at its close with minimal cost.
+**Total Recall** is a skill that initializes a living memory system for a project at creation. This avoids asking the expensive *explore the code* at each start of a session, explaining again where the project was, what was decided and how you like to work. It gives a project a folder of plain documents that a session selectively reads at its start and updates at its close with minimal cost.
 
 The folder is named `internal-<project-name>`, after the project's folder. At the install, the skill asks whether git should ignore it.
 
@@ -24,6 +24,20 @@ The folder is named `internal-<project-name>`, after the project's folder. At th
 | `records/` | One-off records: a pasted log, a study, a spec written by a skill |
 | `tools/` | A check of the documents and a check of the machine |
 | `memory/` | The memory notes of the project and their index |
+
+## Adapt the templates
+
+The templates in `skill/templates/` are a starting point, written for one way of working. Read them before the first install, and change them to fit yours:
+
+- `rules.md`: the rules for every project, on writing, working with the user, verification and agents.
+- `memory/user-writing-style.md`: a writing style made from one person's corrections. Replace it with your own style.
+- `CLAUDE.md`: the project file, with the phrases of the sessions and the size read at each start.
+- `close.md` and `review.md`: the close routine and the review of the memory.
+- `lifecycle.md`: phases, tasks and steps, and their numbers.
+
+A change in `skill/templates/` applies to the projects installed after it. A change in the internal folder of a project applies to that project only, and the next `/total-recall` there shows it as a difference from the templates.
+
+To build your own set of templates, fork this repository, change the templates in your fork, and link the skill from it, as in "Install the skill". Your fork keeps your templates, and you choose which changes of this repository to take in.
 
 ## How a session works
 
