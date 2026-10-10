@@ -84,4 +84,4 @@ sessions. An item becomes a phase or a task when it opens, and leaves
 the Roadmap when it is delivered in full. An ask set aside goes under
 Parked with the condition for its return. What waits on something
 outside goes under Blocked with what it waits for. The decisions on the
-Roadmap are in `decisions.md`.
+Roadmap are in `decisions.md`, and the replaced ones in `obsolete.md`.

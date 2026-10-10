@@ -161,9 +161,15 @@ newest first, and ship `obsolete.md`. Plan, Task 20.
 
 **The steps:**
 
-- [ ] **Step 1: The tests** The package and the real render, seen red.
-- [ ] **Step 2: The templates** `decisions.md`, `obsolete.md`, the
-  table of `CLAUDE.md`, `lifecycle.md`; the suite green.
+- [x] **Step 1: The tests** The package and the real render, seen red.
+  Done 10/10/2026: four red, the real render with one finding, the old
+  decision title.
+- [x] **Step 2: The templates** `decisions.md`, `obsolete.md`, the
+  table of `CLAUDE.md`, `lifecycle.md`; the suite green. Done
+  10/10/2026: 78 tests green. A sample render writes 19 files, `## D1`
+  in its decisions, reads `clean` with 4532 words read at each start.
+  The migration of a copy of this folder's decisions now takes the new
+  header.
 
 The git line: `feat: decisions numbered and newest first, replaced ones in obsolete.md`.
 

@@ -188,5 +188,32 @@ class MigrateDecisions(unittest.TestCase):
         self.assertFalse(self.out.exists())
 
 
+
+class RealTemplates(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.target = Path(self.tmp.name) / "internal-My Project"
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_a_render_of_the_real_templates_reads_clean(self):
+        answers = Path(self.tmp.name) / "answers.json"
+        answers.write_text(json.dumps(ANSWERS), encoding="utf-8")
+        result = subprocess.run([sys.executable, "-I", str(RENDER), "--answers", str(answers),
+                                 "--target", str(self.target)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        check = subprocess.run([sys.executable, "-I", str(self.target / "tools" / "doc-check.py"),
+                                str(self.target)], capture_output=True, text=True)
+        self.assertEqual(check.stdout.strip().splitlines()[-1], "clean", check.stdout)
+
+    def test_a_repair_of_an_older_folder_adds_obsolete(self):
+        self.target.mkdir()
+        (self.target / "CLAUDE.md").write_text("mine\n", encoding="utf-8")
+        result = subprocess.run([sys.executable, "-I", str(RENDER), "--repair", "--target", str(self.target)],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.target / "obsolete.md").exists())
+
 if __name__ == "__main__":
     unittest.main()

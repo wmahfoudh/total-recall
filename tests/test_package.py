@@ -92,7 +92,7 @@ class SkillStructure(unittest.TestCase):
                     "templates/records/README.md", "templates/tools/README.md",
                     "templates/tools/doc-check.py", "templates/tools/machine-check.py",
                     "templates/memory/MEMORY.md", "templates/memory/project-instruction-file.md",
-                    "templates/memory/user-writing-style.md",
+                    "templates/memory/user-writing-style.md", "templates/obsolete.md",
                     "machine/settings-guardrails.json", "machine/hooks/bash-guard.sh",
                     "machine/hooks/git-guard.sh", "machine/hooks/guard-lib.sh"]
         missing = [name for name in expected if not (SKILL / name).is_file()]
@@ -108,6 +108,13 @@ class SkillStructure(unittest.TestCase):
         self.assertTrue(note.startswith("---\nname: user-writing-style\n"))
         self.assertEqual(len(re.findall(r"^\d+\. ", note, re.MULTILINE)), 18)
 
+
+    def test_the_decisions_are_numbered_and_obsolete_is_in_the_table(self):
+        decisions = (SKILL / "templates" / "decisions.md").read_text(encoding="utf-8")
+        self.assertIn("\n## D1, {{date}}: ", decisions)
+        self.assertNotIn("{{", decisions.split("\n## ", 1)[0])
+        claude = (SKILL / "templates" / "CLAUDE.md").read_text(encoding="utf-8")
+        self.assertIn("| `obsolete.md` |", claude)
 
 class MachineFolder(unittest.TestCase):
     def test_the_snippet_is_json_with_the_deny_list_and_the_hooks(self):

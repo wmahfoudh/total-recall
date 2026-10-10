@@ -22,7 +22,8 @@ reads a file in the folder.
 | `phases/` | One file per phase: the preamble, the order, the tasks with their steps |
 | `history.md` | The session log, newest first |
 | `story.md` | The diary in the user's voice, appended at the end |
-| `decisions.md` | Dated decisions, appended at the end |
+| `decisions.md` | The decisions in force, numbered, newest first |
+| `obsolete.md` | The decisions replaced by a newer one, with the number of the one that replaced them |
 | `close.md` | The close routine |
 | `lifecycle.md` | Phases, tasks and steps, their numbers, the opening and the close of a phase |
 | `code-map.md` | Where the work of each phase is in the tree |
