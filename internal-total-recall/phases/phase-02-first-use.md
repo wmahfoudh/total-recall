@@ -255,9 +255,23 @@ know the project, in the user's voice, and names the folder
 
 **The steps:**
 
-- [ ] **Step 1: The tests** `Readme`, seen red.
-- [ ] **Step 2: The draft** Shown to the user and corrected.
-- [ ] **Step 3: The README and the placeholder** The suite green.
+- [x] **Step 1: The tests** `Readme`, seen red. Done 10/10/2026:
+  three red, among them three `<folder>` outside backticks in the
+  README, the cause of the `internal-/` the user saw on GitHub.
+- [x] **Step 2: The draft** Shown to the user and corrected. Done
+  10/10/2026: three sentences of the plan's draft fixed by the style
+  rules before showing it (two images, a paragraph in mixed tenses);
+  the user's word: "it's fine".
+- [x] **Step 3: The README and the placeholder** The suite green. Done
+  10/10/2026: 91 tests green. `SKILL.md`: 16 `<folder>` renamed to
+  `<project-name>`, one path of step 9 put in backticks, two lines
+  rewrapped.
+- [x] **Step 4: Why scripts?** A section of the README on the user's
+  question, why the skill uses Python. Done 10/10/2026: the user's
+  corrections ("by hand" replaced by Claude as the actor, a rough
+  comparison of the cost) applied; about 14,000 words of this folder
+  without its records, around 18,000 tokens at about 1.3 tokens a
+  word, against one command; 91 tests green.
 
 The git line: `doc: readme rewritten for a public skill, folder named after the project`.
 

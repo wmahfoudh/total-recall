@@ -18,8 +18,8 @@ or outside the project.
 
 ## What it installs
 
-`internal-<folder>/`, where `<folder>` is the name of the project's
-folder:
+`internal-<project-name>/`, where `<project-name>` is the name of the
+project's folder:
 
 | File | What it holds |
 |---|---|
@@ -52,25 +52,25 @@ When there is no `.git`, stop. Tell the user to run `git init` in the
 project folder first, and that nothing was written.
 
 The folder name is the last part of the working directory
-(`basename "$PWD"`). The internal folder is `internal-<folder>`, with
+(`basename "$PWD"`). The internal folder is `internal-<project-name>`, with
 the name kept as it is, spaces and capitals included.
 
 ## 2. The mode
 
-When `internal-<folder>/` exists, check it, bring it to the current
+When `internal-<project-name>/` exists, check it, bring it to the current
 form, and stop:
 
 1. List the files of `${CLAUDE_SKILL_DIR}/templates/` against the
    internal folder, and name each one that is missing.
 2. Read `.git/info/exclude` and say whether the line
-   `/internal-<folder>/` is there, as information.
-3. Run `python3 "internal-<folder>/tools/machine-check.py"`, or the
+   `/internal-<project-name>/` is there, as information.
+3. Run `python3 "internal-<project-name>/tools/machine-check.py"`, or the
    copy in `${CLAUDE_SKILL_DIR}/templates/tools/` when the folder has
    none, and show its table.
 4. Offer the repair, and run it on the user's word only:
 
    ```
-   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --repair --target "internal-<folder>"
+   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --repair --target "internal-<project-name>"
    ```
 
    It adds the files that need no answer (the rules, the routines, the
@@ -87,7 +87,7 @@ form, and stop:
    `tools/machine-check.py`. For each one that differs, run
 
    ```
-   diff -u "internal-<folder>/<file>" "${CLAUDE_SKILL_DIR}/templates/<file>"
+   diff -u "internal-<project-name>/<file>" "${CLAUDE_SKILL_DIR}/templates/<file>"
    ```
 
    and say in a few lines what changed. `rules.md` is replaced whole,
@@ -100,14 +100,14 @@ form, and stop:
    form in a copy:
 
    ```
-   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --migrate-decisions "internal-<folder>/decisions.md" --out "<scratchpad>/decisions.md"
+   python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --migrate-decisions "internal-<project-name>/decisions.md" --out "<scratchpad>/decisions.md"
    ```
 
    Show the head of the copy and each `warning:` line, then hand over
    the line that replaces the file:
 
    ```
-   cp "<scratchpad>/decisions.md" "internal-<folder>/decisions.md"
+   cp "<scratchpad>/decisions.md" "internal-<project-name>/decisions.md"
    ```
 
 7. Offer the review of the content, "review the memory", which follows
@@ -157,7 +157,7 @@ go.
 ## 6. The folder
 
 Write the answers as JSON in the session scratchpad, with these keys:
-`project` (the folder name), `internal` (`internal-<folder>`), `date`
+`project` (the folder name), `internal` (`internal-<project-name>`), `date`
 (today as DD/MM/YYYY, from `date +%d/%m/%Y`), `description`,
 `constraints` (the list as Markdown lines, joined with newlines),
 `phase1_name`, `phase1_slug`, `phase1_goal`, `task1_name`.
@@ -165,7 +165,7 @@ Write the answers as JSON in the session scratchpad, with these keys:
 Then run:
 
 ```
-python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --answers "<scratchpad>/answers.json" --target "internal-<folder>"
+python3 "${CLAUDE_SKILL_DIR}/scripts/render.py" --answers "<scratchpad>/answers.json" --target "internal-<project-name>"
 ```
 
 The script writes each file that does not exist and keeps each one that
@@ -177,7 +177,7 @@ this folder back.
 Then run the check and show its last line:
 
 ```
-python3 "internal-<folder>/tools/doc-check.py" "internal-<folder>"
+python3 "internal-<project-name>/tools/doc-check.py" "internal-<project-name>"
 ```
 
 A fresh install reads `clean`.
@@ -191,7 +191,7 @@ a file git never commits. A write into `.git` is the user's. Hand them
 the command:
 
 ```
-printf '/internal-<folder>/\n' >> .git/info/exclude
+printf '/internal-<project-name>/\n' >> .git/info/exclude
 ```
 
 When they say it is done, read the file (`cat .git/info/exclude`) and
@@ -200,7 +200,7 @@ nothing of the folder shows. Run no git command.
 
 ## 8. The machine
 
-Run `python3 "internal-<folder>/tools/machine-check.py"` and show the
+Run `python3 "internal-<project-name>/tools/machine-check.py"` and show the
 table. Each row reads `present` or `missing`:
 
 | Row | What it is |
@@ -243,10 +243,11 @@ table.
 End with the scenario, numbered, for the user to try:
 
 1. On a yes in step 5, `git status` shows nothing from
-   `internal-<folder>/`.
-2. A new session, opened with "read internal-<folder>/CLAUDE.md" (or
-   with "let's start" where a global file maps it), gives the briefing:
-   Phase 01 open, Task 1 next.
+   `internal-<project-name>/`.
+2. A new session, opened with "read
+   `internal-<project-name>/CLAUDE.md`" (or with "let's start" where a
+   global file maps it), gives the briefing: Phase 01 open, Task 1
+   next.
 3. "let's close" rewrites `state.md` and adds the entry at the top of
    `history.md`.
 

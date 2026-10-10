@@ -1,14 +1,14 @@
 # Total recall
 
 I work on my projects with Claude Code over many sessions, and each
-session starts from nothing. Total recall is a skill that gives a
-project a memory: a folder of plain documents inside the project, kept
-out of git, that a session reads at its start and updates at its close.
-The next session knows what was done and what comes next.
+session started from nothing. I had to explain again where the project
+was, what was decided and how I like to work. Total recall is the skill
+I made for that. It gives a project a memory: a folder of plain
+documents inside the project, which a session reads at its start and
+updates at its close.
 
-The folder is named `internal-<folder>`, after the project's folder.
-One line in `.git/info/exclude` keeps it out of git. Nothing of it
-reaches the repository, and the folder name is the only trace.
+The folder is named `internal-<project-name>`, after the project's
+folder. At the install, the skill asks whether git should ignore it.
 
 ## What it installs
 
@@ -16,13 +16,15 @@ reaches the repository, and the folder name is the only trace.
 |---|---|
 | `CLAUDE.md` | The project file: the description, the table of documents, the sessions, the phases, the project's own routines |
 | `rules.md` | The rules for every project: writing, working with the user, verification, agents |
-| `state.md` | The snapshot: position, done this session, next, waiting on me |
+| `state.md` | The snapshot: position, done this session, next, waiting on the user |
 | `plan.md` | The goal, the constraints, the Roadmap, Parked, Blocked |
 | `phases/` | One file per phase: the preamble, the order, the tasks with their steps |
 | `history.md` | The session log, newest first |
-| `story.md` | The diary in my voice, appended at the end |
-| `decisions.md` | Dated decisions, appended at the end |
+| `story.md` | The diary of the project, a short story at each close |
+| `decisions.md` | The decisions in force, numbered, newest first |
+| `obsolete.md` | The decisions replaced by a newer one |
 | `close.md` | The close routine |
+| `review.md` | The review of the memory |
 | `lifecycle.md` | Phases, tasks and steps, their numbers, the opening and the close of a phase |
 | `code-map.md` | Where the work of each phase is in the tree |
 | `records/` | One-off records: a pasted log, a study, a spec written by a skill |
@@ -32,26 +34,43 @@ reaches the repository, and the folder name is the only trace.
 ## How a session works
 
 The session opens with "let's start", or with "read
-internal-<folder>/CLAUDE.md" on a machine that has no global rules
-file. It reads the project file, the rules, the snapshot and the memory
-notes, then the open phase, and gives a briefing: where the project is,
-what the last session did, what comes next, what waits on me. Then it
-waits for my go.
+`internal-<project-name>/CLAUDE.md`" on a machine that has no global
+rules file. It reads the project file, the rules, the snapshot and the
+memory notes, then the open phase, and gives a briefing: where the
+project is, what the last session did, what comes next, what waits on
+the user. Then it waits for the go.
 
-During the session the work follows the open phase, a task at a time. A
-step is ticked with its date when it is done. A correction becomes a
-memory note at once, and a decision goes to the decisions file.
+During the session the work follows the open phase, a task at a time.
+Small facts with an obvious place are written as the work goes: a
+ticked step, a decision, a Roadmap item. A text that would go into a
+file read at each start, or that changes something already written, is
+proposed first, at a pause in the work. I did not want to stop my
+project to look after its documents.
 
-"let's close" runs the close routine: the snapshot rewritten, the phase
-file checked, the Roadmap cleared, an entry in the history, a story
-entry in my voice, the project file reread against the project, and the
-check tool run on the documents.
+"let's close" runs the close routine: the held proposals, the snapshot
+rewritten, the phase file checked, the Roadmap cleared, an entry in the
+history and in the story, the project file reread against the project,
+and the check tool run on the documents.
+
+## The review of the memory
+
+Requirements change. After a few months on a project, I found documents
+that contradicted each other. "review the memory" reads the whole
+folder and writes a report: contradictions, duplicates, text out of
+date, text in the wrong place, replaced decisions. Each item gives the
+current text, the proposed text and the reason. Nothing is applied
+before the user approves it by number.
+
+A folder made by an older version of the skill is brought to the
+current form by `/total-recall` in that project. The skill shows what
+changed in the routine files, numbers the decisions, then offers the
+review.
 
 ## The plan
 
 Work is in phases, tasks and steps. Phases count from 01, tasks from 1
 across phases, steps inside a task. A phase is a file. The project
-always has an open phase: every piece of work has a home. The rules
+always has an open phase, so each piece of work has a home. The rules
 are in `lifecycle.md` of the folder.
 
 ## Install the skill
@@ -63,8 +82,8 @@ it, into the skills folder of Claude Code:
 ln -s "$(pwd)/skill" ~/.claude/skills/total-recall
 ```
 
-A copy (`cp -r skill ~/.claude/skills/total-recall`) does not follow
-this repository when it changes.
+A copy (`cp -r skill ~/.claude/skills/total-recall`) is not updated
+when this repository changes.
 
 ## Use it on a project
 
@@ -73,47 +92,61 @@ this repository when it changes.
 2. Start Claude Code there and type `/total-recall`.
 3. Answer the five questions, read the description it writes, and
    correct it until it is right.
-4. Run the one line it hands you for `.git/info/exclude`, then
-   `git status` to see that nothing of the folder shows.
+4. Say whether git should ignore the folder. On a yes, run the line the
+   skill hands over, then `git status` to see that nothing of the
+   folder shows.
 5. Read the machine table. When a guardrail is missing, the skill
-   proposes the lines, and you run them.
+   proposes the lines to run.
 6. Open the first session with "let's start".
 
 ## Check it
 
-1. `git status` shows nothing from the internal folder.
-2. A new session opened with "read internal-<folder>/CLAUDE.md" gives
-   the briefing, with Phase 01 open and Task 1 next.
+1. On a yes at step 4, `git status` shows nothing from the internal
+   folder.
+2. A new session opened with "read `internal-<project-name>/CLAUDE.md`"
+   gives the briefing, with Phase 01 open and Task 1 next.
 3. "let's close" rewrites `state.md` and adds an entry at the top of
    `history.md`.
 
 ## On another machine
 
 Install the skill, open the project, and start the session with "read
-internal-<folder>/CLAUDE.md". The rules travel with the folder. The
-session follows them without a global file. The machine check,
+`internal-<project-name>/CLAUDE.md`". The rules are in the folder, and
+the session follows them without a global file. The machine check,
 `tools/machine-check.py` of the folder, says which guardrails the
 machine has: the permission deny list, the guard hooks, `jq`, the
-sandbox. The skill ships the deny list and the three guard scripts under
-`skill/machine/`, and proposes them when they are missing.
+sandbox. The skill ships the deny list and the three guard scripts
+under `skill/machine/`, and proposes them when they are missing.
 
 ## The guardrails
 
 The guardrails keep a session from writing where it should not: a deny
 list of permissions (git writes, sudo, the destructive tools) and two
-hook scripts that read each command before it runs and refuse git
-writes, recursive deletes and writes into `.git`. Claude Code applies
-them from `~/.claude/settings.json`. The scripts need `jq`.
+hook scripts, with a library they share, that read each command before
+it runs and refuse git writes, recursive deletes and writes into
+`.git`. Claude Code applies them from `~/.claude/settings.json`. The
+scripts need `jq`.
+
+## Why scripts?
+
+The skill writes the folder and checks it with small Python scripts,
+and Claude does the rest. The scripts give the same result at each run,
+and they cost few tokens. On the project where I made the skill, if
+Claude checked the documents itself, it would read about 14,000 words,
+around 18,000 tokens. The script does the same check in one command,
+and prints one line when the folder is clean. The scripts also refuse
+to overwrite a file, which matters for an uncommitted folder. They use the standard library only.
 
 ## Limits
 
-- The folder is not in git: it has no history and no backup. A copy
-  of it is my own routine.
+- When git ignores the folder, the folder has no history and no backup.
+  I keep a copy of it myself.
 - The skill writes nothing under `.claude/` and nothing outside the
   project. The sandbox is a setting of the machine.
 - The check tool reads Markdown in the form the templates use. A
   document in another form gets findings to read, not errors.
-- Tried on Linux with Python 3. The tools use the standard library only.
+- I tried it on Linux with Python 3 (for the moment). The tools use
+  the standard library only.
 
 ## Tests
 

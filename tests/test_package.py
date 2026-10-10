@@ -220,5 +220,29 @@ class Review(unittest.TestCase):
     def test_the_close_suggests_the_review_without_starting_it(self):
         self.assertIn("Suggest the review", self.read("close.md"))
 
+
+def prose(text):
+    """The text without its fenced code blocks and its inline code."""
+    text = re.sub(r"^\s*```.*?^\s*```", "", text, flags=re.MULTILINE | re.DOTALL)
+    return re.sub(r"`[^`\n]*`", "", text)
+
+
+class Readme(unittest.TestCase):
+    def test_a_path_is_written_in_backticks(self):
+        for path in (ROOT / "README.md", SKILL / "SKILL.md"):
+            found = re.findall(r"<[A-Za-z][^>\n]*>", prose(path.read_text(encoding="utf-8")))
+            self.assertEqual(found, [], f"{path.name}: GitHub drops these as HTML tags")
+
+    def test_the_folder_is_named_after_the_project(self):
+        for path in (ROOT / "README.md", SKILL / "SKILL.md"):
+            text = path.read_text(encoding="utf-8")
+            self.assertNotIn("<folder>", text, path.name)
+        self.assertIn("internal-<project-name>", (ROOT / "README.md").read_text(encoding="utf-8"))
+
+    def test_the_readme_does_not_talk_about_its_voice_or_state_the_git_choice(self):
+        text = (ROOT / "README.md").read_text(encoding="utf-8").lower()
+        for phrase in ("voice", "does not track", "not in git", "keeps it out of git"):
+            self.assertFalse(phrase in text, phrase)
+
 if __name__ == "__main__":
     unittest.main()
