@@ -266,9 +266,26 @@ first ask of the day, goes to the Roadmap in its place.
 
 **The steps:**
 
-- [ ] **Step 1: The rewrite** The README rewritten section by section
+- [x] **Step 1: The rewrite** The README rewritten section by section
   by the merged note, the facts unchanged, and proposed to the user.
-- [ ] **Step 2: The checks** The tests green (several hold a sentence
-  of the README), the document check, no dash.
+  Done 22/10/2026: the long sentences split and their tails cut, you
+  as the one who opens and answers, Claude as the one who reads and
+  briefs, the close routine as a list, the script of the start left
+  to the section on the scripts, the author once in the first person
+  there. Three facts of the day added: the two forms, the names of
+  the phase files and the records, the rename at an update. Proposed
+  with the moves by rule; the user made a minor change in the draft
+  and approved.
+- [x] **Step 2: The checks** The tests green (several hold a sentence
+  of the README), the document check, no dash. Done 22/10/2026:
+  310 tests green, no dash, no list break, 1,888 words (1,909
+  before).
+
+**Suggested git line:**
+
+```
+git add README.md internal-total-recall
+git commit -m "doc: readme rewritten in plain prose"
+```
 
 **Checkpoint for the phase:** written when the tasks are known.
