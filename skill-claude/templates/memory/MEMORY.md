@@ -1,1 +1,1 @@
-- [The user's writing style](user-writing-style.md): all the text I write follows the user's own plain style, eighteen rules from their corrections and their own rewrites, and the rule of a reply. Read whole before writing any text
+- [The user's writing style](user-writing-style.md): all the text I write follows the user's own plain style, fourteen rules from their corrections and their own rewrites, an example where a rule needs one, and the rule of a reply. Read whole before writing any text

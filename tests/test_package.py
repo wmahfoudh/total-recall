@@ -144,7 +144,7 @@ class SkillStructure:
         self.assertIn("memory/user-writing-style.md", rules)
         note = read_template(self.form, "memory/user-writing-style.md")
         self.assertTrue(note.startswith(self.form.note_head), note[:40])
-        self.assertEqual(len(re.findall(r"^\d+\. ", note, re.MULTILINE)), 18)
+        self.assertEqual(len(re.findall(r"^\d+\. ", note, re.MULTILINE)), 14)
 
     def test_the_decisions_are_numbered_and_obsolete_is_in_the_table(self):
         decisions = read_template(self.form, "decisions.md")

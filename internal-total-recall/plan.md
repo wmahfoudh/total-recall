@@ -31,6 +31,14 @@ task: the phase file holds it from then on.
    is now committed. A test for this project's folder, or a note that
    the review covers it. Small.
 
+4. **The review of the whole skill.** Both forms, the tests and the
+   README read against the rules, the decisions and the Pi
+   documentation, read online: the findings in a record, approved one
+   by one, applied in one pass. The `rules.md` of the templates is
+   read against the user's global rules file too, which has grown
+   since 11/10/2026. Set aside on 22/10/2026 for the README rewrite.
+   One session.
+
 ## Parked
 
 Asks set aside, each with the condition for its return.

@@ -11,8 +11,9 @@ for every session of this project: nothing is written, moved or deleted
 there, and nothing of it is copied into this repository.
 
 The name of that project and the path of its folder are not written
-anywhere: not in `skill/`, `tests/` or `README.md`, and not in this
-internal folder, its records included. The user gives the path when a
+anywhere: not in `skill-claude/`, `skill-pi/`, `tests/` or
+`README.md`, and not in this internal folder, its records included.
+The user gives the path when a
 session needs to read the reference again.
 
 **Why:** the user's word at the start of the project, 07/10/2026,
@@ -23,8 +24,9 @@ this folder, where it must not be.
 **How to apply:** read the reference with `cat`, `sed` or `grep`, on
 the path the user gives. When a comparison needs a copy, copy into the
 session scratchpad. Write "the reference project" or "the reference
-folder" in any document. The package test checks `skill/`, `tests/`
-and `README.md` for the name by its hash, so that the test does not
-name it. The review runs the same hash check over the tracked files
+folder" in any document. The package test checks `skill-claude/`,
+`skill-pi/`, `tests/` and `README.md` for the name by its hash, so that
+the test does not name it. The review runs the same hash check over the
+tracked files
 and this folder, and prints only the paths, until item 3 of the
 Roadmap brings this folder into the package test.

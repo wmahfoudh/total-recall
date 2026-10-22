@@ -28,7 +28,7 @@ what those sessions show. The user can rename it.
 4. Task 50, the Pi form of the skill.
 5. Task 51, the records and the phases numbered.
 6. Task 52, the writing style note merged.
-7. Task 53, the review of the whole skill.
+7. Task 53, the README rewritten.
 8. The close of the phase, as its last task, numbered when it is
    written.
 
@@ -211,6 +211,9 @@ order of their creation, read from the git history.
   `clean`, the start script names `P05`. A quote of the old template
   name in a finding of Phase 02 stays, as a record of the past.
 
+Found on the way: six records name another record by its old date
+name. Left as received, the user's word, 22/10/2026.
+
 **Suggested git line**, with Task 50 in one commit:
 
 ```
@@ -229,24 +232,43 @@ name of the reference project or its product.
 
 **The steps:**
 
-- [ ] **Step 1: The merge proposed** The note is read at each start, so
-  the merged text is proposed with its size before it is written.
-- [ ] **Step 2: The three copies** The note of this folder and the two
-  templates written, the tests updated (the count of the rules).
+- [x] **Step 1: The merge proposed** The note is read at each start, so
+  the merged text is proposed with its size before it is written. Done
+  22/10/2026: a first draft put the eleven newer rules after the
+  eighteen here, 29 rules and 2,070 words. The user refused it as a
+  mathematical merge: each rule is to be read for what it is about,
+  and the rules about the same thing merged, with a generic example
+  where one is needed. The second draft has 14 rules, from the word to
+  the sentence, then who acts, the tone, and the kinds of text, with
+  the user's own examples where a rule needs one, 1,622 words. The user
+  rewrote the Why line in the draft and approved it.
+- [x] **Step 2: The three copies** The note of this folder and the two
+  templates written, the tests updated (the count of the rules). Done
+  22/10/2026: the note of this folder, the Claude Code template and
+  the Pi template (a heading in place of the frontmatter,
+  `/skill:total-recall` in rule 8), the three index lines, the test at
+  14 rules. 310 tests green.
 
-### Task 53: The review of the whole skill
+**Suggested git line:**
 
-What it does and why: a review of the whole skill in both forms,
-`skill-claude/` and `skill-pi/`, with the tests and the README, against
-the rules, the decisions and the Pi documentation. The findings are
-listed in a record, approved one by one, then applied in one pass.
+```
+git add skill-claude/templates/memory skill-pi/templates/memory tests/test_package.py internal-total-recall
+git commit -m "doc: the writing style note merged with the newer rules, fourteen rules"
+```
+
+### Task 53: The README rewritten
+
+What it does and why: the user asked for the whole `README.md`
+rewritten by the writing style rules merged in Task 52, so that the
+public page reads in their plain style, each sentence read as a user
+who never opened the repository. The review of the whole skill, the
+first ask of the day, goes to the Roadmap in its place.
 
 **The steps:**
 
-- [ ] **Step 1: The Pi documentation** Read online: the context files,
-  the skills, the settings, the agent directory.
-- [ ] **Step 2: The review** The record written, the items numbered.
-- [ ] **Step 3: The changes** The approved items applied in both forms,
-  the tests green.
+- [ ] **Step 1: The rewrite** The README rewritten section by section
+  by the merged note, the facts unchanged, and proposed to the user.
+- [ ] **Step 2: The checks** The tests green (several hold a sentence
+  of the README), the document check, no dash.
 
 **Checkpoint for the phase:** written when the tasks are known.
