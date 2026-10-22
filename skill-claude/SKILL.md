@@ -192,7 +192,7 @@ again, until the user says it is right.
 
 Show the files that will be written: the table above with the folder
 name filled in, and the name of the phase file,
-`phases/phase-01-<slug>.md`. Then ask one question:
+`phases/P01-<slug>.md`. Then ask one question:
 "Keep the folder out of git, yes or no?" On a yes, show the line that
 step 7 hands over. The answer is not written in any file. Wait for the
 go.

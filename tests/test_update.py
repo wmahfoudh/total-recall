@@ -1,59 +1,47 @@
 import datetime
-import importlib.util
 import subprocess
 import sys
 import tarfile
 import tempfile
-import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-UPDATE = ROOT / "skill" / "scripts" / "update.py"
+from forms import for_each_form, load, make
+
 NOW = datetime.datetime(2026, 11, 30, 20, 33)
 
-TEMPLATES = {
-    "CLAUDE.md": "@rules.md\n\n# {{project}}\n",
-    "rules.md": "# Rules\n\nNew rules.\n",
-    "close.md": "# The close\n\nNew close.\n",
-    "review.md": "# The review\n",
-    "obsolete.md": "# Obsolete decisions\n",
-    "decisions.md": "# Decisions\n\nNew header.\n\n## D1, {{date}}: x\n\ny\n",
-    "phases/phase-01-{{phase1_slug}}.md": "# Phase 01: {{phase1_name}}\n",
-    "tools/doc-check.py": "print('new')\n",
-}
 
-FOLDER = {
-    "CLAUDE.md": "@rules.md\n\n# My project\n\nMine.\n",
-    "rules.md": "# Rules\n\nOld rules.\n",
-    "close.md": "# The close\n\nNew close.\n",
-    "state.md": "# State\n\nMine.\n",
-    "decisions.md": "# Decisions\n\nOld header.\n\n## 07/10/2026: the first\n\nText.\n",
-    "phases/phase-01-the-start.md": "# Phase 01: The start\n",
-    "tools/doc-check.py": "print('old')\n",
-}
+def templates_of(form):
+    return {
+        form.project_file: "@rules.md\n\n# {{project}}\n",
+        "rules.md": "# Rules\n\nNew rules.\n",
+        "close.md": "# The close\n\nNew close.\n",
+        "review.md": "# The review\n",
+        "obsolete.md": "# Obsolete decisions\n",
+        "decisions.md": "# Decisions\n\nNew header.\n\n## D1, {{date}}: x\n\ny\n",
+        "phases/P01-{{phase1_slug}}.md": "# Phase 01: {{phase1_name}}\n",
+        "tools/doc-check.py": "print('new')\n",
+    }
 
 
-def load():
-    sys.dont_write_bytecode = True
-    spec = importlib.util.spec_from_file_location("update", UPDATE)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+def folder_of(form):
+    """An older folder of the form, with its own content and old routine files."""
+    return {
+        form.project_file: "@rules.md\n\n# My project\n\nMine.\n",
+        "rules.md": "# Rules\n\nOld rules.\n",
+        "close.md": "# The close\n\nNew close.\n",
+        "state.md": "# State\n\nMine.\n",
+        "decisions.md": "# Decisions\n\nOld header.\n\n## 07/10/2026: the first\n\nText.\n",
+        "phases/P01-the-start.md": "# Phase 01: The start\n",
+        "tools/doc-check.py": "print('old')\n",
+    }
 
 
-def make(root, files):
-    for name, text in files.items():
-        path = Path(root) / name
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
-
-
-class Backup(unittest.TestCase):
+class Backup:
     def setUp(self):
-        self.update = load()
+        self.update = load(self.form.scripts / "update.py", "update")
         self.tmp = tempfile.TemporaryDirectory()
         self.target = Path(self.tmp.name) / "internal-my-project"
-        make(self.target, FOLDER)
+        make(self.target, folder_of(self.form))
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -70,7 +58,7 @@ class Backup(unittest.TestCase):
         with tarfile.open(path) as archive:
             names = archive.getnames()
         self.assertIn("internal-my-project/state.md", names)
-        self.assertIn("internal-my-project/phases/phase-01-the-start.md", names)
+        self.assertIn("internal-my-project/phases/P01-the-start.md", names)
         self.assertFalse(any("/backup" in name for name in names), names)
 
     def test_a_second_archive_in_the_same_minute_is_kept_apart(self):
@@ -85,21 +73,24 @@ class Backup(unittest.TestCase):
             self.update.backup(self.target, "weekly", NOW)
 
 
-class Update(unittest.TestCase):
+class Update:
     def setUp(self):
-        self.update = load()
+        self.update = load(self.form.scripts / "update.py", "update")
+        self.project_file = self.form.project_file
+        self.folder = folder_of(self.form)
         self.tmp = tempfile.TemporaryDirectory()
         self.templates = Path(self.tmp.name) / "templates"
         self.target = Path(self.tmp.name) / "internal-my-project"
-        make(self.templates, TEMPLATES)
-        make(self.target, FOLDER)
+        make(self.templates, templates_of(self.form))
+        make(self.target, self.folder)
 
     def tearDown(self):
         self.tmp.cleanup()
 
     def run_update(self, *args):
-        return subprocess.run([sys.executable, "-I", str(UPDATE), *args, "--target", str(self.target),
-                               "--templates", str(self.templates)], capture_output=True, text=True)
+        return subprocess.run([sys.executable, "-I", str(self.form.scripts / "update.py"), *args,
+                               "--target", str(self.target), "--templates", str(self.templates)],
+                              capture_output=True, text=True)
 
     def test_the_plan_names_what_the_update_would_do(self):
         plan = self.update.plan_update(self.templates, self.target)
@@ -127,8 +118,9 @@ class Update(unittest.TestCase):
         self.assertEqual(len(archives), 1)
         with tarfile.open(archives[0]) as archive:
             old = archive.extractfile("internal-my-project/rules.md").read().decode()
-        self.assertEqual(old, FOLDER["rules.md"])
-        self.assertEqual((self.target / "rules.md").read_text(encoding="utf-8"), TEMPLATES["rules.md"])
+        self.assertEqual(old, self.folder["rules.md"])
+        self.assertEqual((self.target / "rules.md").read_text(encoding="utf-8"),
+                         templates_of(self.form)["rules.md"])
         self.assertTrue((self.target / "review.md").exists())
         self.assertTrue((self.target / "obsolete.md").exists())
         decisions = (self.target / "decisions.md").read_text(encoding="utf-8")
@@ -136,9 +128,34 @@ class Update(unittest.TestCase):
 
     def test_the_project_content_is_not_touched(self):
         self.run_update("apply")
-        for name in ("CLAUDE.md", "state.md", "phases/phase-01-the-start.md"):
-            self.assertEqual((self.target / name).read_text(encoding="utf-8"), FOLDER[name], name)
-        self.assertFalse((self.target / "phases" / "phase-01-{{phase1_slug}}.md").exists())
+        for name in (self.project_file, "state.md", "phases/P01-the-start.md"):
+            self.assertEqual((self.target / name).read_text(encoding="utf-8"), self.folder[name], name)
+        self.assertFalse((self.target / "phases" / "P01-{{phase1_slug}}.md").exists())
+
+    def test_the_plan_lists_the_phase_files_of_the_old_form_to_rename(self):
+        make(self.target, {"phases/phase-02-old.md": "# Phase 02: Old\n"})
+        plan = self.update.plan_update(self.templates, self.target)
+        self.assertEqual(plan["rename"], [("phases/phase-02-old.md", "phases/P02-old.md")])
+        result = self.run_update("plan")
+        self.assertIn("rename phases/phase-02-old.md phases/P02-old.md", result.stdout)
+
+    def test_the_apply_renames_the_phase_files_of_the_old_form(self):
+        make(self.target, {"phases/phase-02-old.md": "# Phase 02: Old\n"})
+        result = self.run_update("apply")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertFalse((self.target / "phases" / "phase-02-old.md").exists())
+        self.assertEqual((self.target / "phases" / "P02-old.md").read_text(encoding="utf-8"), "# Phase 02: Old\n")
+        self.assertIn("nothing to update", self.run_update("apply").stdout)
+
+    def test_the_records_of_the_old_form_are_listed_for_the_hand(self):
+        make(self.target, {"records/2026-10-07-design.md": "# Spec\n", "records/README.md": "# Records\n",
+                           "records/R000-plan.md": "# Plan\n"})
+        plan = self.update.plan_update(self.templates, self.target)
+        self.assertEqual(plan["by_hand"], ["records/2026-10-07-design.md"])
+        result = self.run_update("plan")
+        self.assertIn("by hand: records/2026-10-07-design.md", result.stdout)
+        self.run_update("apply")
+        self.assertTrue((self.target / "records" / "2026-10-07-design.md").exists())
 
     def test_a_second_apply_finds_nothing_and_makes_no_backup(self):
         self.run_update("apply")
@@ -148,12 +165,12 @@ class Update(unittest.TestCase):
         self.assertEqual(len(list((self.target / "backup").glob("*.tar.gz"))), 1)
 
     def test_a_folder_the_skill_did_not_write_is_refused(self):
-        (self.target / "CLAUDE.md").write_text("# My notes\n", encoding="utf-8")
+        (self.target / self.project_file).write_text("# My notes\n", encoding="utf-8")
         result = self.run_update("apply")
         self.assertEqual(result.returncode, 2)
         self.assertIn("does not look like a total-recall folder", result.stderr)
         self.assertFalse((self.target / "backup").exists())
-        self.assertEqual((self.target / "rules.md").read_text(encoding="utf-8"), FOLDER["rules.md"])
+        self.assertEqual((self.target / "rules.md").read_text(encoding="utf-8"), self.folder["rules.md"])
 
     def test_the_backup_command_makes_a_manual_archive(self):
         result = self.run_update("backup")
@@ -162,5 +179,4 @@ class Update(unittest.TestCase):
         self.assertIn("backup ", result.stdout)
 
 
-if __name__ == "__main__":
-    unittest.main()
+for_each_form(globals(), Backup, Update)

@@ -3,7 +3,7 @@
 Opened 10/10/2026 on the user's word, at the close of Phase 02, with the
 name given by the user. The phase lowers the cost of a session start
 and of the routines, measured against the baseline
-`records/2026-10-10-baseline.md` at its end. It also takes the points
+`records/R008-baseline.md` at its end. It also takes the points
 the session raised on 10/10/2026 when it explored the repository: the
 phase file that grows, the tests that pin the wording, a single real
 user, the global rules file, the guard hooks.
@@ -48,7 +48,7 @@ with. The user's word, 10/10/2026.
 
 - [x] **Step 1: The words** The words read at each start, in the
   template and in this project, and the parts of the start read beyond
-  them. Done 10/10/2026: `records/2026-10-10-baseline.md`, 6,207 words
+  them. Done 10/10/2026: `records/R008-baseline.md`, 6,207 words
   in this project, 4,854 in the template, about 8,300 with the global
   rules file of this machine.
 
@@ -384,7 +384,7 @@ of the baseline, and compared with it in a record.
 **The steps:**
 
 - [x] **Step 1: The measure and the record** Done 11/10/2026:
-  `records/2026-10-11-benchmark.md`, on `b1b1c97`. 5,566 words a start,
+  `records/R009-benchmark.md`, on `b1b1c97`. 5,566 words a start,
   where the baseline start read 10,022 to 13,891.
 
 ### Task 44: The close
@@ -403,7 +403,7 @@ the baseline, each task delivered or moved to the Roadmap on the user's
 word, the suite green.
 
 Closed 11/10/2026: a start reads 5,566 words, where the baseline start
-read 10,022 to 13,891 (`records/2026-10-11-benchmark.md`). The start
+read 10,022 to 13,891 (`records/R009-benchmark.md`). The start
 script, the rules read once, the repeats removed from the rules and
 the templates, the start phrases line in the global file. Tasks 32 to
 44, 143 tests green, committed by the user up to `f12a068`. Moved out:

@@ -23,15 +23,15 @@ from it. The user tries, takes notes, and brings them to a session.
 2. Task 16, the name of the reference project removed from this folder.
 3. Task 17, the user's style as a memory note.
 4. Tasks 18 to 25, the memory used with care: the spec
-   `records/2026-10-10-design.md` and the plan
-   `records/2026-10-10-plan.md`, approved 10/10/2026, run in this
+   `records/R004-design.md` and the plan
+   `records/R005-plan.md`, approved 10/10/2026, run in this
    session by the session itself, a task at a time on the user's word.
 5. Tasks 26 to 29, found on the way and asked by the user: the refusal
    of another documentation system, the review that takes in the
    session and the notes, the name of the reference project out of the
    tests, the backup and the update.
 6. The review of this project's folder with the new command, on the
-   user's word after the delivery: `records/2026-10-10-review-2.md`.
+   user's word after the delivery: `records/R007-review-2.md`.
 7. Task 31, the close of the phase, as its last task.
 
 ### The opening of the phase
@@ -58,10 +58,10 @@ tasks of this phase.
   question, the memory used with care with a review command, the
   README), and two ideas of the user (decisions newest first,
   `obsolete.md`), discussed one at a time and written as a spec,
-  `records/2026-10-10-design.md`, waiting on the user's review.
+  `records/R004-design.md`, waiting on the user's review.
 - [x] **Step 2: The tasks** Each agreed item written as a task of this
   phase, in the task form, numbered from 18. Done 10/10/2026: the plan
-  `records/2026-10-10-plan.md`, approved by the user, written below as
+  `records/R005-plan.md`, approved by the user, written below as
   Tasks 18 to 25. The full steps, the code and the tests are in the
   plan.
 
@@ -245,7 +245,7 @@ Task 23.
 
 What was found on the way: the repair prints `needs answers:
 phases/phase-01-{{phase1_slug}}.md` on a folder whose first phase file
-has its own name (`phase-01-the-skill.md` here). The file exists, and
+has its own name (`P01-the-skill.md` here). The file exists, and
 the hint is wrong. The behavior predates this plan. A candidate for the
 Roadmap, with the review's minors.
 
@@ -390,7 +390,7 @@ The files: `skill/templates/review.md`, `README.md`,
   proof by a real run is the review of this folder, after Task 28.
 
 What was found on the way: the first review of this folder is
-`records/2026-10-10-review.md`, 21 items, set aside on the user's
+`records/R006-review.md`, 21 items, set aside on the user's
 word until the skill is fixed. It is run again with the new code.
 
 The git line: `fix: review takes in the session's decisions and checks the memory notes`.
@@ -493,7 +493,7 @@ memory", with the decisions of this session taken in.
   files added, four replaced, the decisions numbered D1 to D15; the
   check `clean`.
 - [x] **Step 2: The report** Done 10/10/2026:
-  `records/2026-10-10-review-2.md`, 25 items, the first seven from the
+  `records/R007-review-2.md`, 25 items, the first seven from the
   session; the rule of the note `reference-system-read-only` checked
   across the tracked files, none names the project.
 - [x] **Step 3: The approved items** Done 10/10/2026: all, item 9 (b),

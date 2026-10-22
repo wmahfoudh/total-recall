@@ -81,7 +81,7 @@ then written as a spec that the plan argues from.
   dependency on a setting or on the skill for the loading, a `tools/`
   folder, three to five questions at the install.
 - [x] **Step 2: The spec** Written, checked for dash characters and
-  blank lines, approved. Done 07/10/2026: `records/2026-10-07-design.md`.
+  blank lines, approved. Done 07/10/2026: `records/R000-design.md`.
 
 ### Task 3: The plan
 
@@ -92,7 +92,7 @@ so that the package is built the same way whoever builds it.
 
 - [x] **Step 1: The plan** Thirteen tasks, each with its tests, its
   code or its sections, and the git line for the user. Done
-  07/10/2026: `records/2026-10-07-plan.md`, approved; the user chose
+  07/10/2026: `records/R001-plan.md`, approved; the user chose
   the native execution, in the session, with the user's voice on every
   text.
 
@@ -244,7 +244,7 @@ user allowed the agent.
   files that need no answer; the tools README quotes its commands; the
   check tool names a file that is not UTF-8 and reads the table of
   documents only); 57 tests green; thirteen Minor findings in
-  `records/2026-10-07-review.md`, item 2 of the Roadmap.
+  `records/R003-review.md`, item 2 of the Roadmap.
 
 ### Task 13: The install on this project
 

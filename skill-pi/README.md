@@ -5,7 +5,7 @@ memory for a project: a folder of plain documents that a session reads
 at its start and updates at its close, so the next session knows what
 was done and what comes next.
 
-The skill is the same idea as the Claude Code form in `../skill`, with
+The skill is the same idea as the Claude Code form in `../skill-claude`, with
 the parts that belong to Pi:
 
 - the command is `/skill:total-recall`, and the words after it choose

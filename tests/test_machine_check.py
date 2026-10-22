@@ -7,8 +7,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-TOOL = ROOT / "skill" / "templates" / "tools" / "machine-check.py"
+from forms import CLAUDE, PI
+
+TOOL = CLAUDE.tools / "machine-check.py"
+PI_TOOL = PI.tools / "machine-check.py"
 
 DENY = ["Bash(sudo *)", "Bash(sudo)", "Bash(git commit*)", "Bash(git push*)",
         "Bash(dd *)", "Bash(mkfs*)", "Bash(shred *)"]
@@ -20,6 +22,16 @@ def run_tool(home, managed, path=""):
                            "--managed", str(managed)], capture_output=True, text=True, env=env)
 
 
+def run_pi_tool(home, agent_dir=None, env_dir=None):
+    env = {"PATH": "", "HOME": str(home)}
+    if env_dir is not None:
+        env["PI_CODING_AGENT_DIR"] = str(env_dir)
+    args = [sys.executable, "-I", str(PI_TOOL), "--home", str(home)]
+    if agent_dir is not None:
+        args += ["--agent-dir", str(agent_dir)]
+    return subprocess.run(args, capture_output=True, text=True, env=env)
+
+
 def rows_of(output):
     rows = {}
     for line in output.splitlines()[2:]:
@@ -29,6 +41,8 @@ def rows_of(output):
 
 
 class MachineCheck(unittest.TestCase):
+    """The Claude Code form reads the settings files, the hook scripts and the PATH."""
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.home = Path(self.tmp.name) / "home"
@@ -163,6 +177,73 @@ class MachineCheck(unittest.TestCase):
         self.managed.write_text(json.dumps({"sandbox": {"enabled": True}}), encoding="utf-8")
         rows = rows_of(run_tool(self.home, self.managed).stdout)
         self.assertEqual(rows["sandbox"], ("present", "managed settings"))
+
+
+class PiMachineCheck(unittest.TestCase):
+    """The Pi form reads the global rules file of the agent directory, and nothing else.
+
+    Pi reads the first of AGENTS.override.md, AGENTS.md, AGENTS.MD,
+    CLAUDE.md and CLAUDE.MD in its agent directory, ~/.pi/agent unless
+    PI_CODING_AGENT_DIR says otherwise, and has no built in sandbox.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.home = Path(self.tmp.name) / "home"
+        self.agent = self.home / ".pi" / "agent"
+        self.agent.mkdir(parents=True)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_an_empty_agent_directory_reports_the_three_rows(self):
+        result = run_pi_tool(self.home)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        rows = rows_of(result.stdout)
+        self.assertEqual(set(rows), {"global rules file", "start phrases", "sandbox"})
+        self.assertEqual(rows["global rules file"][0], "missing")
+        self.assertEqual(rows["start phrases"][0], "missing")
+        self.assertEqual(rows["sandbox"][0], "not built in")
+
+    def test_the_rules_file_is_found_under_each_name_pi_reads(self):
+        for name in ("AGENTS.override.md", "AGENTS.md", "AGENTS.MD", "CLAUDE.md", "CLAUDE.MD"):
+            path = self.agent / name
+            path.write_text("# Rules\n", encoding="utf-8")
+            rows = rows_of(run_pi_tool(self.home).stdout)
+            self.assertEqual(rows["global rules file"], ("present", str(path)), name)
+            path.unlink()
+
+    def test_the_override_file_comes_before_the_others(self):
+        (self.agent / "AGENTS.md").write_text("# Rules\n", encoding="utf-8")
+        (self.agent / "AGENTS.override.md").write_text("# Override\n", encoding="utf-8")
+        rows = rows_of(run_pi_tool(self.home).stdout)
+        self.assertEqual(rows["global rules file"][1], str(self.agent / "AGENTS.override.md"))
+
+    def test_the_start_phrases_are_found_by_the_path_of_the_project_file(self):
+        line = 'In a project, "let\'s start" means: read `internal-<project-name>/AGENTS.md`.\n'
+        (self.agent / "AGENTS.md").write_text("# My rules\n\n" + line, encoding="utf-8")
+        rows = rows_of(run_pi_tool(self.home).stdout)
+        self.assertEqual(rows["start phrases"], ("present", str(self.agent / "AGENTS.md")))
+
+    def test_the_start_phrases_are_missing_from_a_rules_file_without_the_line(self):
+        (self.agent / "AGENTS.md").write_text("# My rules\n", encoding="utf-8")
+        self.assertEqual(rows_of(run_pi_tool(self.home).stdout)["start phrases"][0], "missing")
+
+    def test_the_agent_directory_comes_from_the_flag_then_the_environment_then_the_home(self):
+        other = Path(self.tmp.name) / "other"
+        other.mkdir()
+        (other / "AGENTS.md").write_text("# Rules\n", encoding="utf-8")
+        rows = rows_of(run_pi_tool(self.home, agent_dir=other).stdout)
+        self.assertEqual(rows["global rules file"], ("present", str(other / "AGENTS.md")))
+        rows = rows_of(run_pi_tool(self.home, env_dir=other).stdout)
+        self.assertEqual(rows["global rules file"], ("present", str(other / "AGENTS.md")))
+        rows = rows_of(run_pi_tool(self.home).stdout)
+        self.assertEqual(rows["global rules file"][0], "missing")
+
+    def test_a_missing_agent_directory_is_missing_not_a_crash(self):
+        result = run_pi_tool(self.home, agent_dir=Path(self.tmp.name) / "none")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(rows_of(result.stdout)["global rules file"][0], "missing")
 
 
 if __name__ == "__main__":

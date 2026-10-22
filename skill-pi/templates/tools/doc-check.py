@@ -82,6 +82,8 @@ def find_list_breaks(text):
 
 DATE_RE = r"\d{2}/\d{2}/\d{4}"
 TASK_RE = re.compile(r"^### Task (\d+):")
+# A phase file is PNN-<name>.md; the older form phase-NN-<name>.md is checked too.
+PHASE_FILE_RE = re.compile(r"^(?:P|phase-)\d+-.*\.md$")
 DONE_STEP_RE = re.compile(r"^\s*- \[x\]", re.IGNORECASE)
 OPEN_STEP_RE = re.compile(r"^\s*- \[ \]")
 DONE_MARK_RE = re.compile(r"Done " + DATE_RE + ":")
@@ -334,7 +336,7 @@ def check_folder(folder):
     else:
         findings.append("AGENTS.md:0: AGENTS.md is missing")
     phases_dir = folder / "phases"
-    phases = sorted(phases_dir.glob("phase-*.md")) if phases_dir.is_dir() else []
+    phases = sorted(p for p in phases_dir.glob("*.md") if PHASE_FILE_RE.match(p.name)) if phases_dir.is_dir() else []
     for path in phases:
         for number, message in check_done_steps(text_of(path)):
             add(path, number, message)

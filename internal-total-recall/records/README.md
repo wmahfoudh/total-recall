@@ -9,16 +9,20 @@ scratchpad were replaced by `<the reference project>`, `<the reference
 folder>`, `~` and `<the session scratchpad>` on 07/10/2026, the user's
 word.
 
+A record is named `RNNN-<name>.md`: the letter R, a number of three
+digits that counts from 000 in the order of creation, then its name.
+The date of a record is in the table.
+
 | File | Date | What it holds |
 |---|---|---|
-| `2026-10-07-design.md` | 07/10/2026 | The spec of the skill and of the memory system, approved by the user, written with the brainstorming skill. Refers to the reference project by a placeholder |
-| `2026-10-07-plan.md` | 07/10/2026 | The implementation plan, thirteen tasks, written with the writing-plans skill and approved |
-| `2026-10-07-ledger.md` | 07/10/2026 | The ledger of the build: the rulings made during the tasks, with their cost if wrong |
-| `2026-10-07-review.md` | 07/10/2026 | The report of the fresh reviewer: four Important findings, fixed the same day, and thirteen Minor ones, fixed in Phase 04 |
-| `2026-10-10-design.md` | 10/10/2026 | The spec of the memory used with care, from the user's notes on the first trials, written with the brainstorming skill: the git question, when to ask before a write, the review of the memory, `obsolete.md`, the README |
-| `2026-10-10-plan.md` | 10/10/2026 | The implementation plan of that spec, Tasks 18 to 25 of Phase 02, written with the writing-plans skill |
-| `2026-10-10-review.md` | 10/10/2026 | The first review of this folder, 21 items, set aside unapplied on the user's word: it missed the memory folder until asked, which became Task 27. Replaced by the second run |
-| `2026-10-10-review-2.md` | 10/10/2026 | The second review of this folder, after `/total-recall update`, 25 items, all applied on the user's word (9b, 10a) |
-| `2026-10-10-baseline.md` | 10/10/2026 | The cost of a start before Phase 03: the words read at each start, template and project, the parts of the phase file and of the plan, and the global rules file, in words. The benchmark of Phase 03 compares with it |
-| `2026-10-11-benchmark.md` | 11/10/2026 | The cost of a start at the end of Phase 03, by the method of the baseline: 5,566 words read at each start in this project, where the baseline start read 10,022 to 13,891 |
-| `2026-10-11-review.md` | 11/10/2026 | The review of this folder at the close of Phase 04: two items from the session and six numbered, all applied on the user's word, item 1 with the recommended text |
+| `R000-design.md` | 07/10/2026 | The spec of the skill and of the memory system, approved by the user, written with the brainstorming skill. Refers to the reference project by a placeholder |
+| `R001-plan.md` | 07/10/2026 | The implementation plan, thirteen tasks, written with the writing-plans skill and approved |
+| `R002-ledger.md` | 07/10/2026 | The ledger of the build: the rulings made during the tasks, with their cost if wrong |
+| `R003-review.md` | 07/10/2026 | The report of the fresh reviewer: four Important findings, fixed the same day, and thirteen Minor ones, fixed in Phase 04 |
+| `R004-design.md` | 10/10/2026 | The spec of the memory used with care, from the user's notes on the first trials, written with the brainstorming skill: the git question, when to ask before a write, the review of the memory, `obsolete.md`, the README |
+| `R005-plan.md` | 10/10/2026 | The implementation plan of that spec, Tasks 18 to 25 of Phase 02, written with the writing-plans skill |
+| `R006-review.md` | 10/10/2026 | The first review of this folder, 21 items, set aside unapplied on the user's word: it missed the memory folder until asked, which became Task 27. Replaced by the second run |
+| `R007-review-2.md` | 10/10/2026 | The second review of this folder, after `/total-recall update`, 25 items, all applied on the user's word (9b, 10a) |
+| `R008-baseline.md` | 10/10/2026 | The cost of a start before Phase 03: the words read at each start, template and project, the parts of the phase file and of the plan, and the global rules file, in words. The benchmark of Phase 03 compares with it |
+| `R009-benchmark.md` | 11/10/2026 | The cost of a start at the end of Phase 03, by the method of the baseline: 5,566 words read at each start in this project, where the baseline start read 10,022 to 13,891 |
+| `R010-review.md` | 11/10/2026 | The review of this folder at the close of Phase 04: two items from the session and six numbered, all applied on the user's word, item 1 with the recommended text |

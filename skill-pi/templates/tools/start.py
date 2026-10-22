@@ -18,8 +18,9 @@ import re
 import sys
 from pathlib import Path
 
-PHASE_RE = re.compile(r"^phase-(\d+)-.*\.md$")
-STATE_PHASE_RE = re.compile(r"phases/phase-\d+-[^`\s]*\.md")
+# A phase file is PNN-<name>.md; the older form phase-NN-<name>.md is read too.
+PHASE_RE = re.compile(r"^(?:P|phase-)(\d+)-.*\.md$")
+STATE_PHASE_RE = re.compile(r"phases/(?:P|phase-)\d+-[^`\s]*\.md")
 TASK_RE = re.compile(r"^### Task \d+:")
 OPEN_STEP_RE = re.compile(r"^\s*- \[ \]")
 DONE_STEP_RE = re.compile(r"^\s*- \[x\]", re.IGNORECASE)

@@ -128,13 +128,15 @@ def present(target, name):
     """A template that needs answers is present when its file exists.
 
     The first phase file is present under any name: the install names it
-    after the phase, so the name of the template does not match it.
+    after the phase, so the name of the template does not match it. An
+    older folder names it phase-01-<name>.md.
     """
     target = Path(target)
     if (target / name).exists():
         return True
-    if name.startswith("phases/phase-01-"):
-        return any((target / "phases").glob("phase-01-*.md"))
+    if name.startswith("phases/P01-"):
+        phases = target / "phases"
+        return any(phases.glob("P01-*.md")) or any(phases.glob("phase-01-*.md"))
     return False
 
 

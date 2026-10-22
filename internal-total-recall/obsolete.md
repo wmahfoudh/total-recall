@@ -4,6 +4,16 @@ The decisions replaced by a newer one, the most recently replaced
 first. Each entry is moved whole from `decisions.md`, with one line
 under its title: `Replaced by Dn on DD/MM/YYYY.`
 
+## D36, 22/10/2026: a record is named by a running number
+
+Replaced by D37 on 22/10/2026.
+A record is named `NNN-<name>.md`, with a number of three digits that
+counts from 000 in the order of creation, in place of the date, which
+the user found inefficient. The date stays in the README of the records
+and in the record. The records of this folder were renumbered the same
+day, in the order of the git history and, for the records of one
+commit, the order of their README. The user's word.
+
 ## D8, 07/10/2026: the minors of the review
 
 Replaced by D33 on 11/10/2026.

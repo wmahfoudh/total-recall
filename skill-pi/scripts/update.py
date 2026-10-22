@@ -9,16 +9,20 @@ backup writes one archive of the folder, without its backup/ folder, to
 backup/<folder>-YYYY-MM-DD-HH-MM-manual.tar.gz. plan prints what an
 update would do and changes nothing. apply makes an archive of the kind
 auto, then adds the missing templates that need no answer, replaces the
-routine files that differ from their templates, and migrates the
-decisions to numbered entries. The project's own content (the project
-file, the state, the plan, the phases, the history, the story, the
-notes, the text of the decisions) is not touched.
+routine files that differ from their templates, migrates the decisions
+to numbered entries, and renames the phase files of the older form,
+phase-NN-<name>.md, to PNN-<name>.md. The records of the older form,
+named by a date, are listed to number by hand. The project's own
+content (the project file, the state, the plan, the phases, the
+history, the story, the notes, the text of the decisions) is not
+changed: a phase file of the older form is only renamed.
 
 Exits 0 when done, 2 when the folder does not look like a total-recall
 folder (its AGENTS.md does not start with @rules.md) or on an error.
 """
 import argparse
 import datetime
+import re
 import shutil
 import sys
 import tarfile
@@ -32,6 +36,8 @@ ROUTINE_FILES = ("rules.md", "close.md", "lifecycle.md", "review.md",
                  "tools/doc-check.py", "tools/machine-check.py", "tools/start.py")
 KINDS = ("manual", "auto")
 SIGNATURE = "@rules.md"
+OLD_PHASE_RE = re.compile(r"^phase-(\d+)-(.+\.md)$")
+OLD_RECORD_RE = re.compile(r"^\d{4}-\d{2}-\d{2}-.+\.md$")
 
 
 def is_total_recall(target):
@@ -83,6 +89,27 @@ def decisions_to_migrate(target):
     return bool(entries) and not any(render.NUMBERED_RE.match(entry) for entry in entries)
 
 
+def renames(target):
+    """The phase files of the older form, with the name each takes: (old, new), relative to the target."""
+    phases = Path(target) / "phases"
+    if not phases.is_dir():
+        return []
+    found = []
+    for path in sorted(phases.iterdir()):
+        match = OLD_PHASE_RE.match(path.name)
+        if path.is_file() and match:
+            found.append((f"phases/{path.name}", f"phases/P{match.group(1)}-{match.group(2)}"))
+    return found
+
+
+def records_by_hand(target):
+    """The records of the older form, named by a date: their number needs the order of their creation."""
+    records = Path(target) / "records"
+    if not records.is_dir():
+        return []
+    return [f"records/{p.name}" for p in sorted(records.iterdir()) if p.is_file() and OLD_RECORD_RE.match(p.name)]
+
+
 def plan_update(templates, target):
     """What an update would do: the files to add, the files to replace, the decisions to migrate."""
     templates, target = Path(templates), Path(target)
@@ -92,14 +119,15 @@ def plan_update(templates, target):
                if (target / name).exists() and (templates / name).exists()
                and (target / name).read_bytes() != (templates / name).read_bytes()]
     needs = [name for name in by_hand if not render.present(target, name)]
-    return {"add": add, "replace": replace, "migrate": decisions_to_migrate(target), "needs_answers": needs}
+    return {"add": add, "replace": replace, "migrate": decisions_to_migrate(target), "needs_answers": needs,
+            "rename": renames(target), "by_hand": records_by_hand(target)}
 
 
 def apply_update(templates, target, now=None):
     """Makes the auto backup, then applies the plan. Returns (archive or None, plan, warnings)."""
     templates, target = Path(templates), Path(target)
     plan = plan_update(templates, target)
-    if not (plan["add"] or plan["replace"] or plan["migrate"]):
+    if not (plan["add"] or plan["replace"] or plan["migrate"] or plan["rename"]):
         return None, plan, []
     archive = backup(target, "auto", now)
     pairs, _ = render.plan_repair(templates, target)
@@ -107,6 +135,11 @@ def apply_update(templates, target, now=None):
     for name in plan["replace"]:
         shutil.copyfile(templates / name, target / name)
     warnings = []
+    for old, new in plan["rename"]:
+        if (target / new).exists():
+            warnings.append(f"{new} exists, {old} was left as it is")
+        else:
+            (target / old).rename(target / new)
     if plan["migrate"]:
         decisions = target / "decisions.md"
         header = render.split_decisions((templates / "decisions.md").read_text(encoding="utf-8"))[0]
@@ -120,10 +153,13 @@ def print_plan(plan):
     lines += [f"replace {name}" for name in plan["replace"]]
     if plan["migrate"]:
         lines.append("migrate decisions.md")
+    lines += [f"rename {old} {new}" for old, new in plan["rename"]]
     for line in lines or ["nothing to update"]:
         print(line)
     for name in plan["needs_answers"]:
         print(f"needs answers: {name}")
+    for name in plan["by_hand"]:
+        print(f"by hand: {name}, to number in the order of its creation")
 
 
 def main(argv=None):

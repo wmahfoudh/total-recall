@@ -10,7 +10,7 @@ The constraints are under "Engineering" in `CLAUDE.md`.
 
 ## Phases
 
-One file per phase in `phases/`, named `phase-NN-<name>.md`. The open
+One file per phase in `phases/`, named `PNN-<name>.md`. The open
 phase is named in `state.md`. The rules of the numbers are in
 `lifecycle.md`.
 
@@ -27,7 +27,7 @@ task: the phase file holds it from then on.
    projects: the size of `state.md`, the number of memory notes, the
    close routine, the task form. What the sessions show. One session.
 3. **The internal folder in the package test.** The test reads
-   `skill/`, `tests/` and the README, not the internal folder, which
+   `skill-claude/`, `skill-pi/`, `tests/` and the README, not the internal folder, which
    is now committed. A test for this project's folder, or a note that
    the review covers it. Small.
 
@@ -42,7 +42,7 @@ Asks set aside, each with the condition for its return.
   folder: back only if the user accepts a file under `.claude/`.
 - The guard scripts in a repository of their own: back if a second user
   installs the skill, or if the scripts this machine runs change and
-  the copies of `skill/machine/hooks/` fall behind (D31).
+  the copies of `skill-claude/machine/hooks/` fall behind (D31).
 
 ## Blocked
 

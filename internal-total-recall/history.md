@@ -15,7 +15,7 @@ decisions, for errors and incoherences.
 The review of the memory at the close of Phase 04, then its changes
 carried into the templates.
 
-- The review, `records/2026-10-11-review.md`: two items from the
+- The review, `records/R010-review.md`: two items from the
   session, six numbered, all applied on the user's word. D5 and D8
   moved to `obsolete.md`, an item leaves the Roadmap when it opens as
   a phase or a task, the hash check replaces the grep of the note.
@@ -87,7 +87,7 @@ A session of exploration and discussion, with no change to the code.
   the template, of which `rules.md` and the style note are 3,742.
 - The tools that cut tokens read (caveman, caveman-compress, ponytail,
   rtk): a start script chosen first, with three other ideas planned.
-- The baseline in `records/2026-10-10-baseline.md`. Phase 02 closed
+- The baseline in `records/R008-baseline.md`. Phase 02 closed
   (Task 31), Phase 03 opened with Tasks 32 to 44, D21. The backup by
   the script refused by the permission check of the session: the
   baseline names the commit `b315d2c`.
@@ -189,7 +189,7 @@ reviewer launched, the skill applied to this project.
   test first (the repair mode of the render, the quoting in the tools
   README, a file that is not UTF-8 named by the check, the table of
   documents read by its header); thirteen Minor to the Roadmap; the
-  report saved as `records/2026-10-07-review.md`. 57 tests green. The
+  report saved as `records/R003-review.md`. 57 tests green. The
   reviewer also found the first commit (`aca0d06`) and the link of the
   skill, made by the user during the build.
 - Task 14, the close: this folder brought to the end of the session,

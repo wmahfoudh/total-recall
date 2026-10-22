@@ -7,6 +7,25 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D37, 22/10/2026: a record and a phase file are named by a letter and a number
+
+A record is named `RNNN-<name>.md` and a phase file `PNN-<name>.md`: a
+letter for the kind, the number, then the name. The number of a record
+counts from 000 in the order of creation, the number of a phase from 01,
+as before. The date of a record stays in the README of the records and
+in the record. The user's word, after the first round of the day.
+
+It replaces D36, the running number without the letter. The number and
+the date hold.
+
+## D35, 22/10/2026: two forms of the skill, changed together
+
+The skill has two forms: `skill-claude/` for Claude Code, named
+`skill/` until 22/10/2026, and `skill-pi/` for Pi, written by the user
+on 16/10/2026. A change to one form is made in the other in the same
+task, and the tests run over both forms. D31 reads with
+`skill-claude/machine/hooks/`. The user's word.
+
 ## D34, 11/10/2026: Phase 04 closed, Phase 05 A second real project opened
 
 Phase 04 closes with its checkpoint met: the fifteen findings handled,
@@ -149,7 +168,7 @@ not run: the user's word that the backup is fine stands for it, and
 the update was run for real on this folder in Task 30. Phase 03 takes
 its name, Optimization, from the user and not from the head of the
 Roadmap. It lowers the cost of a start, measured against
-`records/2026-10-10-baseline.md`, and takes items 4 and 6 of the
+`records/R008-baseline.md`, and takes items 4 and 6 of the
 Roadmap with the points of the exploration of 10/10/2026. The user's
 word.
 
@@ -218,7 +237,7 @@ or is large. The questions wait for a pause, except a correction. A
 review of the memory, "review the memory", proposes its changes in a
 report and applies only the approved ones. `/total-recall` on an
 existing folder brings it to the current form. The user's notes, the
-spec `records/2026-10-10-design.md`.
+spec `records/R004-design.md`.
 
 It replaces D4 for the corrections, and restates the rest of D4's
 changes from the reference: always an open phase; a decisions file; the

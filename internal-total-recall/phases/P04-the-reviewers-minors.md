@@ -27,7 +27,7 @@ No step: the project has no opening routine.
 ### Task 45: The reviewer's minors
 
 What it does and why: the thirteen Minor findings of the fresh review
-of 07/10/2026, in `records/2026-10-07-review.md`: the machine check on
+of 07/10/2026, in `records/R003-review.md`: the machine check on
 a regex matcher, a quoted command and JSON of the wrong shape; an
 answer that is not a string in the render; a BOM and a table after a
 list item in the document check; the `.git` test in a worktree; the

@@ -53,7 +53,8 @@ report.
       without the word that must not be written. A note that repeats a
       file read at each start is a duplicate. The index is matched with
       the notes.
-4. Write the report in `records/YYYY-MM-DD-review.md`. List the name
+4. Write the report in `records/RNNN-review.md`, with the next number
+   of the records README. List the name
    first, and add `-2` for a second review on the same day. The report
    gives the size before, the items from this session, then the items
    numbered from 1, grouped by kind. Each item gives the file and the heading, the current text,

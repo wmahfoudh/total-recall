@@ -1,27 +1,18 @@
-import importlib.util
+import re
 import subprocess
 import sys
 import tempfile
-import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-TOOL = ROOT / "skill" / "templates" / "tools" / "doc-check.py"
+from forms import for_each_form, load, make
+
 EM = chr(0x2014)
 EN = chr(0x2013)
 
 
-def load(path, name):
-    sys.dont_write_bytecode = True
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-class TextRules(unittest.TestCase):
+class TextRules:
     def setUp(self):
-        self.tool = load(TOOL, "doc_check")
+        self.tool = load(self.form.tools / "doc-check.py", "doc_check")
 
     def test_a_dash_is_reported_with_its_line(self):
         found = self.tool.find_dashes(f"fine\nbad {EM} here\nalso {EN} bad\n")
@@ -69,37 +60,36 @@ class TextRules(unittest.TestCase):
         self.assertEqual(self.tool.find_list_breaks(text), [])
 
 
-MINIMAL = {
-    "CLAUDE.md": "# P\n\n| File | What it holds |\n|---|---|\n| `state.md` | x |\n| `phases/` | y |\n",
-    "state.md": "# State\n",
-    "phases/phase-01-start.md": "# Phase 01: start\n\n### Task 1: first\n\n- [ ] **Step 1: a** b\n",
-    "history.md": "# 07/10/2026 - The install\n\nA line.\n\n- a bullet\n",
-    "memory/MEMORY.md": "- [Note](note.md): a note\n",
-    "memory/note.md": "---\nname: note\n---\n\nText\n",
-}
+def minimal(form):
+    """The smallest clean folder, with the project file of the form."""
+    return {
+        form.project_file: "# P\n\n| File | What it holds |\n|---|---|\n| `state.md` | x |\n| `phases/` | y |\n",
+        "state.md": "# State\n",
+        "phases/P01-start.md": "# Phase 01: start\n\n### Task 1: first\n\n- [ ] **Step 1: a** b\n",
+        "history.md": "# 07/10/2026 - The install\n\nA line.\n\n- a bullet\n",
+        "memory/MEMORY.md": "- [Note](note.md): a note\n",
+        "memory/note.md": "---\nname: note\n---\n\nText\n",
+    }
 
 
-def make_folder(root, files):
-    for name, text in files.items():
-        path = Path(root) / name
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
-
-
-def run_tool(folder):
-    return subprocess.run([sys.executable, "-I", str(TOOL), str(folder)],
+def run_tool(form, folder, *args):
+    return subprocess.run([sys.executable, "-I", str(form.tools / "doc-check.py"), *args, str(folder)],
                           capture_output=True, text=True)
 
 
-class FolderRules(unittest.TestCase):
+class FolderRules:
+    def setUp(self):
+        self.project_file = self.form.project_file
+        self.minimal = minimal(self.form)
+
     def check(self, extra=None, drop=()):
-        files = dict(MINIMAL)
+        files = dict(self.minimal)
         files.update(extra or {})
         for name in drop:
             files.pop(name)
         with tempfile.TemporaryDirectory() as root:
-            make_folder(root, files)
-            result = run_tool(root)
+            make(root, files)
+            result = run_tool(self.form, root)
         return result.returncode, result.stdout
 
     def test_a_clean_folder_is_clean(self):
@@ -107,58 +97,63 @@ class FolderRules(unittest.TestCase):
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_a_missing_file_of_the_table_is_reported(self):
-        code, out = self.check({"CLAUDE.md": MINIMAL["CLAUDE.md"] + "| `gone.md` | z |\n"})
+        code, out = self.check({self.project_file: self.minimal[self.project_file] + "| `gone.md` | z |\n"})
         self.assertEqual(code, 1)
-        self.assertIn("CLAUDE.md:7: gone.md is named in the table and does not exist", out)
+        self.assertIn(f"{self.project_file}:7: gone.md is named in the table and does not exist", out)
 
     def test_a_file_of_the_table_may_live_at_the_repository_root(self):
         with tempfile.TemporaryDirectory() as repo:
             internal = Path(repo) / "internal-p"
-            make_folder(internal, {"CLAUDE.md": MINIMAL["CLAUDE.md"] + "| `CHANGELOG.md` | z |\n"})
-            make_folder(internal, {k: v for k, v in MINIMAL.items() if k != "CLAUDE.md"})
+            files = dict(self.minimal)
+            files[self.project_file] += "| `CHANGELOG.md` | z |\n"
+            make(internal, files)
             (Path(repo) / "CHANGELOG.md").write_text("# Log\n", encoding="utf-8")
-            result = run_tool(internal)
+            result = run_tool(self.form, internal)
         self.assertEqual(result.returncode, 0, result.stdout)
 
     def test_a_task_number_used_twice_is_reported(self):
-        code, out = self.check({"phases/phase-02-next.md": "# Phase 02: next\n\n### Task 1: again\n"})
+        code, out = self.check({"phases/P02-next.md": "# Phase 02: next\n\n### Task 1: again\n"})
         self.assertEqual(code, 1)
-        self.assertIn("phases/phase-02-next.md:3: Task 1 is already in phase-01-start.md", out)
+        self.assertIn("phases/P02-next.md:3: Task 1 is already in P01-start.md", out)
+
+    def test_a_phase_file_in_the_old_form_is_checked_too(self):
+        code, out = self.check({"phases/phase-02-next.md": "# Phase 02: next\n\n### Task 1: again\n"})
+        self.assertIn("phases/phase-02-next.md:3: Task 1 is already in P01-start.md", out)
 
     def test_task_numbers_must_grow_inside_a_file(self):
         text = "# Phase 01: start\n\n### Task 5: a\n\n### Task 3: b\n"
-        code, out = self.check({"phases/phase-01-start.md": text})
-        self.assertIn("phases/phase-01-start.md:5: Task 3 does not follow Task 5", out)
+        code, out = self.check({"phases/P01-start.md": text})
+        self.assertIn("phases/P01-start.md:5: Task 3 does not follow Task 5", out)
 
     def test_task_numbers_are_compared_as_numbers(self):
         text = "# Phase 01: start\n\n### Task 9: a\n\n### Task 10: b\n"
-        code, out = self.check({"phases/phase-01-start.md": text})
+        code, out = self.check({"phases/P01-start.md": text})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_a_task_named_in_prose_is_not_counted(self):
         text = "# Phase 01: start\n\n### Task 2: a\n\nAs Task 1 showed, and Task 7 will.\n"
-        code, out = self.check({"phases/phase-01-start.md": text})
+        code, out = self.check({"phases/P01-start.md": text})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_a_ticked_step_needs_its_done_mark(self):
         text = "# Phase 01: start\n\n### Task 1: a\n\n- [x] **Step 1: a** b\n"
-        code, out = self.check({"phases/phase-01-start.md": text})
-        self.assertIn("phases/phase-01-start.md:5: a ticked step needs 'Done DD/MM/YYYY:' and what happened", out)
+        code, out = self.check({"phases/P01-start.md": text})
+        self.assertIn("phases/P01-start.md:5: a ticked step needs 'Done DD/MM/YYYY:' and what happened", out)
 
     def test_a_done_mark_on_a_wrapped_line_counts(self):
         text = "# Phase 01: start\n\n### Task 1: a\n\n- [x] **Step 1: a** b\n  Done 07/10/2026: it worked.\n"
-        code, out = self.check({"phases/phase-01-start.md": text})
+        code, out = self.check({"phases/P01-start.md": text})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_a_done_mark_wrapped_at_the_line_break_counts(self):
         text = "# Phase 01: start\n\n### Task 1: a\n\n- [x] **Step 1: a** b. Done\n  07/10/2026: it worked.\n"
-        code, out = self.check({"phases/phase-01-start.md": text})
+        code, out = self.check({"phases/P01-start.md": text})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_an_open_step_with_a_done_mark_is_reported(self):
         text = "# Phase 01: start\n\n### Task 1: a\n\n- [ ] **Step 1: a** b\n  Done 07/10/2026: it worked.\n"
-        code, out = self.check({"phases/phase-01-start.md": text})
-        self.assertIn("phases/phase-01-start.md:5: a step with 'Done DD/MM/YYYY:' needs its box ticked", out)
+        code, out = self.check({"phases/P01-start.md": text})
+        self.assertIn("phases/P01-start.md:5: a step with 'Done DD/MM/YYYY:' needs its box ticked", out)
 
     def test_a_long_state_file_is_reported(self):
         code, out = self.check({"state.md": "# State\n" + "line\n" * 150})
@@ -178,7 +173,7 @@ class FolderRules(unittest.TestCase):
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_a_history_file_that_starts_with_a_bom_is_still_checked(self):
-        code, out = self.check({"history.md": "\ufeff# The install\n"})
+        code, out = self.check({"history.md": "﻿# The install\n"})
         self.assertIn("history.md:1: a history entry starts with '# DD/MM/YYYY - <name>'", out)
 
     def test_a_note_missing_from_the_index_is_reported(self):
@@ -191,16 +186,16 @@ class FolderRules(unittest.TestCase):
 
     def test_a_file_that_is_not_utf8_is_reported_by_name(self):
         with tempfile.TemporaryDirectory() as root:
-            make_folder(root, MINIMAL)
+            make(root, self.minimal)
             (Path(root) / "story.md").write_bytes("caf\xe9\n".encode("latin-1"))
-            result = run_tool(root)
+            result = run_tool(self.form, root)
         self.assertEqual(result.returncode, 1, result.stderr)
         self.assertIn("story.md:0: not UTF-8", result.stdout)
         self.assertEqual(result.stderr, "")
 
     def test_only_the_table_of_documents_is_checked_for_files(self):
         routines = "\n## The project's own routines\n\n| Routine | File | When |\n|---|---|---|\n| `release` | `records/release.md` | before a tag |\n"
-        code, out = self.check({"CLAUDE.md": MINIMAL["CLAUDE.md"] + routines})
+        code, out = self.check({self.project_file: self.minimal[self.project_file] + routines})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_the_records_folder_is_skipped(self):
@@ -246,14 +241,15 @@ class FolderRules(unittest.TestCase):
                       "the most recently replaced comes first", out)
 
     def test_a_size_over_the_limit_is_reported(self):
-        claude = MINIMAL["CLAUDE.md"] + "\nThe size read at each start: 60 words at most.\n"
-        code, out = self.check({"CLAUDE.md": claude, "state.md": "# State\n\n" + "word " * 60 + "\n"})
+        project = self.minimal[self.project_file] + "\nThe size read at each start: 60 words at most.\n"
+        code, out = self.check({self.project_file: project, "state.md": "# State\n\n" + "word " * 60 + "\n"})
         self.assertEqual(code, 1)
-        self.assertRegex(out, r"CLAUDE\.md:0: the files read at each start hold \d+ words, over the limit of 60")
+        self.assertRegex(out, re.escape(self.project_file)
+                         + r":0: the files read at each start hold \d+ words, over the limit of 60")
 
     def test_the_limit_may_be_written_with_a_comma(self):
-        claude = MINIMAL["CLAUDE.md"] + "\nThe size read at each start: 1,000 words at most.\n"
-        code, out = self.check({"CLAUDE.md": claude, "state.md": "# State\n\n" + "word " * 900 + "\n"})
+        project = self.minimal[self.project_file] + "\nThe size read at each start: 1,000 words at most.\n"
+        code, out = self.check({self.project_file: project, "state.md": "# State\n\n" + "word " * 900 + "\n"})
         self.assertEqual((code, out.strip()), (0, "clean"))
 
     def test_the_default_limit_is_8000_words(self):
@@ -262,15 +258,14 @@ class FolderRules(unittest.TestCase):
 
     def test_the_size_option_prints_the_size_before_the_findings(self):
         with tempfile.TemporaryDirectory() as root:
-            make_folder(root, MINIMAL)
-            result = subprocess.run([sys.executable, "-I", str(TOOL), "--size", root],
-                                    capture_output=True, text=True)
+            make(root, self.minimal)
+            result = run_tool(self.form, root, "--size")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertRegex(result.stdout, r"^read at each start: \d+ words, limit 8000\n")
         self.assertEqual(result.stdout.strip().splitlines()[-1], "clean")
 
     def test_a_missing_folder_is_a_usage_error(self):
-        result = run_tool("/nonexistent/folder")
+        result = run_tool(self.form, "/nonexistent/folder")
         self.assertEqual(result.returncode, 2)
 
 
@@ -278,44 +273,46 @@ LONG_PLAN = ("# P: the plan\n\n## Goal\n\nThe goal.\n\n## Roadmap\n\n1. **First.
              "2. **Second.** " + "word " * 1000 + "\n")
 
 
-class StartSize(unittest.TestCase):
+class StartSize:
     def setUp(self):
-        self.tool = load(TOOL, "doc_check")
+        self.tool_path = self.form.tools / "doc-check.py"
+        self.tool = load(self.tool_path, "doc_check")
+        self.minimal = minimal(self.form)
 
     def size_of(self, files):
         with tempfile.TemporaryDirectory() as root:
-            make_folder(root, files)
+            make(root, files)
             return self.tool.start_size(root)
 
     def test_the_size_counts_the_output_of_the_start_script_not_the_whole_plan(self):
-        files = dict(MINIMAL, **{"plan.md": LONG_PLAN})
+        files = dict(self.minimal, **{"plan.md": LONG_PLAN})
         self.assertLess(self.size_of(files), 1000)
 
     def test_the_size_counts_the_project_file_and_the_rules(self):
-        files = dict(MINIMAL, **{"rules.md": "# Rules\n\n" + "word " * 500 + "\n"})
+        files = dict(self.minimal, **{"rules.md": "# Rules\n\n" + "word " * 500 + "\n"})
         self.assertGreater(self.size_of(files), 500)
 
     def test_the_size_counts_the_state_through_the_script(self):
-        files = dict(MINIMAL, **{"state.md": "# State\n\n" + "word " * 500 + "\n"})
+        files = dict(self.minimal, **{"state.md": "# State\n\n" + "word " * 500 + "\n"})
         self.assertGreater(self.size_of(files), 500)
 
     def test_without_the_start_script_the_plan_is_counted_whole(self):
         with tempfile.TemporaryDirectory() as root:
             alone = Path(root) / "tools" / "doc-check.py"
             alone.parent.mkdir()
-            alone.write_bytes(TOOL.read_bytes())
+            alone.write_bytes(self.tool_path.read_bytes())
             folder = Path(root) / "internal-p"
-            make_folder(folder, dict(MINIMAL, **{"plan.md": LONG_PLAN}))
+            make(folder, dict(self.minimal, **{"plan.md": LONG_PLAN}))
             result = subprocess.run([sys.executable, "-I", str(alone), "--size", str(folder)],
                                     capture_output=True, text=True)
         self.assertRegex(result.stdout, r"^read at each start: \d{4,} words")
 
     def test_the_check_writes_no_bytecode_beside_the_tools(self):
         with tempfile.TemporaryDirectory() as root:
-            make_folder(root, MINIMAL)
-            subprocess.run([sys.executable, "-I", str(TOOL), "--size", root], capture_output=True, text=True)
-        self.assertFalse((TOOL.parent / "__pycache__").exists())
+            make(root, self.minimal)
+            subprocess.run([sys.executable, "-I", str(self.tool_path), "--size", root],
+                           capture_output=True, text=True)
+        self.assertFalse((self.form.tools / "__pycache__").exists())
 
 
-if __name__ == "__main__":
-    unittest.main()
+for_each_form(globals(), TextRules, FolderRules, StartSize)

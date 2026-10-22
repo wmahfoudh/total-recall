@@ -10,7 +10,7 @@ The constraints are under "Engineering" in `AGENTS.md`.
 
 ## Phases
 
-One file per phase in `phases/`, named `phase-NN-<name>.md`. The open
+One file per phase in `phases/`, named `PNN-<name>.md`. The open
 phase is named in `state.md`. The rules of the numbers are in
 `lifecycle.md`.
 

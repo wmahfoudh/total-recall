@@ -13,7 +13,7 @@ its place in time.
 ## Opening a phase
 
 - A phase opens on the user's word, with a number (two digits, counting
-  from 01), a name, and a file `phases/phase-NN-<name>.md`, where
+  from 01), a name, and a file `phases/PNN-<name>.md`, where
   `<name>` is a short lowercase name with hyphens.
 - At the close of a phase the next one opens with the name of the head
   of the Roadmap. The user can rename it.

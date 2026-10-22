@@ -28,7 +28,7 @@ The folder is named `internal-<project-name>`, after the project's folder. At th
 
 ## Adapt the templates
 
-The templates in `skill/templates/` are a starting point, written for one way of working. Read them after the install of your first project, and change them if needed:
+The templates in `skill-claude/templates/` are a starting point, written for one way of working. Read them after the install of your first project, and change them if needed:
 
 - `rules.md`: the rules on writing, working with the user, verification and agents.
 - `memory/user-writing-style.md`: the author's style, as an example. Describe your own style here.
@@ -36,7 +36,7 @@ The templates in `skill/templates/` are a starting point, written for one way of
 - `close.md` and `review.md`: the close routine and the review of the memory.
 - `lifecycle.md`: phases, tasks and steps, and their numbers.
 
-A change in `skill/templates/` applies to the projects installed after it. A change in the internal folder of a project applies to that project only.
+A change in `skill-claude/templates/` applies to the projects installed after it. A change in the internal folder of a project applies to that project only.
 
 ## How a session works
 
@@ -60,13 +60,13 @@ Work is in phases, tasks and steps. Phases count from 01, tasks from 1 across ph
 
 ## Install the skill
 
-The skill is the `skill/` folder of this repository. Link it, or copy it, into the skills folder of Claude Code. From the root of this repository:
+The Claude Code form of the skill is the `skill-claude/` folder of this repository. Link it, or copy it, into the skills folder of Claude Code. From the root of this repository:
 
 ```
-mkdir -p ~/.claude/skills && ln -s "$(pwd)/skill" ~/.claude/skills/total-recall
+mkdir -p ~/.claude/skills && ln -s "$(pwd)/skill-claude" ~/.claude/skills/total-recall
 ```
 
-A copy (`cp -r skill ~/.claude/skills/total-recall`) is not updated when this repository changes.
+A copy (`cp -r skill-claude ~/.claude/skills/total-recall`) is not updated when this repository changes. The Pi form of the skill is the `skill-pi/` folder, with its own README.
 
 ## Use it on a project
 
@@ -109,7 +109,7 @@ Install the skill, open the project, and start the session with "let's start". T
 
 The machine check, `tools/machine-check.py` of the folder, says which guardrails the machine has: the global rules file, the start phrases line, the permission deny list, the guard hooks, `jq`, the sandbox.
 
-The skill ships the deny list and the three guard scripts under `skill/machine/`, and proposes them when they are missing.
+The skill ships the deny list and the three guard scripts under `skill-claude/machine/`, and proposes them when they are missing.
 
 ## The guardrails
 
