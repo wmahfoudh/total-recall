@@ -29,8 +29,7 @@ what those sessions show. The user can rename it.
 5. Task 51, the records and the phases numbered.
 6. Task 52, the writing style note merged.
 7. Task 53, the README rewritten.
-8. The close of the phase, as its last task, numbered when it is
-   written.
+8. Task 54, the close of the phase.
 
 ### The opening of the phase
 
@@ -288,4 +287,28 @@ git add README.md internal-total-recall
 git commit -m "doc: readme rewritten in plain prose"
 ```
 
-**Checkpoint for the phase:** written when the tasks are known.
+### Task 54: The close of the phase
+
+What it does and why: the close routine of 22/10/2026, the last task of
+the phase: every task delivered, the suite green, the checkpoint met.
+
+**The steps:**
+
+- [x] **Step 1: The close routine** `close.md` followed. Done
+  22/10/2026: the state, the history, the story, the code map, the
+  Roadmap and the decisions written, the check reads `clean`.
+- [x] **Step 2: Phase 06 opened** From the head of the Roadmap. Done
+  22/10/2026: `phases/P06-the-guardrails-on-another-machine.md`, Task
+  55 planned (D38).
+
+**Checkpoint for the phase:** the templates tried on a project of
+another kind, what came back applied here and in both forms of the
+skill, the suite green. Met on 22/10/2026.
+
+**The close of the phase**, 22/10/2026. Delivered: the second project
+in use (Task 47), the Pi form recorded and tested (Task 50), the names
+of the records and the phase files (Task 51), the writing style note
+merged (Task 52), the README rewritten (Task 53). Open: the review of
+the whole skill, item 3 of the Roadmap; the trial of the exclusion
+path in a worktree; the name of the reference project in the history,
+under Blocked.

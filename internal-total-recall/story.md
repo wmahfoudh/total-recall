@@ -154,3 +154,22 @@ table of three.
 
 Claude left one paragraph alone because it was not on the list. I
 split it myself.
+
+## 22/10/2026: a merge is not a pile
+
+A long day. The Pi version I wrote on the 16th had no place in the
+memory, so it got one, with the rule that the two forms change
+together. Then the names. The dates in front of the records had proved
+inefficient on the other project, so a number, then a letter and a
+number, R for a record, P for a phase. Twice in one day, and the tools
+still read the old names.
+
+The real work was the style note. The other project had eleven rules
+more, from a changelog I had rewritten by hand. Claude stacked them
+after the eighteen here: 29 rules, twice the words. I said no. A merge
+is not a pile. Read each rule for what it is about, put the ones about
+the same thing together, keep an example only where it helps. The
+second try had fourteen. That is the note now. The README was
+rewritten with it the same afternoon.
+
+Phase 05 closed. The next one needs a machine without my guardrails.

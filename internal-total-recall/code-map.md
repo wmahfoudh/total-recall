@@ -7,14 +7,36 @@ close. Read it when the work touches code, before exploring the code.
 Check a claim when the code contradicts it, or when `git log` on the
 files since the commit named shows changes.
 
+## Phase 06
+
+Nothing yet.
+
 ## Phase 05
 
-The names are those of the tree on 11/10/2026.
+The names are those of the tree on 22/10/2026.
 
 - Task 48 (`ca32cec`): the Roadmap sentence of
   `skill-claude/templates/lifecycle.md` and `skill-claude/templates/plan.md`, step 4
   of `skill-claude/templates/close.md`, step 6 of `skill-claude/templates/review.md`,
   the `machine-check.py` line of `skill-claude/templates/tools/README.md`.
+- Task 50 (`59a1930`): `tests/forms.py`, new (`Form`, `CLAUDE`, `PI`,
+  `FORMS`, `load`, `for_each_form`, `make`); the six test files run over
+  both forms; `PiMachineCheck` in `tests/test_machine_check.py`;
+  `PiGuardrails` in `tests/test_package.py`; the install section of
+  `README.md`; `skill/` renamed `skill-claude/`.
+- Task 51 (`59a1930`), under `skill-claude/` and `skill-pi/` alike:
+  `PHASE_RE` and `STATE_PHASE_RE` of `templates/tools/start.py`,
+  `PHASE_FILE_RE` of `templates/tools/doc-check.py`, `present` of
+  `scripts/render.py`, `OLD_PHASE_RE`, `OLD_RECORD_RE`, `renames`,
+  `records_by_hand`, `plan_update`, `apply_update` and `print_plan` of
+  `scripts/update.py`; the template `templates/phases/P01-{{phase1_slug}}.md`;
+  `templates/state.md`, `templates/lifecycle.md`, `templates/plan.md`,
+  `templates/review.md`, `templates/records/README.md`, `SKILL.md`;
+  sixteen tests across the test files.
+- Task 52 (`0b3c8f7`): `templates/memory/user-writing-style.md` and
+  `templates/memory/MEMORY.md` of both forms; the count of the rules in
+  `tests/test_package.py`.
+- Task 53 (`551b019`): `README.md`.
 
 ## Phase 04
 

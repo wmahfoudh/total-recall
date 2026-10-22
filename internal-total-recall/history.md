@@ -1,3 +1,28 @@
+# 22/10/2026 - The Pi form, the names, the style note, the README
+
+The Pi form of the skill brought into the memory and the tests, the
+records and the phase files renamed, the writing style note merged with
+the user's newer rules, the README rewritten by them.
+
+- Task 47 declared done by the user: the skill in use on a project of
+  theirs, their feedback on the records as the proof.
+- Task 50: the Pi form of 16/10/2026 recorded (D35), `skill/` renamed
+  `skill-claude/` by the user, the tests run over both forms through
+  `tests/forms.py`, 294 tests. `59a1930`.
+- Task 51: a record `RNNN-<name>.md`, a phase file `PNN-<name>.md`
+  (D36, replaced the same day by D37), in both forms, the tests and
+  this folder. The tools read the older name; the update renames it
+  and lists the records to number by hand. 310 tests. `59a1930`.
+- Task 52: the writing style note merged with the user's newer note. A
+  first draft, refused as a mathematical merge, then fourteen rules
+  built by meaning, with the user's examples. `0b3c8f7`.
+- Task 53: the README rewritten by the fourteen rules, three facts of
+  the day added. `551b019`.
+- Task 54: this close. Phase 05 closed, Phase 06 opened (D38).
+- Two refusals of the guard hook on a document text that named a git
+  command, written through a script file instead. A bytecode folder
+  left by a check of the README, removed by the user.
+
 # 11/10/2026, fifth - The review of the README
 
 The README read in full against the skill, the tools and the

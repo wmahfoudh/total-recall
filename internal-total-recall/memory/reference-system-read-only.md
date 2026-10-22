@@ -28,5 +28,5 @@ folder" in any document. The package test checks `skill-claude/`,
 `skill-pi/`, `tests/` and `README.md` for the name by its hash, so that
 the test does not name it. The review runs the same hash check over the
 tracked files
-and this folder, and prints only the paths, until item 3 of the
+and this folder, and prints only the paths, until item 2 of the
 Roadmap brings this folder into the package test.

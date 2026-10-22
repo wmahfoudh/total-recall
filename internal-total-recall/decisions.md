@@ -7,6 +7,14 @@ with the next number. A decision replaced by a newer one moves whole to
 `obsolete.md`, and the new decision names it and restates the part that
 still holds.
 
+## D38, 22/10/2026: Phase 05 closed, Phase 06 The guardrails on another machine opened
+
+Phase 05 closes with its tasks delivered: the second project in use,
+the Pi form in the tests, the names of the records and the phase files,
+the style note merged, the README rewritten, the suite green. Phase 06
+opens with the head of the Roadmap, the guardrails on another machine.
+The rule of `lifecycle.md`, at the user's "let's close".
+
 ## D37, 22/10/2026: a record and a phase file are named by a letter and a number
 
 A record is named `RNNN-<name>.md` and a phase file `PNN-<name>.md`: a

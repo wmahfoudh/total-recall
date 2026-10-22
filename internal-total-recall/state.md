@@ -1,38 +1,43 @@
 # State
 
-Updated 11/10/2026, at the close of the session.
+Updated 22/10/2026, at the close of the session.
 
 ## Position
 
-- Phase 05, A second real project, open since 11/10/2026:
-  `phases/P05-a-second-real-project.md`. Task 47 is at step 1,
-  the choice of the project, which is the user's. Tasks 48 and 49 are
-  done.
-- The package: `skill/`, `tests/` (153 tests green) and `README.md`,
-  committed up to `2f1e8a6`, the close not yet.
+- Phase 06, The guardrails on another machine, open since 22/10/2026:
+  `phases/P06-the-guardrails-on-another-machine.md`. Task 55 is
+  planned, not started: it needs a machine without the guardrails.
+- Phase 05 closed on 22/10/2026, Tasks 47 to 54 done.
+- The package: `skill-claude/`, `skill-pi/`, `tests/` (310 tests
+  green) and `README.md`, committed up to `551b019`, the close not yet.
 
 ## Done this session
 
-- The plain "let's start" tried and passed.
-- Task 45: the fifteen findings of Phase 04 handled in one pass, test
-  first (D33). Task 46: Phase 04 closed, Phase 05 opened (D34).
-- The review of the memory, `records/R010-review.md`, all items
-  applied: D5 and D8 to `obsolete.md`, an item leaves the Roadmap when
-  it opens. Task 48: the same changes in the templates, `ca32cec`.
-- Task 49: the README reviewed in full, fifteen items applied
-  (`cdf9d41`), a paragraph split by the user (`2f1e8a6`).
+- Task 47 declared done by the user: the skill in use on a project of
+  theirs, their feedback as the proof.
+- Task 50: the Pi form recorded (D35), `skill/` renamed
+  `skill-claude/`, the tests run over both forms (`tests/forms.py`).
+- Task 51: a record is `RNNN-<name>.md`, a phase file `PNN-<name>.md`
+  (D36, then D37), in both forms, the tests and this folder. The tools
+  read the older name, the update renames it.
+- Task 52: the writing style note merged with the user's newer rules,
+  fourteen rules, in the three copies.
+- Task 53: the README rewritten by those rules.
+- Task 54: this close. Phase 05 closed, Phase 06 opened (D38).
 
 ## Next
 
 At "let's start", in a new session:
 
 1. The briefing.
-2. Task 47, step 1: the choice of the second project, then its steps.
+2. Task 55 on a machine without the guardrails, or another item of the
+   Roadmap on the user's word: the fine tuning of the templates, the
+   internal folder in the package test, the review of the whole skill.
 
 ## Waiting on the user
 
 - The commit of this close.
-- The project for Task 47.
+- A machine without the guardrails, for Task 55.
 - The trial of the exclusion path in a real git worktree (not tried):
   `git worktree add ../tr-wt`, then in it
   `git rev-parse --git-path info/exclude` names a file under the main

@@ -20,18 +20,15 @@ Ordered. Each item is a few lines: what it is, why, its size in
 sessions. An item leaves the Roadmap when it opens as a phase or a
 task: the phase file holds it from then on.
 
-1. **The guardrails on another machine.** The machine check and the
-   proposal of the deny list and the guard scripts, tried on a machine
-   that has none. Half a session, on that machine.
-2. **The fine tuning of the templates.** After a few sessions on real
+1. **The fine tuning of the templates.** After a few sessions on real
    projects: the size of `state.md`, the number of memory notes, the
    close routine, the task form. What the sessions show. One session.
-3. **The internal folder in the package test.** The test reads
+2. **The internal folder in the package test.** The test reads
    `skill-claude/`, `skill-pi/`, `tests/` and the README, not the internal folder, which
    is now committed. A test for this project's folder, or a note that
    the review covers it. Small.
 
-4. **The review of the whole skill.** Both forms, the tests and the
+3. **The review of the whole skill.** Both forms, the tests and the
    README read against the rules, the decisions and the Pi
    documentation, read online: the findings in a record, approved one
    by one, applied in one pass. The `rules.md` of the templates is
