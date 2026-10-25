@@ -9,7 +9,8 @@ usage error. With --size, the first line gives the words read at each
 start and the limit of CLAUDE.md. Python 3 with the standard library
 only.
 
-The records folder is skipped: a record is kept as it was received.
+The records and material folders are skipped: a record is kept as it was
+received, and the material is other people's work.
 """
 import importlib.util
 import re
@@ -314,7 +315,7 @@ def check_folder(folder):
         findings.append(f"{path.relative_to(folder)}:{number}: {message}")
 
     for path in sorted(folder.rglob("*.md")):
-        if "records" in path.relative_to(folder).parts:
+        if {"records", "material"} & set(path.relative_to(folder).parts):
             continue
         try:
             text = path.read_text(encoding="utf-8-sig")

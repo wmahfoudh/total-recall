@@ -126,7 +126,7 @@ showing home folder".
 
 - Every git write (add, commit, push, pull, checkout, branch, stash,
   merge) and every sudo command is the user's. Propose the exact command
-  in a fenced block and wait. Read-only git is fine.
+  as plain lines, never in a fenced block, and wait. Read-only git is fine.
 - The same for removals, moves over existing files, package installs,
   service changes and any write outside the working directory.
 - When a commit is due, the reply closes with the full lines to copy: the
